@@ -1,10 +1,18 @@
 <!DOCTYPE html>
 <html>
 
-参考于 <a href='https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/a'>https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/a</a>
-
+<pre>
+参考于 <a href='https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/a' target="_blank">https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/a</a>
+参考于 <a href="https://www.w3school.com.cn/html/html_quick.asp" target="_blank">https://www.w3school.com.cn/html/html_quick.asp</a>
+</pre>
 
 <h1>HTML元素</h1>
+<h2>布局相关</h2>
+<pre>
+div 没有特殊含义 仅css定位用
+<div></div>
+</pre>
+
 <h2>显示相关</h2>
 <pre>
 
@@ -92,10 +100,34 @@
 < /ol>
 
 <div>块元素</div>
+
+<img src="" alt="">
+<meta>
 </pre>
 
 <h2>交互相关</h2>
 <pre>
+form表单用于收集用户输入， 可应用input 复选框 单选框 提交按钮 参考<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/input" target="_blank">https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/input</a>
+提交后 会提交form里面所有带name的 如下的例子会发送 {name, gender}
+<form action="http://127.0.0.1:3000" method="POST" target="_top" autocomplete="on">
+  <input type="text" name="name">name<br>
+  <input type="text">not send this<br>
+  <input type="number" name="quantity" min="1" max="5">
+  <label><input type="radio" name="gender" value="1" checked>male</label>
+  <label><input type="radio" name="gender" value="2">female</label>
+  <lable><input type="checkbox" name="vehicle" value="bike">i have a bike</lable>
+  <lable><input type="checkbox" name="vehicle" value="car">i have a car</lable>
+  <select name="cars">
+    <option value="volvo" selected>volvo</option>
+    <option value="saab">saab</option>
+  </select>
+  <textarea name="message" id="msg" cols="30" rows="10">
+  the cat was playing in the garden.
+  </textarea>
+  <input type="submit" value="提交">
+  <input type="submit" value="提交另一个api" formaction="http://127.0.0.1:3000/api2" method="GET">
+</form>
+
 </pre>
 
 <h2>多媒体</h2>
@@ -106,13 +138,40 @@
     src="源地址"
     alt="图片加载失败时的提示"
   />
+<audio src="media/06把悲伤留给我.mp3" controls></audio>
+<video src="media/06把悲伤留给我.mp3" controls></video>
+<iframe src="https://www.bilibili.com/video/BV1nD4y1b7Sr"></iframe>
 </pre>
 
 <strong>非成对出现的元素 都以/结尾 例如 br/ hr/ </strong>
+<br/>
 <strong>img 非闭合 没有< /img>!!!</strong>
 
 
-<body>
-</body>
+<pre>
+	< html>
+	  < head>
+		< title>< /title>
+		< base>< /base>
+		< link>< /link>
+		< meta>< /meta>
+		< script>< /script>
+		< style>< /style>
+	  < /head>
+	
+	  < body>
+		The content of the document......
+	  < /body>
+	< /html>
+</pre>
 
+<div id="loadTimes"></div>
+<script>
+	if(localStorage.loadTimes) {
+		localStorage.loadTimes = +localStorage.loadTimes + 1
+	} else {
+		localStorage.loadTimes = 1
+	}
+	document.getElementById("loadTimes").innerHTML=`当前是第${localStorage.loadTimes}次载入页面`
+</script>
 </html>

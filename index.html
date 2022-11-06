@@ -2,9 +2,12 @@
 <html>
 
 <pre>
-参考于 <a href='https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/a' target="_blank">https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/a</a>
-参考于 <a href="https://www.w3school.com.cn/html/html_quick.asp" target="_blank">https://www.w3school.com.cn/html/html_quick.asp</a>
+参考于 <a href='https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/a' target="_blank" style="text-decoration:none">https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/a</a>
+参考于 <a href="https://www.w3school.com.cn/html/html_quick.asp" target="_blank" style="text-decoration:none">https://www.w3school.com.cn/html/html_quick.asp</a>
 </pre>
+
+跳转到指定id
+<a href="#loadTimes" style="text-decoration:none">跳转到javascript</a>
 
 <h1>HTML元素</h1>
 <h2>布局相关</h2>
@@ -21,12 +24,20 @@ div 没有特殊含义 仅css定位用
 
 <p>段落</p>
   < p> < /p>
+<q>短引用 用来引用短的文本 自动添加引号</q>
+  < q> < /q>
+<blockquote>长引用 用来引用长的文本 自动以段落的形式展示，浏览器会插入换行和外边距 而 q 元素不会有任何特殊的呈现。</blockquote>
+  < blockquote> < /blockquote>
+  
 
-<a href="http://www.w3school.com.cn" target="_blank">跳转到w3c</a>
+<a href="http://www.w3school.com.cn" target="_blank" style="text-decoration:none">跳转到w3c</a>
   < a
     href="http://www.w3school.com.cn"
     target="_blank|_self"	// 新页面打开|本页面打开
   >jump to w3school< /a>
+
+缩写 鼠标放上有注释
+  <abbr title="etcetera">etc.</abbr>
 
 横线
   < hr/>
@@ -48,25 +59,23 @@ div 没有特殊含义 仅css定位用
   < sub>< /sub>
 <i>斜体</i>
   < i> < /i>
+<del>横线删除</del>
+  < del> < /del>
+<ins>横线重点</ins>
+  < ins>< /ins>
 <sub>subscript</sub>
-<q>引用 用来引用短的文本 自动添加引号</q>
-< q> < /q>
-<blockquote>引用 用来引用长的文本 自动以段落的形式展示</blockquote>
-< blockquote> < /blockquote>
-
 表格
-<table border="1">
+<table border="1" cellpadding="10" bgcolor="grey">
   <tr>
-    <th>列名1 自动加黑加粗</th>
-	<th>列名2</th>
+    <th align="left">列名1 自动加黑加粗</th>
+	<th align="right">列名2</th>
   </tr>
   <tr>
-    <td>row 1, cell 1</td>
-    <td>row 1, cell 2</td>
+    <td align='left' rowspan="2" bgcolor="yellow">row 1, cell 1</td>
+    <td align="right">row 1, cell 2</td>
   </tr>
   <tr>
-    <td>row 2, cell 1</td>
-    <td>row 2, cell 2</td>
+    <td align="right">row 2, cell 2</td>
   </tr>
 </table>
 < table border="1">
@@ -101,15 +110,36 @@ div 没有特殊含义 仅css定位用
 
 <div>块元素</div>
 
-<img src="" alt="">
 <meta>
 </pre>
 
 <h2>交互相关</h2>
 <pre>
+单行输入
+<input type="text">
+密码输入
+<input type="password">
+复选框  将input直接放在label里，此时则不需要for和id属性，因为关联已隐含存在
+<label><input type="checkbox" name="checkbox_1" value="1">复选框1</label>
+<label><input type="checkbox" name="checkbox_1" value="2">复选框2</label>
+<label><input type="checkbox" name="checkbox_1" value="3">复选框3</label>
+<label><input type="checkbox" name="checkbox_1" value="4">复选框4</label>
+单选按钮
+<label><input type="radio" name="gender_1" value="male">男</label>
+<label><input type="radio" name="gender_1" value="female">女</label>
+下拉列表
+<select name="cars">
+  <option value="volvo">volvo</option>
+  <option value="fiat">fiat</option>
+  <option value="kia">kia</option>
+</select>
+按钮
+<input type="button" value="一个按钮">
 form表单用于收集用户输入， 可应用input 复选框 单选框 提交按钮 参考<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/input" target="_blank">https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/input</a>
-提交后 会提交form里面所有带name的 如下的例子会发送 {name, gender}
+提交后 会提交form里面所有带name的 如下的例子会发送 {name, gender, cars, message}
 <form action="http://127.0.0.1:3000" method="POST" target="_top" autocomplete="on">
+  <fieldset>
+  <legend>这是一个form</legend>
   <input type="text" name="name">name<br>
   <input type="text">not send this<br>
   <input type="number" name="quantity" min="1" max="5">
@@ -126,6 +156,7 @@ form表单用于收集用户输入， 可应用input 复选框 单选框 提交�
   </textarea>
   <input type="submit" value="提交">
   <input type="submit" value="提交另一个api" formaction="http://127.0.0.1:3000/api2" method="GET">
+  </fieldset>
 </form>
 
 </pre>
@@ -133,14 +164,15 @@ form表单用于收集用户输入， 可应用input 复选框 单选框 提交�
 <h2>多媒体</h2>
 <pre>
 图片 非闭合 没有< /img>!!!
+<a href="http://www.w3school.com.cn/i/w3school_logo_white.gif" target="_blank" style="text-decoration:none">
 <img src="http://www.w3school.com.cn/i/w3school_logo_white.gif" alt='图片加载失败'/>
+</a>
   < img
     src="源地址"
     alt="图片加载失败时的提示"
   />
 <audio src="media/06把悲伤留给我.mp3" controls></audio>
 <video src="media/06把悲伤留给我.mp3" controls></video>
-<iframe src="https://www.bilibili.com/video/BV1nD4y1b7Sr"></iframe>
 </pre>
 
 <strong>非成对出现的元素 都以/结尾 例如 br/ hr/ </strong>

@@ -1,20 +1,388 @@
 <!DOCTYPE html>
 <html>
 
-<pre>
-参考于 <a href='https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/a' target="_blank" style="text-decoration:none">https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/a</a>
-参考于 <a href="https://www.w3school.com.cn/html/html_quick.asp" target="_blank" style="text-decoration:none">https://www.w3school.com.cn/html/html_quick.asp</a>
-</pre>
+<head>
+	<link rel="stylesheet" href="./styles/index.css">
+</head>
 
+<nav id="navbar">
+	<header>HTML 快速手册</header>
+	<a class="nav-link" href="#section-layout">布局相关</a>
+	<a class="nav-link" href="#section-show">显示相关</a>
+	<a class="nav-link" href="#section-inout">交互</a>
+	<a class="nav-link" href="#section-media">多媒体</a>
+</nav>
+
+<main id="main-doc">
+	<pre id="thanks">
+  感谢 mozilla w3c
+  参考于 <a href='https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/a' target="_blank" style="text-decoration:none">https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/a</a>
+  参考于 <a href="https://www.w3school.com.cn/html/html_quick.asp" target="_blank" style="text-decoration:none">https://www.w3school.com.cn/html/html_quick.asp</a>
+	</pre>
+
+	<section class="main-section" id="section-layout">
+		<hr>
+		<h2 class="section-head">布局相关</h2>
+		<p class="section-desc">布局相关的标签多为块级元素 本身不显示内容只是明确了布局</p>
+		
+		<base href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/" target="_blank">
+
+		<section class="label">
+			<p class="label-name"><a href="a" target="_blank">a - anchor</a></p>
+			<p class="label-desc">超链接</p>
+			<pre class="label-code">&lt;a href="https://example.com"&gt;Website&lt;/a&gt;</pre>
+			<pre class="label-param">href="#|#id|url"  跳转到顶部|跳转到指定id|跳转到url</pre>
+			<pre class="label-param">target="<b>_self</b> | _blank" 当前页面加载（默认）| 新页面加载</pre>
+			<pre class="label-show"><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/a" target="_blank">点击查看效果</a>
+		</section>
+
+		<section class="label">
+			<p class="label-name"><a href="abbr" target="_blank">abbr - abbreviation</a></p>
+			<p class="label-desc">标记一个缩写</p>
+			<pre class="label-code">&lt;abbr title="abbreviation"&gt;abbr&lt;/abbr&gt;</pre>
+			<pre class="label-param">title="缩写的描述"</pre>
+			<pre class="label-show">鼠标放置 查看<abbr title="abbreviation" target="_blank">abbr</abbr>的缩写</pre>
+		</section>
+
+		<section class="label">
+			<p class="label-name"><a href="area" target="_blank">area</a></p>
+			<p class="label-desc">图片上定义一个可点击区域 点击后跳转 本身不显示任何图片</p>
+			<pre class="label-code">
+				&lt;img src="https://www.w3school.com.cn/i/eg_planets.jpg" border="0" usemap="#abcmap"/>
+				&lt;map name="abcmap" id="abcmap">
+				&lt;area shape="circle" coords="180,139,14" href ="./images/A.png" target ="_blank" alt="A" />
+				&lt;area shape="circle" coords="129,161,10" href ="./images/B.png" target ="_blank" alt="B" />
+				&lt;area shape="rect" coords="0,0,110,260" href ="./images/C.png" target ="_blank" alt="C" />
+				&lt;/map>
+			</pre>
+			<pre class="label-param">shape="circle|rect" 点击区域圆形|矩形</pre>
+			<pre class="label-param">cords="x,y,m,n" 如果shape="circle"则xy表示坐标m表示半径。 如果shape="rect"则xy表示左上角mn表示右下角 </pre>
+			<pre class="label-show">
+				<img src="https://www.w3school.com.cn/i/eg_planets.jpg" border="0" usemap="#abcmap" alt="ABC" />
+				<map name="abcmap" id="abcmap">
+				<area shape="circle" coords="180,139,14" href ="./images/A.png" target ="_blank" alt="Venus" />
+				<area shape="circle" coords="129,161,10" href ="./images/B.png" target ="_blank" alt="Mercury" />
+				<area shape="rect" coords="0,0,110,260" href ="./images/C.png" target ="_blank" alt="Sun" />
+				</map>
+			</pre>
+		</section>
+
+		<section class="label">
+			<p class="label-name"><a href="audio" target="_blank">audio</a></p>
+			<p class="label-desc">音频</p>
+			<pre class="label-code">&lt;audio src="media/06.ogg" controls>&lt;/audio></pre>
+			<pre class="label-code">使用内嵌的元素提供不同的播放源。浏览器会使用第一个它支持的播放源
+				&lt;audio controls>
+				&lt;source src="media/06.ogg">
+				&lt;source src="media/06.mp3">
+				&lt;/audio>
+			</pre>
+			<pre class="label-param">autoplay="autoplay" 自动播放音频"</pre>
+			<pre class="label-param">controls="controls" 显示控制面板"</pre>
+			<pre class="label-param">preload="none|auto|meta" 页面加载后是否预缓冲 无|有|只缓冲元数据</pre>
+			<pre class="label-show"><audio controls src="media/06.ogg"></audio></pre>
+		</section>
+
+		<section class="label">
+			<p class="label-name"><a href="b" target="_blank">b</a></p>
+			<p class="label-desc">特别强调 粗体显示</p>
+			<pre class="label-show"><b>b</b></pre>
+		</section>
+
+		<section class="label">
+			<p class="label-name"><a href="base" target="_blank">base</a></p>
+			<p class="label-desc">指定文档中所有相对URL的根。 如果指定了多个 base，只会使用第一个 href 和 target 值，其余都会被忽略。</p>
+			<pre class="label-code">&lt;base target="_top" href="http://www.example.com/"></pre>
+		</section>
+
+		<section class="label">
+			<p class="label-name"><a href="bdo" target="_blank">bdo Bi-Directional Override</a></p>
+			<p class="label-desc">改写了文本的方向性</p>
+			<pre class="label-code">&lt;bdo dir="rtl">username&lt;/body></pre>
+			<pre class="label-param">dir="auto|ltr|rlt"  auto|左至右|右至左</pre>
+			<pre class="label-show"><bdo dir="rtl">username</bdo></pre>
+		</section>
+
+		<section class="label">
+			<p class="label-name"><a href="blockquote" target="_blank">blockquote</a></p>
+			<p class="label-desc">块级引用元素，通常在渲染时 这部分的内容会有一定的缩进</p>
+			<pre class="label-code">
+				&lt;blockquote cite="https://www.huxley.net/bnw/four.html">
+				&lt;p>Words can be like X-rays, if you use them properly—they’ll go through anything. You read and you’re pierced.&lt;/p>
+				&lt;/blockquote>
+			</pre>
+			<pre class="label-param">cite="URL" 引用来源。没有浏览器能够显示</pre>
+			<pre class="label-show">
+				<blockquote cite="https://www.huxley.net/bnw/four.html">Words can be like X-rays, if you use them properly—they’ll go through anything. You read and you’re pierced.</blockquote>
+			</pre>
+		</section>
+
+		<section class="label">
+			<p class="label-name"><a href="br" target="_blank">br - barter rabbet</a></p>
+			<p class="label-desc">换行 没有&lt;/br>  xhtml中写作&lt;br/>  </p>
+		</section>
+
+		<section class="label">
+			<p class="label-name"><a href="cite" target="_blank">cite</a></p>
+			<p class="label-desc">展示为引用 实际可能是以斜体展示 没有其他实际功能。 通常配合a进行超链接</p>
+			<pre class="label-code">
+				&lt;cite>
+				&lt;a href="http://www.george-orwell.org/1984/0.html">Nineteen Eighty-Four&lt;/a>
+				&lt;/cite>
+			</pre>
+			<pre class="label-show"><figcaption>First sentence in <cite><a href="http://www.george-orwell.org/1984/0.html">Nineteen Eighty-Four</a></cite> by George Orwell (Part 1, Chapter 1).</figcaption></pre>
+		</section>
+
+		<section class="label">
+			<p class="label-name"><a href="del" target="_blank">del</a></p>
+			<p class="label-desc">表示一段被删除的内容</p>
+			<pre class="label-code">&lt;del>This text has been deleted&lt;/del></pre>
+			<pre class="label-param">cite="URL"</pre>
+			<pre class="label-show"><p><del>This text has been deleted</del>, here is the rest of the paragraph.</p>
+			</pre>
+		</section>
+
+		<section class="label">
+			<p class="label-name"><a href="details" target="_blank">details</a></p>
+			<p class="label-desc">总结与详细信息展示。 如果没有summary 系统使用默认文字（中文是“详情”）。 展开后显示details内全部内容</p>
+			<pre class="label-code">
+				&lt;details open>
+				&lt;summary>点击展开更多&lt;/summary>
+				&lt;spam>更多的内容&lt;/spam>
+				&lt;/details>
+			</pre>
+			<pre class="label-param">open <b>定义</b>后 自动展开</pre>
+			<pre class="label-show">
+				<details>
+					<summary>点击展开更多</summary>
+					<p>更多的内容</p>
+				</details>
+			</pre>
+		</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+		<section class="label">
+			<p class="label-name"><a href="audio" target="_blank">audio</a></p>
+			<p class="label-desc">desc</p>
+			<pre class="label-code">code</pre>
+			<pre class="label-param">param</pre>
+			<pre class="label-show">show</pre>
+		</section>
+		<section class="label">
+			<p class="label-name"><a href="audio" target="_blank">audio</a></p>
+			<p class="label-desc">desc</p>
+			<pre class="label-code">code</pre>
+			<pre class="label-param">param</pre>
+			<pre class="label-show">show</pre>
+		</section>
+		<section class="label">
+			<p class="label-name"><a href="audio" target="_blank">audio</a></p>
+			<p class="label-desc">desc</p>
+			<pre class="label-code">code</pre>
+			<pre class="label-param">param</pre>
+			<pre class="label-show">show</pre>
+		</section>
+		<section class="label">
+			<p class="label-name"><a href="audio" target="_blank">audio</a></p>
+			<p class="label-desc">desc</p>
+			<pre class="label-code">code</pre>
+			<pre class="label-param">param</pre>
+			<pre class="label-show">show</pre>
+		</section>
+		<section class="label">
+			<p class="label-name"><a href="audio" target="_blank">audio</a></p>
+			<p class="label-desc">desc</p>
+			<pre class="label-code">code</pre>
+			<pre class="label-param">param</pre>
+			<pre class="label-show">show</pre>
+		</section>
+		<section class="label">
+			<p class="label-name"><a href="audio" target="_blank">audio</a></p>
+			<p class="label-desc">desc</p>
+			<pre class="label-code">code</pre>
+			<pre class="label-param">param</pre>
+			<pre class="label-show">show</pre>
+		</section>
+		<section class="label">
+			<p class="label-name"><a href="audio" target="_blank">audio</a></p>
+			<p class="label-desc">desc</p>
+			<pre class="label-code">code</pre>
+			<pre class="label-param">param</pre>
+			<pre class="label-show">show</pre>
+		</section>
+		<section class="label">
+			<p class="label-name"><a href="audio" target="_blank">audio</a></p>
+			<p class="label-desc">desc</p>
+			<pre class="label-code">code</pre>
+			<pre class="label-param">param</pre>
+			<pre class="label-show">show</pre>
+		</section>
+		<section class="label">
+			<p class="label-name"><a href="audio" target="_blank">audio</a></p>
+			<p class="label-desc">desc</p>
+			<pre class="label-code">code</pre>
+			<pre class="label-param">param</pre>
+			<pre class="label-show">show</pre>
+		</section>
+
+	</section>
+
+	<section class="main-section" id="section-show">
+		<hr>
+		<h2 class="section-head">显示相关</h2>
+		<p class="section-desc">可以看到内容的标签</p>
+	</section>
+
+	<section class="main-section" id="section-inout">
+		<hr>
+		<h2 class="section-head">交互</h2>
+		<p class="section-desc">输入输出 带有键盘鼠标交互 带有数据交互</p>
+	</section>
+
+	<section class="main-section" id="section-media">
+		<hr>
+		<h2 class="section-head">多媒体</h2>
+		<p class="section-desc">h5的多媒体标签极大简化了音频视频的开发</p>
+	</section>
+
+
+
+	代码示例 包含一些小的不常用或功能非常局限的标签 例如 figure
+	<table>
+		<caption></caption>
+		<tr>
+			<th>列名</th>
+		</tr>
+		<tr>
+			<td></td>
+		</tr>
+	</table>
+
+	<figure>
+		<figcaption></figcaption>
+	</figure>
+
+	列表 包含 定义 描述
+	<dl>
+		<dt></dt>
+		<dd></dd>
+	</dl>
+
+
+
+
+
+
+
+
+	
+
+
+	
+	<a href=""></a>					行内
+	<abbr title=""></abbr>			行内
+	<acronym title=""></acronym>	行内
+	<address></address>		块级元素
+	<article></article>		块级元素
+	<aside></aside>			块级元素
+	<b></b>							行内
+	<bdo dir=""></bdo>				行内
+	<big></big>						行内
+	<blockquote></blockquote>	块级元素
+	<br>							行内
+	<button></button>				行内
+	<cite></cite>					行内
+	<code></code>					行内
+	<dd></dd>				块级元素
+	<dfn></dfn>						行内
+	<div></div>				块级元素
+	<dl></dl>				块级元素
+	<em></em>						行内
+	<fieldset></fieldset>	块级元素
+	<figcaption></figcaption>	块级元素
+	<figure></figure>		块级元素
+	<footer></footer>		块级元素
+	<form action=""></form>	块级元素
+	<h1></h1>				块级元素
+	<header></header>		块级元素
+	<hgroup></hgroup>		块级元素
+	<hr>					块级元素
+	<i></i>							行内
+	<img src="" alt="">				行内
+	<input type="text">				行内
+	<label for=""></label>			行内
+	<kbd></kbd>						行内
+	<map name=""></map>				行内
+	<object></object>				行内
+	<ol></ol>				块级元素
+	<p></p>					块级元素
+	<pre></pre>				块级元素
+	<q></q>							行内
+	<samp></samp>					行内
+	<script></script>				行内
+	<section></section>		块级元素
+	<select></select>				行内
+	<small></small>					行内
+	<span></span>					行内
+	<strong></strong>				行内
+	<sub></sub>						行内
+	<sup></sup>						行内
+	<table></table>			块级元素
+	<textarea></textarea>			行内
+	<tt></tt>						行内
+	<ul></ul>				块级元素
+	<var></var>						行内
+
+
+
+	u	underscore(下划线，强调)
+	ins	inserted text(插入文本)
+	div	division(分区，分割)
+	img	image(图片，图像)
+	a	anchor(锚文本，锚)
+	tr	table row(表格行)
+	th	table head(表头)
+	td	table data(表格数据)
+	thead	table head(表头区域)
+	tbody	table body(表格主体区域)
+	li	list(列表)
+	ul	unordered list(无序列表)
+	ol	ordered list(有序列表)
+	dl	definition list(自定义列表)
+	dt	definition term(自定义列表组)
+	dd	definition description(自定义列表描述项)
+
+
+
+
+
+
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<section class="main-section" id="introduction"></section>
 跳转到指定id
 <a href="#loadTimes" style="text-decoration:none">跳转到javascript</a>
 
-<h1>HTML元素</h1>
-<h2>布局相关</h2>
-<pre>
-div 没有特殊含义 仅css定位用
-<div></div>
-</pre>
 
 <h2>显示相关</h2>
 <pre>
@@ -198,6 +566,10 @@ form表单用于收集用户输入， 可应用input 复选框 单选框 提交�
 </pre>
 
 <div id="loadTimes"></div>
+
+
+</main>
+
 <script>
 	if(localStorage.loadTimes) {
 		localStorage.loadTimes = +localStorage.loadTimes + 1

@@ -159,41 +159,40 @@
 				</details>
 			</pre>
 		</section>
-
-
-
-
-
-
-
-
-
-
-
-
-
 		
 		<section class="label">
-			<p class="label-name"><a href="audio" target="_blank">audio</a></p>
-			<p class="label-desc">desc</p>
-			<pre class="label-code">code</pre>
-			<pre class="label-param">param</pre>
-			<pre class="label-show">show</pre>
+			<p class="label-name"><a href="div" target="_blank">div - division</a></p>
+			<p class="label-desc">块容器</p>
 		</section>
+
 		<section class="label">
-			<p class="label-name"><a href="audio" target="_blank">audio</a></p>
-			<p class="label-desc">desc</p>
-			<pre class="label-code">code</pre>
-			<pre class="label-param">param</pre>
-			<pre class="label-show">show</pre>
+			<p class="label-name"><a href="em" target="_blank">em</a></p>
+			<p class="label-desc">着重强调</p>
+			<pre class="label-code">&lt;em>&lt;/em></pre>
 		</section>
+
 		<section class="label">
-			<p class="label-name"><a href="audio" target="_blank">audio</a></p>
-			<p class="label-desc">desc</p>
-			<pre class="label-code">code</pre>
-			<pre class="label-param">param</pre>
-			<pre class="label-show">show</pre>
+			<p class="label-name"><a href="header" target="_blank">heaer</a></p>
+			<p class="label-desc">展示介绍性内容 通常用于包含周围部分的标题（h1 至 h6 元素）</p>
+			<pre class="label-code">
+				&lt;header>
+					&lt;h1>Beagles</h1>
+					&lt;time>15.11.2020</time>
+				&lt;/header>
+			</pre>
+			<pre class="label-show">
+				<header>
+					<h1>Beagles</h1>
+					<time>08.12.2014</time>
+				</header>
+			</pre>
 		</section>
+
+
+
+
+
+
 		<section class="label">
 			<p class="label-name"><a href="audio" target="_blank">audio</a></p>
 			<p class="label-desc">desc</p>
@@ -280,8 +279,41 @@
 		<dd></dd>
 	</dl>
 
+	
+	form表单用于收集用户输入, 可应用input 复选框 单选框 提交按钮 参考<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/input" target="_blank">https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/input</a>
+	提交后 会提交form里面所有带name的 如下的例子会发送 {name, gender, cars, message}
+	<form action="http://127.0.0.1:3000" method="POST" target="_top" autocomplete="on">
+		<fieldset>
+		<legend>这是一个form</legend>
+		<input type="text" name="name">name<br>
+		<input type="text">not send this<br>
+	  	<input type="number" name="quantity" min="1" max="5">input number
 
+		<legend>Choose your gender</legend>
+	  	<label><input type="radio" name="gender" value="1" checked>male</label>
+		<label><input type="radio" name="gender" value="2">female</label>
 
+		<legend>choose your vehicle</legend>	
+	  	<lable><input type="checkbox" name="vehicle" value="bike">i have a bike</lable>
+	  	<lable><input type="checkbox" name="vehicle" value="car">i have a car</lable>
+
+	  	<select name="cars">
+		<option value="volvo" selected>volvo</option>
+		<option value="saab">saab</option>
+	  	</select><br>
+	  	<textarea name="message" id="msg" cols="30" rows="10"> the cat was playing in the garden.</textarea> <br>
+
+		<input type="submit" value="提交">
+		<input type="submit" value="提交另一个api" formaction="http://127.0.0.1:3000/api2" method="GET">
+	  </fieldset>
+	</form>
+	
+	// 一段独立的内容, 通常包含 插图 和 标题.
+	// figcaption 元素必须是它的第一个或者最后一个子节点
+	<figure>
+		<img src="./images/elephant-660-480.jpg" alt="Elephant at sunset">
+		<figcaption>An elephant at sunset</figcaption>
+	</figure>
 
 
 
@@ -349,9 +381,6 @@
 
 	u	underscore(下划线，强调)
 	ins	inserted text(插入文本)
-	div	division(分区，分割)
-	img	image(图片，图像)
-	a	anchor(锚文本，锚)
 	tr	table row(表格行)
 	th	table head(表头)
 	td	table data(表格数据)
@@ -384,55 +413,7 @@
 <a href="#loadTimes" style="text-decoration:none">跳转到javascript</a>
 
 
-<h2>显示相关</h2>
-<pre>
 
-<h3>标题</h3>
-  < h1> < /h1> 默认有换行
-
-<p>段落</p>
-  < p> < /p>
-<q>短引用 用来引用短的文本 自动添加引号</q>
-  < q> < /q>
-<blockquote>长引用 用来引用长的文本 自动以段落的形式展示，浏览器会插入换行和外边距 而 q 元素不会有任何特殊的呈现。</blockquote>
-  < blockquote> < /blockquote>
-  
-
-<a href="http://www.w3school.com.cn" target="_blank" style="text-decoration:none">跳转到w3c</a>
-  < a
-    href="http://www.w3school.com.cn"
-    target="_blank|_self"	// 新页面打开|本页面打开
-  >jump to w3school< /a>
-
-缩写 鼠标放上有注释
-  <abbr title="etcetera">etc.</abbr>
-
-横线
-  < hr/>
-
-换行
-  < br />
-
-<strong>加粗</strong>
-  < strong> < /strong>
-<big>加大</big>
-  < big> < /big>
-<small>缩小</small>
- < small> < /small>
-<em>强调</em>
-  < em>< /em>
-<sup>更高并且更小</sup>正常文本
-  < sup>< /sup>
-<sub>更低并且更小</sub>正常文本
-  < sub>< /sub>
-<i>斜体</i>
-  < i> < /i>
-<del>横线删除</del>
-  < del> < /del>
-<ins>横线重点</ins>
-  < ins>< /ins>
-<sub>subscript</sub>
-表格
 <table border="1" cellpadding="10" bgcolor="grey">
   <tr>
     <th align="left">列名1 自动加黑加粗</th>
@@ -458,30 +439,7 @@
 < /table>
 
 
-<ul>
-  <li>无序列表值1</li>
-  <li>无序列表值2</li>
-</ul>
-< ul>
-  < li>无序列表值1< /li>
-  < li>无序列表值2< /li>
-< /ul>
 
-<ol>
-  <li>无序列表值1</li>
-  <li>无序列表值2</li>
-</ol>
-< ol>
-  < li>无序列表值1< /li>
-  < li>无序列表值2< /li>
-< /ol>
-
-<div>块元素</div>
-
-<meta>
-</pre>
-
-<h2>交互相关</h2>
 <pre>
 单行输入
 <input type="text">

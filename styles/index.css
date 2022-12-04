@@ -14,7 +14,7 @@
 	border-right: solid;
 	height: 100%;
 }
-#navbar a {
+#navbar div {
 	border-top: 1px solid;
 	display: block;
 	padding: 10px 30px;
@@ -37,6 +37,10 @@
 	text-align: left;
 	font-size: 1.8em;
 	font-weight: thin;
+}
+
+#main-doc li {
+	margin: 15px;
 }
 
 .label {
@@ -72,7 +76,4 @@
 	font-size: 15px;
 	padding-left: 12px;
 	line-height: 80%;
-}
-#main-doc li {
-	margin: 15px;
 }

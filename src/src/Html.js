@@ -8,5 +8,4 @@ class Html extends React.Component {
 	}
 }
 
-
 export default Html

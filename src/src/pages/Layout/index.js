@@ -20,7 +20,9 @@ export function Template ({ main, noTheme, ...other }) {
   let [templateName, setTemplateName] = useState('clipped')
 
   useEffect(() => {
-    setTemplateName(localStorage.getItem(templateNameKey) || 'clipped')
+    if (!noTheme) {
+      setTemplateName(localStorage.getItem(templateNameKey) || 'clipped')
+    }
   }, [])
 
   if (!noTheme) {

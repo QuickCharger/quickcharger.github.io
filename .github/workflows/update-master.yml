@@ -7,8 +7,8 @@ name: CI-master
 on:
   push:
     branches: [master]
-    paths:
-      - 'src/**'
+#    paths:
+#      - 'src/**'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -26,6 +26,10 @@ jobs:
         with:
           node-version: '16'
 
-      - run: npm install
-      - run: npm run build
+      - name: npm install
+        run: |
+          pwd
+          ls
+          npm install
 
+#      - run: npm run build

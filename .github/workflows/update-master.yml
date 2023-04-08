@@ -28,8 +28,7 @@ jobs:
 
       - name: npm install
         run: |
-          pwd
-          ls
+          pushd src
           npm install
-
-#      - run: npm run build
+          npm run build
+          popd

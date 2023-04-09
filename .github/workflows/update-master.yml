@@ -18,20 +18,13 @@ jobs:
         with:
           node-version: '16'
 
-      - name: Install Basement
+      - name: Install Basement & Build & Copy
         run: |
-          ls -al
-          pushd src
+          cd src
           npm install
-
-      - name: Build
-        run: |
-          pwd
-          ls -al
           npm run build
           rm -rf ../static
           cp -r ./build/static/ ../static
-          popd
 
       - name: Push
         run: |

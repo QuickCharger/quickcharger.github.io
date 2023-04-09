@@ -1,4 +1,4 @@
-git add -A
+git add static
 if [ $? -eq 0 ]; then
 -   echo 'need commit'
 else

@@ -28,6 +28,8 @@ jobs:
 
       - name: Push
         run: |
+          git config --global user.email "CI push"
+          git config --global user.name "CI push"
           git add static
           git commit -m 'CI push'
           git push origin master

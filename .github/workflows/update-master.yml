@@ -5,6 +5,7 @@ on:
     branches: [master]
     paths:
       - 'src/**'
+	  - '.github/**'
 
 jobs:
   build:
@@ -25,6 +26,8 @@ jobs:
           cd src
           npm install
           npm run build
+          rm -rf ../index.html
+          cp -r ./build/index.html ../
           rm -rf ../static
           cp -r ./build/static/ ../static
 
@@ -33,5 +36,6 @@ jobs:
           git config --global user.email "CI push"
           git config --global user.name "CI push"
           git add static
+          git add index.html
           git commit -m 'CI push'
           git push origin master

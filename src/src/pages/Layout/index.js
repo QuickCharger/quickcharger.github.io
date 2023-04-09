@@ -23,7 +23,7 @@ export function Template ({ main, noTheme, ...other }) {
     if (!noTheme) {
       setTemplateName(localStorage.getItem(templateNameKey) || 'clipped')
     }
-  }, [])
+  }, [noTheme])
 
   if (!noTheme) {
     main = <>{main} <ComponentSpeedDial content={[

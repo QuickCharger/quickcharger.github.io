@@ -1,9 +1,9 @@
-import { useNavigate } from 'react-router-dom'
+// import { useNavigate } from 'react-router-dom'
 // import { Layout, Menu, Row, Col, } from 'antd'
 // import { CaretDownOutlined } from '@ant-design/icons'
 
 function TemplateHeader (props) {
-  let navigate = useNavigate()
+  // let navigate = useNavigate()
 
   return (
     <>header</>

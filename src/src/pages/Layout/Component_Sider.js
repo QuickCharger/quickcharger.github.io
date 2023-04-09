@@ -1,5 +1,5 @@
 // import { Layout, Menu, } from 'antd'
-import { useLocation, useNavigate } from 'react-router-dom'
+// import { useLocation, useNavigate } from 'react-router-dom'
 
 /**
  * props.item = [
@@ -8,8 +8,8 @@ import { useLocation, useNavigate } from 'react-router-dom'
   ]
  */
 function TemplateSider (props) {
-  let location = useLocation()
-  let navigate = useNavigate()
+  // let location = useLocation()
+  // let navigate = useNavigate()
   return (
     <>sider</>
     // <Layout.Sider

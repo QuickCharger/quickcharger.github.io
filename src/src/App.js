@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react'
+// import { lazy, Suspense } from 'react'
 import { BrowserRouter, useRoutes } from 'react-router-dom'
 import { configure } from 'mobx'
 

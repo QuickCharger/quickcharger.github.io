@@ -35,10 +35,10 @@ function DivJumpTo (props) {
   )
 }
 
-function DivJumpToBlank (props) {
+function DivJumpToBlank ({ children, ...others }) {
   return (
     <div style={{ display: 'inline' }}>
-      <a href={'https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/' + props.jumpto} target="_blank" rel="noreferrer" {...props}></a>
+      <a href={'https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/' + others.jumpto} target="_blank" rel="noreferrer" {...others}>{children}</a>
     </div>
   )
 }

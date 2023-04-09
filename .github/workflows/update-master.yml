@@ -20,11 +20,14 @@ jobs:
 
       - name: Install Basement
         run: |
+          ls -al
           pushd src
           npm install
 
       - name: Build
         run: |
+          pwd
+          ls -al
           npm run build
           rm -rf ../static
           cp -r ./build/static/ ../static

@@ -1,20 +1,12 @@
-# This is a basic workflow to help you get started with Actions
-
 name: CI-master
 
-# Controls when the action will run. Triggers the workflow on push or pull request
-# events but only for the develop branch
 on:
   push:
     branches: [master]
-#    paths:
-#      - 'src/**'
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Pull latest code
         uses: actions/checkout@v3
@@ -34,4 +26,12 @@ jobs:
       - name: Build
         run: |
           npm run build
+          rm -rf ../static
+          cp -r ./build/static/ ../static
           popd
+
+      - name: Push
+        run: |
+          git add static
+          git commit -m 'CI push'
+          git push origin master

@@ -3,8 +3,8 @@ name: CI-master
 on:
   push:
     branches: [master]
-    paths:
-      - 'src/**'
+#    paths:
+#      - 'src/**'
 
 jobs:
   build:
@@ -29,9 +29,13 @@ jobs:
           cp -r ./build/static/ ../static
 
       - name: Push
-        run: |
-          git config --global user.email "CI push"
-          git config --global user.name "CI push"
-          git add static
-          git commit -m 'CI push'
-          git push origin master
+        script:
+          - git config --global user.email "CI push"
+          - git config --global user.name "CI push"
+          - git add -A
+          - if [ $? -eq 0 ]; then
+            - git commit -m 'CI push'
+            - git push origin master
+          - else
+            -   echo "Skipping commit step due to empty add."  
+          - fi

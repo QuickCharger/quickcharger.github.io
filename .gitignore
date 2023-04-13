@@ -2,3 +2,4 @@
 /src/node_modules
 /src/.vscode
 /src/package-lock.json
+/src/yarn.lock

@@ -23,7 +23,8 @@ jobs:
       - name: Install Basement & Build & Copy
         run: |
           cd src
-          npm install
+          npm install yarn -g
+          yarn
           npm run build
           rm -rf ../index.html
           cp -r ./build/index.html ../

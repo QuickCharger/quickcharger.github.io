@@ -1,43 +1,32 @@
-import { Layout } from 'antd'
-import { ComponentHeader, ComponentFooter, ComponentSider } from '@/pages/Layout'
+import { Template } from '@/pages/Layout'
+import Logo from '@/components/Logo'
+import {
+  Box, Button, Stack,
+} from '@mui/material'
+import { useNavigate } from 'react-router-dom'
 
-function Template (props) {
+function TemplateTutor (props) {
+  const navigate = useNavigate()
+  let { children, ...other } = props
+
+  if (!other.header) {
+    other.header = (<>
+      <Logo />
+      <Box sx={{ flexGrow: 1, }}>
+        <Stack direction='row'>
+          <Button key={1} sx={{ my: 2, color: 'white', display: 'block' }} onClick={() => { navigate('/') }}>首页</Button>
+          <Button key={2} sx={{ my: 2, color: 'white', display: 'block' }} onClick={() => { navigate('/tutor/html') }}>Html</Button>
+          <Button key={3} sx={{ my: 2, color: 'white', display: 'block' }} onClick={() => { navigate('/tutor/css') }}>Css</Button>
+          <Button key={4} sx={{ my: 2, color: 'white', display: 'block' }} onClick={() => { navigate('/tutor/effect') }}>Effect</Button>
+        </Stack>
+      </Box>
+    </>)
+  }
   return (
-    <Layout>
-      {/* header是fix 所以header下面需要再独立布局 */}
-      <ComponentHeader />
-      <Layout>
-        <ComponentSider
-          items={
-            [
-              {
-                key: `/tutor/html`, label: 'HTML', children: [
-                  { key: `/tutor/html?jumpto=jumptoLayout`, label: '布局', },
-                  { key: `/tutor/html?jumpto=jumptoShow`, label: '显示', },
-                  { key: `/tutor/html?jumpto=jumptoInputOutput`, label: '交互', },
-                  { key: `/tutor/html?jumpto=jumptoMedia`, label: '多媒体', },
-                  {
-                    key: `/tutor/html#demo`, label: 'demo', children: [
-                      { key: `/tutor/html#demotable`, label: 'table', },
-                      { key: `/tutor/html#demoform`, label: 'form', },
-                    ]
-                  },
-                ]
-              },
-              {
-                key: `/tutor/css`, label: 'CSS', children: [
-                  { key: `/tutor/css?jumpto=jumptoCss1`, label: 'css1', },
-                ]
-              },
-            ]
-          } />
-        <Layout.Content style={{ marginTop: '64px', marginLeft: '200px' }}>
-          {props.content}
-        </Layout.Content>
-      </Layout>
-      <ComponentFooter style={{ marginTop: 'calc(100vh - 32px)' }} />
-    </Layout >
+    <Template {...other}>
+      {children}
+    </Template>
   )
 }
 
-export default Template
+export default TemplateTutor

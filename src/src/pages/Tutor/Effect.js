@@ -24,7 +24,7 @@ import MailIcon from '@mui/icons-material/Mail'
 
 import { useNavigate } from 'react-router-dom'
 
-import { Template } from '@/pages/Layout'
+import TemplateTutor from './Template'
 import Logo from '@/components/Logo'
 import { useState } from 'react'
 
@@ -447,19 +447,8 @@ function TemporaryDrawer () {
 function Effect () {
   const navigate = useNavigate()
   return (
-    <Template
+    <TemplateTutor
       noTheme
-      header={(<>
-        <Logo />
-        <Box sx={{ flexGrow: 1, }}>
-          <Stack direction='row'>
-            <Button key={1} sx={{ my: 2, color: 'white', display: 'block' }} onClick={() => { navigate('/') }}>首页</Button>
-            <Button key={2} sx={{ my: 2, color: 'white', display: 'block' }} onClick={() => { navigate('/tutor/html') }}>Html</Button>
-            <Button key={3} sx={{ my: 2, color: 'white', display: 'block' }} onClick={() => { navigate('/tutor/css') }}>Css</Button>
-            <Button key={4} sx={{ my: 2, color: 'white', display: 'block' }} onClick={() => { navigate('/tutor/effect') }}>Effect</Button>
-          </Stack>
-        </Box>
-      </>)}
       main={(<>
         <pre id="thanks">
           <div>感谢 mozilla w3c</div>

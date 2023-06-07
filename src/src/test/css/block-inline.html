@@ -1,0 +1,33 @@
+<div class="c1" desc="
+hello和hello2没有对齐的原因是 
+inline-block元素默认baseline对齐(1. 如果里面有文字 则baseline是文字底部。 2.如果没有文字 则baseline是容器底部)。 解决方法
+明确标识 vertical-align: bottom | top | middle; (即不使用baseline对齐)(.c2-1和.c2-2都标识相同的值。 如果值不相同  效果会迷)
+">
+  <div class="c2-1">hello</div>
+  <div class="c2-2">hello2</div>
+</div>
+
+<style>
+  .c1 {
+    display: block;
+    border: solid 1px black;
+    width: 250px;
+    font-size: 0px;
+  }
+
+  .c2-1 {
+    display: inline-block;
+    border: inherit;
+    width: 80px;
+    height: 40px;
+    font-size: 2rem;
+  }
+
+  .c2-2 {
+    display: inline-block;
+    border: inherit;
+    width: 50px;
+    height: 50px;
+    /* font-size: 1rem; */
+  }
+</style>

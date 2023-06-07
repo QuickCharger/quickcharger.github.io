@@ -1,0 +1,37 @@
+<div class="c1" desc="
+hello和hello2没有对齐的原因是 
+flex默认align-items:stretch 内部的元素对齐失效。解决方法
+flex元素中 align-items: center | flex-start | flex-end
+">
+  <div class="c2-1">hello</div>
+  <div class="c2-2">hello2</div>
+</div>
+
+<style>
+  .c1 {
+    display: flex;
+    border: solid 1px black;
+    width: 250px;
+    font-size: 0px;
+    /* align-items: flex-end; */
+  }
+
+  .c2-1 {
+    display: inline-block;
+    border: inherit;
+    width: 80px;
+    height: 40px;
+    font-size: 2rem;
+    vertical-align: bottom;
+    /* vertical-align: bottom;  这个会失效 */
+  }
+
+  .c2-2 {
+    display: inline-block;
+    border: inherit;
+    width: 50px;
+    height: 50px;
+    font-size: 1rem;
+    /* vertical-align: bottom;  这个会失效 */
+  }
+</style>

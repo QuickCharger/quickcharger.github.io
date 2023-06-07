@@ -1,0 +1,78 @@
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  .header,
+  .footer {
+    background-color: grey;
+    color: white;
+    padding: 15px;
+  }
+
+  .floatLeft {
+    float: left;
+    padding: 15px;
+  }
+
+  /* 在float的尾部添加一个block 用于清除float
+   * 也可以在 尾部添加 <div style="clear:both"></div>
+   * 或者 在footer 添加 style="clear:both"
+  */
+  .clearBoth::after {
+    content: "";
+    clear: both;
+    display: block;
+  }
+
+  .menu {
+    width: 25%;
+  }
+
+  .content {
+    width: 75%;
+  }
+
+  .menu ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  .menu li {
+    padding: 8px;
+    margin-bottom: 8px;
+    background-color: #33b5e5;
+    color: #ffffff;
+  }
+</style>
+
+<div class="header">
+  <h1>Shanghai</h1>
+</div>
+
+<div class="clearBoth">
+  <div class="floatLeft menu">
+    <ul>
+      <li>The Flight</li>
+      <li>The City</li>
+      <li>The Island</li>
+      <li>The Food</li>
+    </ul>
+  </div>
+
+  <div class="floatLeft content">
+    <h1>The City</h1>
+    <p>Shanghai is one of the four direct-administered municipalities of the People's Republic of China. Welcome to
+      Shanghai!
+    </p>
+    <p>You will learn more about web layout and responsive web pages in a later chapter.</p>
+  </div>
+
+  <!-- <div style="clear:both" desc="也可这么写 不需要clearBoth"></div> -->
+</div>
+
+<!-- <div style="clear:both" desc="也可这么写 不需要clearBoth"></div> -->
+
+<div class="footer">
+  <p>Footer Text</p>
+</div>

@@ -1,0 +1,26 @@
+居中
+<style>
+  .border {
+    border: 3px solid green;
+    margin-bottom: 20px;
+  }
+</style>
+
+<div class="border">
+  <div style="margin: 0px auto; width:20%;">block的居中 只需要 1.指定width 2.margin:0 auto</div>
+</div>
+
+
+<div class="border" style="text-align: center;">文字的居中 只需要 text-align:center</div>
+
+
+inline的居中 方法1 外层text-align:center
+<div class="border" style="text-align:center">
+  <img src='https://img.freepik.com/free-vector/hand-drawn-collage-design_23-2149543516.jpg' />
+</div>
+
+inline的居中 方法2 内层 margin:0 50%; transform: translate(-50%, 0)
+<div class="border">
+  <img src='https://img.freepik.com/free-vector/hand-drawn-collage-design_23-2149543516.jpg'
+    style="margin:0 50%; transform: translate(-50%, 0)" />
+</div>

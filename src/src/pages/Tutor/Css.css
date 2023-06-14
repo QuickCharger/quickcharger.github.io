@@ -1,0 +1,25 @@
+.content {
+  white-space: pre-wrap;
+  /* white-space: normal; */
+}
+
+.content p {
+  margin: 0.5rem;
+  white-space: pre-wrap;
+}
+
+.ps p {
+  margin: 0.5em;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.red {
+  color: red;
+}

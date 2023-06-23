@@ -1,0 +1,146 @@
+
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    background-color: #f1f1f1;
+  }
+
+  .navHead {
+    background-color: white;
+    text-align: center;
+    padding: 2em;
+  }
+
+  .navLink {
+    background-color: #333;
+    margin-bottom: 1em;
+    margin-left: 1em;
+    margin-right: 1em;
+  }
+  .navLink a {
+    display: inline-block;
+    padding: 1em;
+    color: white;
+  }
+  .navLink a:last-child{
+    position: absolute;
+    right: 1em;
+  }
+  .navLink a:hover {
+    background-color: white;
+    color: black;
+  }
+  .main {
+    display: inline-block;
+    width: 74%;
+    vertical-align: top;
+  }
+  .sider {
+    display: inline-block;
+    width: 24%;
+  }
+  .card {
+    background-color: white;
+    padding: 2em;
+    margin: 1em;
+  }
+  .head1 {
+    font-weight: bold;
+    font-size: 1.5em;
+  }
+  .head2 {
+    font-weight: bold;
+    font-size: 0.8em;
+  }
+  .img {
+    background-color: grey;
+    padding: 2em;
+  }
+  .main .img {
+    height: 200px;
+  }
+  .sider .img {
+    height: 100px;
+    margin: 0px;
+  }
+  .footer {
+    background-color: #ddd;
+    padding: 2em;
+    text-align: center;
+    font-size: large;
+    font-weight: bold;
+  }
+
+  @media screen and (max-width: 800px) {
+    .main, .sider {
+      width: 100%;
+    }
+  }
+  @media screen and (max-width: 600px) {
+    .navLink a {
+      display: block;
+    }
+    .navLink a:last-child{
+      position: static;
+    }
+  }
+</style>
+
+<body>
+<div class="navHead">
+  <h1>My Website</h1>
+  <p>Resize the browser window to see the effect</p>
+</div>
+
+<div class="navLink">
+  <a>Link</a>
+  <a>Link</a>
+  <a>Link</a>
+  <a>Link</a>
+</div>
+
+<div class="main">
+  <div class="card">
+    <p class="head1">TITLE HEADING</p>
+    <p class="head2">Title description, Dec 7, 2017</p>
+    <p class="img">Image</p>
+    <p >Some text..</p>
+    <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+  </div>
+  
+  <div class="card">
+    <p class="head1">TITLE HEADING</p>
+    <p class="head2">Title description, Dec 7, 2017</p>
+    <p class="img">Image</p>
+    <p>Some text..</p>
+    <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+  </div>
+</div>
+  
+<div class="sider">
+  <div class="card">
+    <p class="head1">About Me</p>
+    <p class="img">Image</p>
+    <p>Some text about me in culpa qui officia deserunt mollit anim..</p>
+  </div>
+  
+  <div class="card">
+    <p class="head1">Popular Post</p>
+    <p class="img">Image</p>
+    <p class="img">Image</p>
+    <p class="img">Image</p>
+  </div>
+  
+  <div class="card">
+    <p>Follow Me</p>
+    <p>Some text..</p>
+  </div>
+</div>
+
+<div class="footer">
+  <p>Footer</p>
+</div>
+</body>

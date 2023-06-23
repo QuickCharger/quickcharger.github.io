@@ -26,7 +26,7 @@ let content = [
       <p>    高 默认0 由内容决定</p>
       <p>inline</p>
       <p>    宽 默认0 <span className='red'>不可width</span>  可以padding margin</p>
-      <p>    高 默认0 <span className='red'>不可heigh margin padding (padding-top padding-bottom 有效 但不会占位！！！)</span></p>
+      <p>    高 默认0 <span className='red'>不可heigh margin padding (padding-top padding-bottom 有效 但不会占位！！！ 也就是外部元素只会和inline的内容对齐 不会和padding对齐)</span></p>
       <p>inline-block</p>
       <p>    外层是block时</p>
       <p>    inline-block需要设置 vertical-align; 建议强制使用 默认的baseline太迷了</p>
@@ -35,9 +35,13 @@ let content = [
       <p>flex    内部的元素排序失效。 使用flex的align-items排序 !!!</p>
       <p>    {genA('https://www.w3school.com.cn/cssref/pr_flex-direction.asp', '', 'flex-direction')}: =row | column  主轴的方向</p>
       <p>    {genA('https://www.w3school.com.cn/cssref/pr_flex-wrap.asp', '', 'flex-wrap')}: =nowrap | wrap        子元素在一行上放不下的情况</p>
+      
+      <p>    flex 是 flex-grow flex-shrink flex-basis 的简写</p>
       <p>    flex-flow 是 flex-direction 和 flex-wrap 的简写</p>
-      <p>    {genA('https://www.w3school.com.cn/cssref/pr_justify-content.asp', '', 'justify-content')}: flex-start | flex-end | space-between | space-around | center  子元素在主轴上的分布方式</p>
-      <p>    {genA('https://www.w3school.com.cn/cssref/pr_align-items.asp', '', 'align-items')}: center | flex-start | flex-end | center  子元素在主轴上的对齐方式</p>
+      <p>    {genA('https://www.w3school.com.cn/cssref/pr_justify-content.asp', '', 'justify-content')}: =flex-start | flex-end | space-between | space-around | center  子元素在主轴上的分布方式</p>
+      <p>    {genA('https://www.w3school.com.cn/cssref/pr_align-items.asp', '', 'align-items')}: =stretch | flex-start | flex-end | center  子元素在主轴上的对齐方式</p>
+      <p>    {genA('https://www.w3school.com.cn/cssref/pr_align-self.asp', '', 'align-self')}: =auto | flex-start | flex-end | center  当前元素在主轴上的对齐方式。与align-items同属上下级关系，align-items设定的是下级元素的对齐，align-self设定的是当前元素的对齐</p>
+      <p>    order: number; 规定弹性项目的顺序。</p>
     </div>,
     ps: <div className='ps'>
       <p>参考</p>
@@ -51,9 +55,9 @@ let content = [
     subheader: '',
     content: <div className='content'>
       <p>=static   top right等会无效</p>
-      <p>relative  static基础上加上top right等支持</p>
-      <p>absolute  相对父元素的位置(排除static父元素) 移出正常排版 通常要设置top left right等位置</p>
-      <p>fixed     相对浏览器窗口的位置 移出正常排版  通常要设置top left right等位置</p>
+      <p>relative  static基础上加上top等支持<span className='red'> 不支持right</span></p>
+      <p>absolute  相对父元素的位置(排除static父元素) <span className='red'>移出正常排版  默认坐标为排版坐标</span>  通常要设置top left right等位置</p>
+      <p>fixed     相对浏览器窗口的位置 <span className='red'>移出正常排版  默认坐标为排版坐标</span>  通常要设置top left right等位置</p>
       <p>sticky    超过指定位置后 变为fixed 没超过时为static`</p>
     </div>
     ,
@@ -102,7 +106,11 @@ let content = [
       <p>  background-size: =auto | cover等比全覆盖 | contain等比全展示 | w h</p>
       <p>  background-attachment: =scroll | fixed; 是否能滚动</p>
     </div >,
-    ps: ''
+    ps: <div className='ps'>
+      <p>参考</p>
+      <p>{genA('https://www.w3school.com.cn/tiy/t.asp?f=css3_background_multiple_1', '')}</p>
+    </div>
+    
   },
   {
     title: '居中的总结',
@@ -110,16 +118,17 @@ let content = [
     content: <div className='content'>
       <p>block组件左右居中 1.明确指定width不能100 % 2.margin: 0 auto  3. position是static或relative</p>
       <p>inline组件左右居中</p>
-      <p>  方法1 外层 text - align: center; 实测内部为img也会有效果</p>
-      <p>  方法2 内层 margin: 0 50 %; transform: translate(-50 %, 0)</p>
+      <p>  方法1 外层 text-align: center; 实测内部为img也会有效果</p>
+      <p>  方法2 内层 top: 50%; left: 50%; transform: translate(-50%, 0)</p>
       <p>文字左右居中 只需text-align: center; 1.这个参数会向下传递 2.只会影响文本</p>
-      <p>文字上下居中 只需vertical-align: middle; 只会影响文本</p>
-      <p>上下居中 父组件设置display: flex; justify - content: center; align - items: center; 或 父组件设置display: flex子组件设置margin: auto 0;</p>
+      <p>文字上下居中 外层display:flex 或者 line-height</p>
+      <p>上下居中 父组件设置display: flex; justify-content: center; align-items: center; 或 父组件设置display: flex子组件设置margin: auto 0;</p>
     </div>,
     ps: <div className='ps'>
       <p>参考</p>
       <p>{genA('https://blog.csdn.net/zch981964/article/details/127691471', '')}</p>
       <p>{genA('https://www.cnblogs.com/cnblogs-jcy/p/6074899.html', '')}</p>
+      <p>{genA('https://www.cnblogs.com/xiaoxueer/p/11849997.html', '')}</p>
     </div>
   },
   {
@@ -140,7 +149,7 @@ let content = [
       <p>div p	    div元素内的所有  p元素。</p>
       <p>div &gt; p  div元素内的第一层所有  p元素。</p>
       <p>div + p  div元素之后的紧挨的  p元素 只选择一个。</p>
-      <p>div ~ p  div元素内的第一层所有  p元素。</p>
+      <p>div ~ p  div元素之后的所有  p元素。</p>
     </div>,
     ps: <div className='ps'>
       <p>参考</p>
@@ -164,6 +173,7 @@ let content = [
     subheader: '',
     content: <div className='content'>
       <p>overflow: =visible默认框外渲染 | hidden 框外隐藏 | scroll 强制添加滚动条 | auto 自动添加滚动条  子元素溢出的处理</p>
+      <p>text-overflow: =clip | ellipsis; 使用时必须定义overflow:hidden; white-space:nowrap;</p>
       <p>float: =none | left | right  通常用于图片在文字中的浮动效果 <span className='red'>会破坏display:block;</span> 后面的元素需要及时clear:both否则会有布局问题！！！ </p>
       <p>clear: =none | left | right | both  规定元素的哪一侧不允许其他浮动元素</p>
       <p>list-style-type: none;  li样式 通常用于导航</p>
@@ -171,10 +181,14 @@ let content = [
       <p>text-indent: em;  段落首行缩进</p>
       <p>white-space: =normal | pre | nowrap | pre-wrap | pre-line;  文字换行</p>
       <p>vertical-align: =baseline | top | middle | bottom;  元素的垂直对齐方式</p>
+      <p>box-sizing: =content-box | border-box</p>
+      <p>cursor: =auto | pointer | not-allowed; 光标形状</p>
+      <p>resize: none | both | horizontal | vertical; 用户是否可以调整div的大小</p>
     </div>,
     ps:
       <div className='ps'>
         <p>参考</p>
+        <p>{genA('https://developer.mozilla.org/zh-CN/docs/Web/CSS/text-overflow', 'text-overflow')}</p>
         <p>{genA('https://www.w3school.com.cn/tiy/t.asp?f=css_layout_float_1', 'float')}</p>
         <p>{genA('https://blog.csdn.net/xunminwei0021/article/details/110390753', 'float')}</p>
         <p>{genA('https://www.w3school.com.cn/tiy/t.asp?f=css_layout_cols', 'float')}</p>
@@ -182,6 +196,8 @@ let content = [
         <p>{genA('https://www.w3school.com.cn/cssref/pr_align-items.asp', '')}</p>
         <p>{genA('https://mui.com/material-ui/react-stack', '')}</p>
         <p>{genA('https://www.w3school.com.cn/tiy/t.asp?f=css_vertical-align', 'vertical-align')}</p>
+        <p>{genA('https://www.w3school.com.cn/tiy/t.asp?f=css_ex_pagination_breadcrumbs', '面包屑分页')}</p>
+
       </div>
   },
 ]

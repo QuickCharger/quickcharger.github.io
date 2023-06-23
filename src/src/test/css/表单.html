@@ -1,0 +1,57 @@
+
+<style>
+  * {
+    box-sizing: border-box;
+  }
+  form {
+    background-color: #f2f2f2;
+    padding: 1em;
+  }
+  .row {
+    margin: 0.5em 0;
+  }
+  .width25 {
+    display: inline-block;
+    width: 25%;
+    vertical-align: top;
+    /* height: 100%; */
+  }
+  .width75 {
+    display: inline-block;
+    /* padding: 0.5em 1em; */
+    padding: 0;
+    width: 75%;
+  }
+  @media screen and (max-width: 600px) {
+    .width25, .width75 {
+      width: 100%;
+    }
+  }
+
+</style>
+
+<body>
+<h1>响应式表单</h1>
+<p>请调整浏览器窗口的大小以查看效果。当屏幕的宽度小于 600 像素时，使两列相互堆叠而不是彼此并排。</p>
+<form>
+  <div class="row">
+    <label class="width25" for="fname">First Name</label>
+    <input class="width75" type="text" id="fname" name="firstname" placeholder="Your name..">
+  </div>
+  <div class="row">
+    <label class="width25" for="lname">Last Name</label>
+    <input class="width75" type="text" id="lname" name="lastname" placeholder="Your last name..">
+  </div>
+  <div class="row">
+    <label class="width25" for="country">Country</label>
+    <select class="width75" id="country" name="country">
+      <option value="australia">Australia</option>
+      <option value="canada">Canada</option>
+      <option value="usa">USA</option>
+    </select>
+  </div>
+  <div class="row">
+    <label class="width25" for="subject">Subject</label>
+    <textarea class="width75" id="subject" name="subject" placeholder="Write something.." style="height:200px"></textarea>
+  </div>
+</form>

@@ -236,7 +236,7 @@ function GenArticle () {
         {GenDetail('div', 'division', '块容器', 'code', 'param', 'show')}
         {GenDetail('em', 'emphasis', '着重强调', 'code', 'param', 'show')}
         {GenDetail('footer', '', '页脚。通常包含 页脚 版权 文献', 'code', 'param', 'show')}
-        {GenDetail('form', '', '提交后 会提交form里面所有带name的', 'code', 'param', 'show')}
+        {GenDetail('form', '', '提交后 会提交form里面所有带name的 for-id结构是为了标签被点击时与之关联的表单元素就会获得焦点', 'code', 'param', 'show')}
         {GenDetail('header', '', '展示介绍性内容 通常用于包含周围部分的标题（h1 至 h6 元素）', 'code', 'param', 'show')}
         {GenDetail('hr', '', '横线 水平线 没有</hr> xhtml中写作<hr/> 表示段落元素之间的主题转换，如果想画一条横线 使用css', 'code', 'param', 'show')}
         {GenDetail('i', 'italic', '斜体，表现因某些原因需要区分普通文本', 'code', 'param', 'show')}

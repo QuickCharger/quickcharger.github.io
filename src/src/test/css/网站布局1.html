@@ -1,0 +1,90 @@
+
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  .header {
+    background-color: #f1f1f1;
+    text-align: center;
+    padding: 2em 0;
+  }
+
+  .topnav {
+    background-color: #333;
+  }
+
+  .topnav a {
+    display: inline-block;
+    color: white;
+    text-decoration: none;
+    padding: 1em 1em;
+  }
+
+  .topnav a:hover {
+    background-color: white;
+    color: #333;
+  }
+
+  .column {
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  .side {
+    width: 24%;
+  }
+
+  .middle {
+    width: 49%;
+  }
+
+  .footer {
+    background-color: #f1f1f1;
+    text-align: center;
+    padding: 1.5em 0;
+  }
+
+  @media screen and (max-width: 600px) {
+    .side, .middle {
+      width: 100%; 
+    }
+  }
+</style>
+
+<body>
+
+<div class="header">
+  <h1>Header</h1>
+  <p>请调整浏览器窗口的大小以查看响应效果。</p>
+</div>
+
+<div class="topnav">
+  <a href="#">Link</a>
+  <a href="#">Link</a>
+  <a href="#">Link</a>
+</div>
+
+<div class="row">
+  <div class="column side">
+    <h2>Side</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
+  </div>
+  
+  <div class="column middle">
+    <h2>Main Content</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sit amet pretium urna. Vivamus venenatis velit nec neque ultricies, eget elementum magna tristique. Quisque vehicula, risus eget aliquam placerat, purus leo tincidunt eros, eget luctus quam orci in velit. Praesent scelerisque tortor sed accumsan convallis.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sit amet pretium urna. Vivamus venenatis velit nec neque ultricies, eget elementum magna tristique. Quisque vehicula, risus eget aliquam placerat, purus leo tincidunt eros, eget luctus quam orci in velit. Praesent scelerisque tortor sed accumsan convallis.</p>
+  </div>
+  
+  <div class="column side">
+    <h2>Side</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
+  </div>
+</div>
+
+<div class="footer">
+  <p>Footer</p>
+</div>
+  
+</body>

@@ -1,81 +1,250 @@
 <style>
-  body {
-    font-size: 28px;
+
+  .borderBlack {
+    border: 1px solid black;
+    margin: 20px;
+    padding: 5px;
   }
 
-  ul {
+  .nav1 ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 200px;
+    background-color: #f1f1f1;
+  }
+  .nav1 li a {
+    display: block;
+    color: #000;
+    padding: 8px 16px;
+    text-decoration: none;
+  }
+  .nav1 li a.active {
+    background-color: #4CAF50;
+    color: white;
+  }
+  .nav1 li a:hover:not(.active) {
+    background-color: #555;
+    color: white;
+  }
+  
+  
+  .nav2 ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
     background-color: #333;
-    /* position: -webkit-sticky; */
-    /* Safari */
-    position: sticky;
-    top: 0;
   }
-
-  ul::after {
-    content: "";
-    clear: both;
-    display: block;
-  }
-
-  li {
+  .nav2 li {
     float: left;
-    background-color: #333;
   }
-
-  li a {
+  .nav2 li a {
     display: block;
     color: white;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
   }
-
-  li a:hover {
+  .nav2 a:hover:not(.active) {
     background-color: #111;
   }
+  .nav2 ul li:first-child {
+    background-color:#4CAF50;
+  }
+  .nav2 ul::after {
+    content: '';
+    display: block;
+    clear: both;
+  }
 
-  .active {
+  
+  .nav3 {
+    position: absolute;
+    width: 25%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    left: 0;
+    top: 0;
+    list-style-type: none;
+    background-color: #f1f1f1;
+  }
+  .nav3 li a {
+    display: block;
+    text-decoration: none;
+    color: black;
+    padding: 0.5em 1em;
+  }
+  .nav3 li:first-child {
+    background-color: #4CAF50;
+    color: white;
+  }
+  .nav3::after {
+    content: '';
+    display: block;
+    clear: both;
+  }
+  .nav3 li a:hover{
+    background-color: #555;
+    color: white;
+  }
+  #nav3Content {
+    width: 60%;
+    margin-left: 25%;
+    height:1000px;
+  }
+
+
+  .nav4 {
+    list-style-type: none;
+    background-color: #333;
+    padding: 0;
+    margin: 0;
+  }
+  .nav4::after {
+    content: "";
+    clear: both;
+    display: block;
+  }
+  .nav4 li {
+    float: left;
+  }
+  .nav4 li:first-child {
     background-color: #4CAF50;
   }
-</style>
+  .nav4 li a {
+    display: block;
+    color: white;
+    padding: 1em 1.5em;
+    text-decoration: none;
+  }
+  @media screen and (max-width: 800px) {
+    .nav4 li{
+      float: none;
+    }
+  }
+  @media screen and (min-width: 1600px) {
+    .nav4 {
+      position: absolute;
+      width: 25%;
+      height: 100%;
+    }
 
-<body>
-  <div>
-    <h1>向下滚动</h1>
-    <p>请向下滚动以查看粘性效果。</p>
+    .nav4 li {
+      float: none;
+    }
+
+    .nav4Content {
+      position: relative;
+      margin-left: 27%;
+    }
+  }
+
+
+  .navSticky ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background-color: #333;
+    position: sticky;
+    top: 0;
+  }
+  .navSticky ul::after {
+    content: "";
+    clear: both;
+    display: block;
+  }
+  .navSticky li {
+    float: left;
+    background-color: #333;
+  }
+  .navSticky li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+  .navSticky li a:hover {
+    background-color: #111;
+  }
+  .navSticky .active {
+    background-color: #4CAF50;
+  }
+  
+</style>
+  
+  
+  <div class="borderBlack nav1">
+    <h1>垂直导航栏</h1>
+    <p>在此例中，我们创建一个具有绿色背景色和白色文本的 "active" 类。该类将添加到 "Home" 链接。</p>
+    <ul>
+      <li><a class="active" href="#home">Home</a></li>
+      <li><a href="#news">News</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#about">About</a></li>
+    </ul>
   </div>
 
-  <ul>
-    <li><a class="active" href="#home">Home</a></li>
-    <li><a href="#news">News</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
 
-  <h2>粘性导航栏实例</h2>
-  <p>如果导航栏到了滚动位置，它会<strong>粘</strong>到顶部。</p>
-  <p><b>注释：</b>Internet Explorer 不支持粘性定位并且 Safari 需要 -webkit- 前缀。</p>
-  <p>Some text to enable scrolling. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et
-    eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae
-    nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
-  <p>Some text to enable scrolling. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et
-    eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae
-    nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
-  <p>Some text to enable scrolling. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et
-    eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae
-    nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
-  <p>Some text to enable scrolling. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et
-    eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae
-    nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
-  <p>Some text to enable scrolling. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et
-    eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae
-    nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
-  <p>Some text to enable scrolling. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et
-    eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae
-    nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
-  <p>Some text to enable scrolling. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et
-    eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae
-    nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
-</body>
+  <div class="borderBlack nav2">
+    <ul>
+      <li><a class="active" href="#home">Home</a></li>
+      <li><a href="#news">News</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#about">About</a></li>
+    </ul>
+  </div>
+
+
+  <div class="borderBlack" style="position: relative;">
+    <ul class="nav3">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#news">News</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#about">About</a></li>
+    </ul>
+    <div id='nav3Content'>
+      <h1>全高的固定侧导航栏</h1>
+      <h2>请尝试滚动此区域，并查看 sidenav 如何粘在页面上。</h2>
+      <p>请注意，此 div 元素的左外边距为 25％。这是因为侧导航栏被设置为 25％ 宽。如果删除这个外边距，则 sidenav 将叠加到该 div 上。</p>
+      <p>还要注意，我们已为 sidenav 设置 overflow：auto。如果 sidenav 太长时（例如，如果其中有超过 50 个链接），会添加滚动条。</p>
+    </div>
+  </div>
+
+
+  <div class="borderBlack" style="position:relative">
+    <ul class="nav4">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#news">News</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#about">About</a></li>
+    </ul>
+    
+    <div class="nav4Content">
+      <h1>响应式侧导航栏实例</h1>
+      <p>三种显示模式触发分别是 小于800px  大于800px&&小于1600px  大于1600px</p>
+      <p>三种显示模式触发分别是 小于800px  大于800px&&小于1600px  大于1600px</p>
+      <p>三种显示模式触发分别是 小于800px  大于800px&&小于1600px  大于1600px</p>
+      <p>三种显示模式触发分别是 小于800px  大于800px&&小于1600px  大于1600px</p>
+      <p>三种显示模式触发分别是 小于800px  大于800px&&小于1600px  大于1600px</p>
+      <p><b>请调整浏览器窗口的大小以查看效果。</b></p>
+    </div>
+  </div>
+
+
+  <div class="borderBlack navSticky">
+    <div>
+      <h1>向下滚动</h1>
+      <p>请向下滚动以查看粘性效果。</p>
+    </div>
+    <ul>
+      <li><a class="active" href="#home">Home</a></li>
+      <li><a href="#news">News</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <h2>粘性导航栏实例</h2>
+    <p>如果导航栏到了滚动位置，它会<strong>粘</strong>到顶部。</p>
+    <p style="height:1000px"><b>注释：</b>Internet Explorer 不支持粘性定位并且 Safari 需要 -webkit- 前缀。</p>
+  </div>
+  

@@ -16,15 +16,15 @@ configure({
 })
 
 function Routes () {
-  return useRoutes([...HomeRouter, ...Tutor])
+  return useRoutes([
+    ...HomeRouter,
+    ...Tutor])
 }
 
 export default function App () {
   return (
     <BrowserRouter>
-      <div>
-        <Routes />
-      </div>
+      <Routes />
     </BrowserRouter >
   )
 }

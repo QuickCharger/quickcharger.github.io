@@ -1,9 +1,9 @@
 import React from 'react'
 
 class Html extends React.Component {
-	render() {
+	render () {
 		return (
-			<div>aHtml div</div>
+			<div>Html div</div>
 		)
 	}
 }

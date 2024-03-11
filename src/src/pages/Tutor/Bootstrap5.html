@@ -1,0 +1,2753 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="./public/bootstrap.min.css" rel="stylesheet" />
+  <link href="./public/bootstrap-icons.min.css" rel="stylesheet" />
+
+  <title>boostrap 5 总结</title>
+  <style>
+    .container {
+      margin-top: 2rem;
+    }
+
+    pre {
+      margin-left: 1rem;
+      margin-bottom: 0;
+    }
+
+    p {
+      margin: 0;
+    }
+  </style>
+</head>
+
+<body class="bg-white">
+
+  <div class="container lead">
+    <pre>
+一些缩写示例:
+  sm small =576px | md medium =720px | lg large =960px | xl extra large =1140px | xxl extra extra large =1320px
+  1 = 0.25rem | 2 = 0.5rem | 3 = 1rem | 4 = 1.5rem | 5 = 3rem
+  1rem => 16px
+  {}可选  []必选
+    </pre>
+  </div>
+
+  <div class="container">
+    <h1>布局相关 <span class="fs-4">container position display(grid,flex) table width heigh margin padding border</span>
+    </h1>
+
+    <section class="bg-light mt-5">
+      <h3>.container</h3>
+      <table class="table table-bordered table-hover">
+        <thead>
+          <tr class="table-primary">
+            <th class="col-3">class</th>
+            <th class="col-6">说明</th>
+            <th>演示</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>container</td>
+            <td>
+              <pre>
+if(width<576px) => max-width=100%
+if(width>576px) => max-width=540px
+if(width>768px) => max-width=720px
+if(width>992px) => max-width=960px
+if(width>1200px) => max-width=1140px
+if(width>1400px) => max-width=1320px</pre>
+            </td>
+          </tr>
+          <tr>
+            <td>contianer-fluid</td>
+            <td>
+              <pre>width=100%</pre>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="bg-light mt-5">
+      <h2>width heigh margin padding</h2>
+      <table class="table table-bordered table-hover table-md">
+        <thead>
+          <tr class="table-primary">
+            <th class="col-3">class</th>
+            <th class="col-auto">说明</th>
+            <th>演示</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>[w|h]-[25|50|75|100]</td>
+            <td class="text-danger">w-100 w-50 h-100 h-50</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>[mw|mh]-[25|50|75|100]</td>
+            <td>max-width max-height</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>[min|max]-[vw|vh]-100</td>
+            <td>vw-100 min-vw-100 只有100一个值</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>
+              <p>m[t|b|s|e|x|y]-{breakpoints}-[0...5|auto]</p>
+              <p>p[t|b|s|e|x|y]-{breakpoints}-[0...5]</p>
+            </td>
+            <td>
+              <p>top|bottom|start|end m-3 me-lg-5 mx-auto</p>
+              <p><span class="text-danger">auto仅margin可用, 仅在弹性布局下可用,尽可能的多占空间,多个auto平分空间</span></p>
+            </td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="mt-5">
+      <h2>position 标签{相对}位置</h2>
+      <table class="table table-bordered table-hover table-md">
+        <thead>
+          <tr class="table-primary">
+            <th class="col-3">class</th>
+            <th class="col-6">说明</th>
+            <th>演示</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>.position-[value]</td>
+            <td>value: static|relative|absolute|fixed|sticky</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>[top|bottom|start|end]-[0|50|100]</td>
+            <td>
+              <pre>
+&lt;div class="position-relative"&gt;
+  &lt;div class="position-absolute top-50 start-50 translate-middle"&gt;&lt;/div&gt;
+&lt;/div&gt;</pre>
+            </td>
+            <td>
+              <button class="btn btn-primary position-relative p-2">
+                Mails
+                <span
+                  class="bg-secondary rounded-pill position-absolute top-0 start-100 translate-middle badge">+99</span>
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td>.translate-middle-{x|y}</td>
+            <td>向左上角平移 width/2 height/2</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>.fixed-top .fixed-bottom</td>
+            <td>常用: .fixed-top</td>
+          </tr>
+          <tr>
+            <td>.sticky-{breakpoints}-[top|bottom]</td>
+            <td>常用: .sticky-top</td>
+          </tr>
+        </tbody>
+      </table>
+      <a href="https://getbootstrap.com/docs/5.3/helpers/position/" target="_blank">
+        https://getbootstrap.com/docs/5.3/helpers/position/
+      </a>
+      <div class="position-relative m-4">
+        <div class="progress" role="progressbar" aria-label="Progress" aria-valuenow="50" aria-valuemin="0"
+          aria-valuemax="100" style="height: 1px;">
+          <div class="progress-bar w-50"></div>
+        </div>
+        <button type="button"
+          class="position-absolute top-0 start-0 translate-middle btn btn-sm btn-primary rounded-pill"
+          style="width: 2rem; height:2rem;">1</button>
+        <button type="button"
+          class="position-absolute top-0 start-50 translate-middle btn btn-sm btn-primary rounded-pill"
+          style="width: 2rem; height:2rem;">2</button>
+        <button type="button"
+          class="position-absolute top-0 start-100 translate-middle btn btn-sm btn-secondary rounded-pill"
+          style="width: 2rem; height:2rem;">3</button>
+      </div>
+    </section>
+
+    <section class="bg-light mt-5">
+      <h2>display 标签内部布局</h2>
+      <table class="table table-bordered table-hover">
+        <thead>
+          <tr class="table-primary">
+            <th class="col-3">class</th>
+            <th class="col-6">说明</th>
+            <th>演示</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>.d-{breakpoints}-[value]</td>
+            <td>value:
+              <pre>
+none
+block inline inline-block
+grid inline-grid
+flex inline-flex
+table table-cell table-row </pre>
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>.d-none .d-flex</td>
+            <td>常用的</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>.visible .invisible</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>.z-[n1|0|1|2|3]</td>
+            <td>z-n1 z-0 z-1 z-2 z-3</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="row mx-0">
+        <div class="col-1 d-flex flex-column justify-content-center">
+          <h2 class="text-center">grid</h2>
+        </div>
+        <div class="col-11">
+          <p class="text-danger">
+            tips: 可以添加div强制换行
+          </p>
+          <table class="table table-bordered table-hover table-sm">
+            <thead>
+              <tr class="table-primary">
+                <th class="col-3">class</th>
+                <th class="col-auto">说明</th>
+                <th>演示</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>row > col</td>
+                <td>都支持breakpoints row-cols-md-4 col-md-4</td>
+              </tr>
+              <tr>
+                <td>row-{cols}-{1...12}</td>
+                <td>row-cols-4 row4列， 默认12列
+                </td>
+              </tr>
+              <tr>
+                <td>col-{breakpoints}-{1...12|auto}</td>
+                <td>固定value列，如果是auto 则带有breakpoints效果 长度随内容变化。 breakpoints 小于时占据整行</td>
+              </tr>
+              <tr>
+                <td>class="col-sm-3 col-lg-6"</td>
+                <td>小于sm时占据整行， sm-lg时col-3， 大于lg时col-6</td>
+              </tr>
+              <tr>
+                <td>
+                  <p>align-items-[value]</p>
+                  <p>justify-content-[value]</p>
+                  <p>align-self-[value]</p>
+                </td>
+                <td>同flex 并带有breakpoints</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>g[x|y]-{breakpoints}-[0...5]</td>
+                <td>gutter g-3->8px g-5->24px g-lg-3</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+          <a href="https://getbootstrap.com/docs/5.3/layout/grid/" target="_blank">
+            https://getbootstrap.com/docs/5.3/layout/grid/
+          </a>
+        </div>
+      </div>
+      <hr>
+      <div class="row mx-0">
+        <div class="col-1 d-flex flex-column justify-content-center">
+          <h2 class="text-center">flex</h2>
+        </div>
+        <div class="col-11">
+          <p class="">
+          <div class="d-flex bg-secondary m-2 p-2">
+            <div class="p-2 bg-success">弹性1</div>
+            <div class="p-2 bg-info">弹性2</div>
+            <div class="p-2 bg-warning">弹性3</div>
+          </div>
+          <div class="d-flex justify-content-center bg-secondary m-2 p-2">
+            <div class="p-2 bg-success">弹性1</div>
+            <div class="p-2 bg-info">弹性2</div>
+            <div class="p-2 bg-warning">弹性3</div>
+          </div>
+          <div class="d-flex bg-secondary m-2 p-2">
+            <div class="p-2 bg-success">弹性1</div>
+            <div class="p-2 bg-info">弹性2</div>
+            <div class="p-2 bg-warning flex-fill">弹性3</div>
+            <p-2 class="p-2 bg-danger flex-fill">剩余弹性</p-2>
+          </div>
+          <div class="d-flex bg-secondary m-2 p-2">
+            <div class="p-2 bg-success">弹性1</div>
+            <div class="p-2 bg-info">弹性2</div>
+            <div class="p-2 bg-secondary flex-fill">空白</div>
+            <div class="p-2 bg-warning">弹性3</div>
+          </div>
+          <div class="d-inline-flex bg-secondary m-2 p-2">
+            <div class="p-2 bg-success">弹性1</div>
+            <div class="p-2 bg-info">弹性2</div>
+            <div class="p-2 bg-warning">弹性3</div>
+          </div>
+          <div class="d-inline-flex flex-column bg-secondary m-2 p-2">
+            <div class="p-2 bg-success">弹性1</div>
+            <div class="p-2 bg-info">弹性2</div>
+            <div class="p-2 bg-warning">弹性3</div>
+          </div>
+          <div class="d-inline-flex flex-column-reverse bg-secondary m-2 p-2">
+            <div class="p-2 bg-success">弹性1</div>
+            <div class="p-2 bg-info">弹性2</div>
+            <div class="p-2 bg-warning">弹性3</div>
+          </div>
+          </p>
+          <table class="table table-bordered table-hover table-sm">
+            <thead>
+              <tr class="table-primary">
+                <th class="col-3">class</th>
+                <th class="col-auto">说明</th>
+                <th>演示</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>d-flex d-inline-flex</td>
+                <td>div样式的 span样式的</td>
+              </tr>
+              <tr>
+                <td>
+                  <p>flex-row-[reverse]</p>
+                  <p>flex-column-[reverse]</p>
+                </td>
+                <td>
+                  <p>横向排列(默认)[反向]</p>
+                  <p>纵向排列[反向]</p>
+                </td>
+              </tr>
+              <tr>
+                <td>flex-fill</td>
+                <td>填充剩余空间 多个flex-fill会平分剩余空间</td>
+              </tr>
+              <tr>
+                <td>flex-{breakpoints}-{grow|shrink}-{0|1}</td>
+                <td>
+                  <p>
+                    flex-grow-1占用多余空间,不建议使用, 用flex-fill替代
+                  </p>
+                  <p>
+                    flex-shrink-0不收缩 flex-shrink-1必要时自动收缩
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>justify-content-{breakpoints}-{start|center|end|between|around|evenly}</p>
+                  <p>align-items-{breakpoints}-{start|center|end|baseline|stretch}</p>
+                  <p>align-self-{breakpoints}-{start|center|end|baseline|stretch}</p>
+                  <p>align-content-{breakpoints}-{start|center|end|baseline|stretch}</p>
+                </td>
+                <td>
+                  <p>头部|中心|尾部|两端无空隙均分|两端有空隙均分</p><br>
+                  <p>flex-column时 设定左右对齐， flex-row时 设定上下对齐</p><br>
+                  <p>同align-items 仅内部item使用 单独定制每一个元素的对齐方式</p><br>
+                  <p>多行下 align-items对齐方式</p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>flex-nowrap</p>
+                  <p>flex-wrap</p>
+                  <p>flex-wrap-reverse</p>
+                </td>
+                <td>
+                  <p>不换行(默认)， 内容长可能显示不完整</p>
+                  <p>换行</p>
+                  <p>换行 反向排列</p>
+                </td>
+              </tr>
+              <tr>
+                <td>.vstack .hstack</td>
+                <td>
+                  更简短的flex
+                  <div class="hstack">
+                    <pre>
+.hstack {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-self: stretch;
+}
+                    </pre>
+                    <pre>
+.vstack {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  align-self: stretch;
+}
+                    </pre>
+                  </div>
+                  <div class="hstack">
+                    <input type="text" class="form-control me-auto" placeholder="add your item">
+                    <button class="btn btn-secondary">Submit</button>
+                    <button class="btn btn-outline-danger">Reset</button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <a href="https://getbootstrap.com/docs/5.3/utilities/flex/#enable-flex-behaviors" target="_blank">
+            https://getbootstrap.com/docs/5.3/utilities/flex/#enable-flex-behaviors
+          </a>
+        </div>
+      </div>
+      <hr>
+      <a href="https://getbootstrap.com/docs/5.3/utilities/display/" target="_blank">
+        https://getbootstrap.com/docs/5.3/utilities/display/
+      </a>
+    </section>
+
+    <section class="mt-5">
+      <h2>table</h2>
+      <table class="table table-bordered table-hover table-md">
+        <thead>
+          <tr class="table-primary">
+            <th class="col-3">class</th>
+            <th class="col-auto">说明</th>
+            <th>演示</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>table</td>
+            <td>基本样式</td>
+          </tr>
+          <tr>
+            <td>table-striped</td>
+            <td>斑马条纹</td>
+          </tr>
+          <tr>
+            <td>table-bordered</td>
+            <td>表格和单元格添加边框</td>
+          </tr>
+          <tr>
+            <td>table-borderless</td>
+            <td>删除边框</td>
+          </tr>
+          <tr class="table-active">
+            <td>table-hover</td>
+            <td>悬停效果</td>
+          </tr>
+          <tr>
+            <td>table-{sm|lg|...}</td>
+            <td>表格大小</td>
+          </tr>
+          <tr>
+            <td>table-responsive-[sm|lg|...]</td>
+            <td>滚动条, 当超出显示范围时才会显示, 类写到父容器中</td>
+          </tr>
+          <tr>
+            <td class="text-danger">.align-middle</td>
+            <td>
+              <p class="text-danger">上下居中</p>
+              <p class="text-danger">仅限于table内部使用</p>
+            </td>
+            <td class="align-middle"><span>上下居中</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <a href="https://getbootstrap.com/docs/5.3/content/tables/#overview" target="_blank">
+        https://getbootstrap.com/docs/5.3/content/tables/#overview
+      </a>
+    </section>
+
+    <section class="mt-5">
+      <h2>border</h2>
+      <table class="table table-bordered table-hover table-md">
+        <thead>
+          <tr class="table-primary">
+            <th class="col-3">class</th>
+            <th class="col-auto">说明</th>
+            <th>演示</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>border + border-primary + border-3</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>border-{top|bottom|start|end}-{0...5}</td>
+            <td>border-3 border-top border-top-3</td>
+            <td>
+              <span class="border border-3 border-primary">border</span>
+              <span class="border-top border-3 border-primary">border</span>
+              <span class="border-end border-3 border-primary">border</span>
+              <span class="border-bottom border-3 border-primary">border</span>
+              <span class="border-start border-3 border-primary">border</span>
+            </td>
+          </tr>
+          <tr>
+            <td>border-[color]</td>
+            <td>border-primary border-danger</td>
+            <td>
+              <span class="border border-3 border-primary">border</span>
+              <span class="border border-3 border-warning">border</span>
+              <span class="border border-3 border-danger">border</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </div>
+
+  <hr>
+
+  <div class="container">
+    <h1>html其他 <span class="fs-4">color opacity text anchor img</span></h1>
+
+    <section class="bg-light mt-5">
+      <h3>color</h3>
+      <table class="table table-bordered table-hover">
+        <thead>
+          <tr class="table-primary">
+            <th class="col-3">class</th>
+            <th class="col-auto">说明</th>
+            <th class="col-1">演示</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>color</td>
+            <td>
+              <div class="row g-0 text-white">
+                <div class="col-6">
+                  <p class="bg-primary">bg-primary 主背景色。</p>
+                </div>
+                <div class="col-6">
+                  <p class="bg-secondary">bg-secondary 次背景色。</p>
+                </div>
+                <div class="col-3">
+                  <p class="bg-success">bg-success 此文本表示成功。</p>
+                </div>
+                <div class="col-3">
+                  <p class="bg-info">bg-info 此文本代表了一些信息。</p>
+                </div>
+                <div class="col-3">
+                  <p class="bg-warning">bg-warning 此文本表示警告。</p>
+                </div>
+                <div class="col-3">
+                  <p class="bg-danger">bg-danger 此文本代表危险。</p>
+                </div>
+                <div class="col-4">
+                  <p class="bg-white text-dark">bg-white 白色背景颜色。</p>
+                </div>
+                <div class="col-4">
+                  <p class="bg-black">bg-{dark|black} 黑色背景颜色。</p>
+                </div>
+                <div class="col-4">
+                  <p class="bg-light text-dark">bg-light 浅灰色背景色。</p>
+                </div>
+              </div>
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>bg-[color]</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>
+              <p>text-[color]-{50}</p>
+              <p>text-body 默认主体颜色(通常为黑色)</p>
+              <p>text-muted 颜色柔和的文本</p>
+              <p>text-white-50 白色文字添加50%不透明度</p>
+            </td>
+            <td>
+              <p class="text-white bg-secondary">text-white-50 白色<span class="text-white-50">文字添加50%不透明度</span></p>
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>link-[color]</td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="mt-5">
+      <h3>opacity</h3>
+      <p>bg-opacity-0 text-opacity-0 not work todo</p>
+      <table class="table table-bordered table-hover">
+        <thead>
+          <tr class="table-primary">
+            <th class="col-3">class</th>
+            <th class="col-auto">说明</th>
+            <th class="col">演示</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>bg-opacity-[0|10|25|50|75|100]</td>
+            <td>
+              <div class="row">
+                <div class="col-2">
+                  <div class="bg-warning bg-opacity-0">bg-opacity-0</div>
+                </div>
+                <div class="col-2">
+                  <div class="bg-warning bg-opacity-10">bg-opacity-10</div>
+                </div>
+                <div class="col-2">
+                  <div class="bg-warning bg-opacity-25">bg-opacity-25</div>
+                </div>
+                <div class="col-2">
+                  <div class="bg-warning bg-opacity-50">bg-opacity-50</div>
+                </div>
+                <div class="col-2">
+                  <div class="bg-warning bg-opacity-75">bg-opacity-75</div>
+                </div>
+                <div class="col-2">
+                  <div class="bg-warning bg-opacity-100">bg-opacity-100</div>
+                </div>
+              </div>
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>text-opacity-[0|25|50|75|100]</td>
+            <td>
+              <div class="row">
+                <div class="col-2">
+                  <div class="text-black bg-warning text-opacity-0">text-opacity-0</div>
+                </div>
+                <div class="col-2">
+                </div>
+                <div class="col-2">
+                  <div class="text-black bg-warning text-opacity-25">text-opacity-25</div>
+                </div>
+                <div class="col-2">
+                  <div class="text-black bg-warning text-opacity-50">text-opacity-50</div>
+                </div>
+                <div class="col-2">
+                  <div class="text-black bg-warning text-opacity-75">text-opacity-75</div>
+                </div>
+                <div class="col-2">
+                  <div class="text-black bg-warning text-opacity-100">text-opacity-100</div>
+                </div>
+              </div>
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>opacity-[0|25|50|75|100] 整体透明</td>
+            <td>
+              <div class="row">
+                <div class="col-2">
+                  <div class="bg-warning opacity-0">opacity-0</div>
+                </div>
+                <div class="col-2">
+                </div>
+                <div class="col-2">
+                  <div class="bg-warning opacity-25">opacity-25</div>
+                </div>
+                <div class="col-2">
+                  <div class="bg-warning opacity-50">opacity-50</div>
+                </div>
+                <div class="col-2">
+                  <div class="bg-warning opacity-75">opacity-75</div>
+                </div>
+                <div class="col-2">
+                  <div class="bg-warning opacity-100">opacity-100</div>
+                </div>
+              </div>
+            </td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="bg-light mt-5">
+      <h3>text</h3>
+
+      <table class="table table-bordered table-hover">
+        <thead>
+          <tr class="table-primary">
+            <th class="col-3">class</th>
+            <th class="col-3">说明</th>
+            <th class="col-auto">演示</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td></td>
+            <td>原始</td>
+            <td> Lorem ipsum dolor sit amet</td>
+          </tr>
+          <tr>
+            <td>.text-{breakpoints}-[start|center|end]</td>
+            <td></td>
+            <td>
+              <p class="text-start">Lorem ipsum dolor sit amet</p>
+              <p class="text-center">Lorem ipsum dolor sit amet</p>
+              <p class="text-end">Lorem ipsum dolor sit amet</p>
+            </td>
+          </tr>
+          <tr>
+            <td>.text-{bg}-[color]</td>
+            <td>如果设定text-bg-color则字体颜色会有自动变化</td>
+            <td>
+              <p>
+                <span class="text-primary">Primary</span>
+                <span class="text-secondary">Secondary</span>
+                <span class="text-success">Success</span>
+                <span class="text-danger">Danger</span>
+                <span class="text-warning">Warning</span>
+                <span class="text-info">Info</span>
+                <span class="text-light">Light</span>
+                <span class="text-dark">Dark</span>
+              </p>
+              <p>
+                <span class="text-bg-primary">Primary</span>
+                <span class="text-bg-secondary">Secondary</span>
+                <span class="text-bg-success">Success</span>
+                <span class="text-bg-danger">Danger</span>
+                <span class="text-bg-warning">Warning</span>
+                <span class="text-bg-info">Info</span>
+                <span class="text-bg-light">Light</span>
+                <span class="text-bg-dark">Dark</span>
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>.text-lowercase</p>
+              <p>.text-uppercase</p>
+              <p>.text-capitalize</p>
+            </td>
+            <td>
+              <p>全部小写</p>
+              <p>全部大写</p>
+              <p>首字母大写</p>
+            </td>
+            <td>
+              <p class="text-lowercase">ABC ABC Lorem psum </p>
+              <p class="text-uppercase">ABC ABC Lorem psum </p>
+              <p class="text-capitalize">ABC aBC Lorem psum </p>
+            </td>
+          </tr>
+          <tr>
+            <td>.text-break</td>
+            <td>url换行正常化</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>.text-nowrap</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>
+              <p>display-[1...6]</p>
+              <p>fs-[1...6]</p>
+            </td>
+            <td>
+              <p>更大的字体 1: 5rem, 2: 4.5rem, 3: 4rem, 4: 3.5rem, 5: 3rem, 6: 2.5rem</p>
+              <p>font size. 1: 2.5rem, 2: 2rem, 3: 1.75rem, 4: 1.5rem, 5: 1.25rem, 6: 1rem</p>
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>.lead</td>
+            <td>字体铅化</td>
+            <td>
+              <span class="lead">Lorem ipsum dolor sit amet</span>
+            </td>
+          </tr>
+          <tr>
+            <td>.mark .small</td>
+            <td></td>
+            <td><span class="mark">mark</span> small<span class="small">small</span>small</td>
+          </tr>
+          <tr>
+            <td>
+              <p>.text-decoration-underline</p>
+              <p>.text-decoration-line-through</p>
+            </td>
+            <td></td>
+            <td>
+              <p class="text-decoration-underline">text-decoration-underline</p>
+              <p class="text-decoration-line-through">text-decoration-line-through</p>
+            </td>
+          </tr>
+          <tr>
+            <td>.lh-[1|sm|base|lg]</td>
+            <td>行高 1: 1倍 sm: 1.25倍 base: 1.5倍(默认) lg: 2倍</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>
+              <p>.user-select-all</p>
+              <p>.user-select-auto</p>
+              <p>.user-select-none</p>
+            </td>
+            <td>
+              <p>点击选中全部</p>
+              <p>默认</p>
+              <p>不可点击</p>
+            </td>
+            <td>
+              <p class="user-select-all">点击选中全部</p>
+              <p class="user-select-auto">点击选中默认</p>
+              <p class="user-select-none">不可点击</p>
+            </td>
+          </tr>
+          <tr>
+            <td>.text-truncate</td>
+            <td>文字自动截断，需要标签是block或inline-block</td>
+            <td>
+              <div class="row">
+                <div class="col-2 text-truncate border">
+                  This text is quite long, and will be truncated once displayed.
+                </div>
+              </div>
+              <span class="d-inline-block text-truncate w-25 border">
+                This text is quite long, and will be truncated once displayed.
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td>.overflow-{x|y}-[auto|hidden|visible|scroll]</td>
+            <td></td>
+            <td>
+              <div class="row">
+                <div class="col-3 overflow-auto" style="height: 5rem;">Lorem ipsum dolor sit amet consectetur
+                  adipisicing
+                  elit. Debitis quam
+                  accusantium quisquam porro veritatis, repudiandae sapiente, animi perferendis nemo fuga voluptatibus?
+                  Soluta
+                  dolore dicta nostrum dolorem molestias tempora aut voluptatem?</div>
+                <div class="col-3 overflow-hidden" style="height: 5rem;">超出截断 超出截断 超出截断 超出截断 超出截断 超出截断 超出截断 超出截断</div>
+                <div class="col-3 overflow-visible" style="height: 5rem;">超出标签也显示 超出标签也显示 超出标签也显示 超出标签也显示 超出标签也显示
+                  超出标签也显示</div>
+                <div class="col-3 overflow-scroll" style="height: 5rem;">强制滚动条</div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="mt-5">
+      <h3>anchor</h3>
+      <p>很多都没效果 todo</p>
+      <table class="table table-bordered table-hover">
+        <thead>
+          <tr class="table-primary">
+            <th class="col-3">class</th>
+            <th class="col-auto">说明</th>
+            <th class="col">演示</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>link-{underline}-[color]</td>
+            <td>下划线没有颜色 不知为何 todo</td>
+            <td>
+              <div class="row">
+                <div class="col">
+                  <a href="#" class="link-primary">Primary</a>
+                  <a href="#" class="link-secondary">Secondary</a>
+                  <a href="#" class="link-success">Success</a>
+                  <a href="#" class="link-info">Info</a>
+                  <a href="#" class="link-warning">Warning</a>
+                  <a href="#" class="link-danger">Danger</a>
+                  <a href="#" class="link-light">Light</a>
+                  <a href="#" class="link-dark">Dark</a>
+                </div>
+                <div class="col">
+                  <a href="#" class="link-underline-primary">underline</a>
+                  <a href="#" class="link-underline-secondary">underline</a>
+                  <a href="#" class="link-underline-success">underline</a>
+                  <a href="#" class="link-underline-info">underline</a>
+                  <a href="#" class="link-underline-warning">underline</a>
+                  <a href="#" class="link-underline-danger">underline</a>
+                  <a href="#" class="link-underline-light">underline</a>
+                  <a href="#" class="link-underline-dark">underline</a>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>link-opacity-[10|25|50|75|100]-{hover}</td>
+            <td>数字越小越透明 没有效果 不知为何 todo</td>
+            <td>
+              <div class="row">
+                <div class="col">
+                  <p><a class="link-opacity-10" href="#">Link opacity 10</a></p>
+                  <p><a class="link-opacity-25" href="#">Link opacity 25</a></p>
+                  <p><a class="link-opacity-50" href="#">Link opacity 50</a></p>
+                  <p><a class="link-opacity-75" href="#">Link opacity 75</a></p>
+                  <p><a class="link-opacity-100" href="#">Link opacity 100</a></p>
+                </div>
+                <div class="col">
+                  <p><a class="link-opacity-10-hover" href="#">Link opacity 10 hover</a></p>
+                  <p><a class="link-opacity-25-hover" href="#">Link opacity 25 hover</a></p>
+                  <p><a class="link-opacity-50-hover" href="#">Link opacity 50 hover</a></p>
+                  <p><a class="link-opacity-75-hover" href="#">Link opacity 75 hover</a></p>
+                  <p><a class="link-opacity-100-hover" href="#">Link opacity 100 hover</a></p>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>link-underline-opacity-[0|10|25|50|75|100]</td>
+            <td>下划线的透明度 数字越小越透明 没有效果 不知为何 todo</td>
+            <td>
+              <a href="#" class="link-underline-opacity-0">underline</a>
+              <a href="#" class="link-underline-opacity-10">underline</a>
+              <a href="#" class="link-underline-opacity-25">underline</a>
+              <a href="#" class="link-underline-opacity-50">underline</a>
+              <a href="#" class="link-underline-opacity-75">underline</a>
+              <a href="#" class="link-underline-opacity-100">underline</a>
+            </td>
+          </tr>
+          <tr>
+            <td>link-offset-[1|2|3]</td>
+            <td>下划线的距离</td>
+            <td>
+              <a href="#" class="link-offset-1">underline</a>
+              <a href="#" class="link-offset-2">underline</a>
+              <a href="#" class="link-offset-3">underline</a>
+            </td>
+          </tr>
+          <tr>
+            <td>.pe-none .pe-auto</td>
+            <td>不能点击 可点击 可以继承</td>
+            <td>
+              <p><a href="#" class="pe-none" tabindex="-1">This link</a> can not be clicked.</p>
+              <p><a href="#" class="pe-auto">This link</a> can be clicked (this is default behavior).</p>
+              <p class="pe-none"><a href="#" tabindex="-1">This link</a> can not be clicked because
+                the <code>pointer-events</code> property is inherited from its parent. However, <a href="#"
+                  class="pe-auto">this link</a> has a <code>pe-auto</code> class and can be clicked.</p>
+            </td>
+          </tr>
+          <tr>
+            <td>.stretched-link</td>
+            <td>
+              <div class="row">
+                <div class="col-6 text-break">
+                  <p>使标签可点击，通过给a添加此类 可使整体可被点击，范围延申至relative</p>
+                  <p>一些情况会导致此类失效 详见<a
+                      href="https://getbootstrap.com/docs/5.3/helpers/stretched-link/#identifying-the-containing-block">https://getbootstrap.com/docs/5.3/helpers/stretched-link/#identifying-the-containing-block</a>
+                  </p>
+                </div>
+                <div class="col-6">
+                  <div class="card position-relative">
+                    <img src="img/1-human.jpg" class="card-img-top" alt="img">
+                    <div class="card-body">
+                      <h5 class="card-title">Card with stretched link</h5>
+                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                        the card's content.</p>
+                      <a href="javascript:void(0);" class="btn btn-primary stretched-link">Go somewhere</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="mt-5">
+      <h3>img</h3>
+      <table class="table table-bordered table-hover table-md">
+        <thead>
+          <tr class="table-primary">
+            <th class="col-3">class</th>
+            <th class="col-auto">说明</th>
+            <th class="col-auto">演示</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>rounded-{top|bottom|start|end}-{0...5}</td>
+            <td>圆角</td>
+            <td><img src="./img/1-human.jpg" alt="" class="rounded img-fluid w-25" /></td>
+          </tr>
+          <tr>
+            <td>rounded-circle rounded-pill</td>
+            <td>圆形 药丸形</td>
+            <td>
+              <img src="./img/1-human.jpg" alt="" class="rounded-circle img-fluid w-25" />
+              <img src="./img/1-human.jpg" alt="" class="rounded-pill img-fluid w-25" />
+            </td>
+          </tr>
+          <tr>
+            <td>img-thumbnail</td>
+            <td>缩略图 带边框</td>
+            <td><img src="./img/1-human.jpg" alt="" class="img-thumbnail img-fluid w-25" /></td>
+          </tr>
+          <tr>
+            <td>
+              <p>float-{md|lg}-start</p>
+              <p>float-{md|lg}-end</p>
+            </td>
+            <td>
+              <p>向左浮动</p>
+              <p>向右浮动</p>
+            </td>
+            <td>
+              <img src="./img/1-human.jpg" alt="" class="rounded float-start img-fluid w-25" />
+              <img src="./img/1-human.jpg" alt="" class="rounded float-end img-fluid w-25" />
+            </td>
+          </tr>
+          <tr>
+            <td>d-block mx-auto</td>
+            <td>图像居中</td>
+            <td>
+              <img src="./img/1-human.jpg" alt="" class="d-block mx-auto img-fluid w-25" />
+            </td>
+          </tr>
+          <tr>
+            <td>img-fluid</td>
+            <td>尺寸自适应max-width:100%; height:auto;</td>
+            <td><img src="./img/1-human.jpg" class="img-fluid w-25" /></td>
+          </tr>
+          <tr>
+            <td>object-fit-{breakpoints}-[contain|cover|fill|scale|none]</td>
+            <td>可用在img video</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </div>
+
+  <hr>
+  <hr>
+  <hr>
+  <hr>
+  <hr>
+  <hr>
+  <hr>
+  <hr>
+  <hr>
+  <hr>
+
+
+  <div class="container">
+    <h1>bootstrap5组件 <span class="fs-4">alert button badge progress spinner 分页/breadcrumb listgroup card 下拉菜单 折叠面板 导航
+        导航栏 offcanvas modal popover 表单 浮动 轮播 toast toast</span></h1>
+
+    <section class="mt-5">
+      <h3>alert</h3>
+      <div class="row">
+        <div class="col-6">
+          <div class="alert alert-primary">
+            <strong>alert-primary</strong>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="alert alert-secondary">
+            <strong>alert-secondary</strong>
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="alert alert-success">
+            alert-success <strong>成功！</strong>此警报框表示成功或积极的动作。
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="alert alert-info">
+            alert-info <strong>信息！</strong>此警报框表示中性的信息更改或操作。
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="alert alert-warning">
+            alert-warning
+            <strong>警告！</strong>此警报框可能表示可能需要注意的警告。
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="alert alert-danger">
+            alert-danger
+            <strong>危险！</strong>此警报框表示危险或潜在的负面操作。
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="alert alert-dark">
+            alert-dark <strong>深色！</strong>深灰色警报。
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="alert alert-light">
+            alert-light <strong>浅色！</strong>浅灰色警报。
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="alert alert-primary">
+            alert-link <a href="" class="alert-link">带有alert样式的link</a>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="alert alert-success alert-dismissible">
+            <button class="btn-close" data-bs-dismiss="alert"></button>
+            <strong>成功！</strong>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="alert alert-success alert-dismissible fade show">
+            <button class="btn-close" data-bs-dismiss="alert"></button>
+            <strong>带有淡入淡出效果</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="mt-5">
+      <h3>button</h3>
+      <table class="table table-bordered table-hover table-md">
+        <thead>
+          <tr class="table-primary">
+            <th class="col-3">class</th>
+            <th class="col-auto">说明</th>
+            <th class="col-auto">演示</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="align-middle">.btn-[color] .btn-link</td>
+            <td></td>
+            <td>
+              <button class="col btn">btn基础</button>
+              <button class="col btn btn-primary">primary</button>
+              <button class="col btn btn-secondary">secondary</button>
+              <button class="col btn btn-success">success</button>
+              <button class="col btn btn-info">info</button>
+              <button class="col btn btn-warning">warning</button>
+              <button class="col btn btn-danger">danger</button>
+              <button class="col btn btn-dark">dark</button>
+              <button class="col btn btn-light">light</button>
+              <button class="col btn btn-link">link</button>
+            </td>
+          </tr>
+          <tr>
+            <td class="align-middle">.btn-outline-[color]</td>
+            <td></td>
+            <td>
+              <button class="col btn btn-outline-primary">primary</button>
+              <button class="col btn btn-outline-secondary">secondary</button>
+              <button class="col btn btn-outline-success">success</button>
+              <button class="col btn btn-outline-info">info</button>
+              <button class="col btn btn-outline-warning">warning</button>
+              <button class="col btn btn-outline-danger">danger</button>
+              <button class="col btn btn-outline-dark">dark</button>
+              <button class="col btn btn-outline-light">light</button>
+            </td>
+          </tr>
+          <tr>
+            <td>.active .disabled</td>
+            <td>激活的 禁用的</td>
+            <td>
+              <button class="btn btn-primary active">激活的按钮</button>
+              <button class="btn btn-primary disabled">禁用的按钮</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="row g-3">
+        <button class="col-auto btn btn-primary" disabled>
+          <span class="spinner-border spinner-border-sm"></span>
+          Loading..
+        </button>
+        <div class="col-auto">
+          <button class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+            点击更多
+          </button>
+          <div class="dropdown-menu">
+            <button class="dropdown-item">按钮1</button>
+            <button class="dropdown-item">按钮2</button>
+          </div>
+        </div>
+        <div class="col-auto">
+          <button class="btn btn-primary btn-lg">btn-lg大按钮</button>
+          <button class="btn btn-primary btn-sm">btn-sm小按钮</button>
+        </div>
+        <div class="col-auto btn-group btn-group-lg">
+          <button class="btn btn-primary">按钮1</button>
+          <button class="btn btn-primary">按钮2</button>
+        </div>
+        <div class="col-auto btn-group">
+          <button class="btn btn-primary">按钮1</button>
+          <button class="btn btn-primary">按钮2</button>
+        </div>
+        <div class="col-auto btn-group btn-group-sm">
+          <button class="btn btn-primary">按钮1</button>
+          <button class="btn btn-primary">按钮2</button>
+        </div>
+        <div class="col-auto btn-group">
+          <button class="btn btn-outline-primary">按钮1</button>
+          <button class="btn btn-outline-primary">按钮2</button>
+        </div>
+      </div>
+      <div class="col-auto btn-group-vertical pt-3">
+        <button class="btn btn-primary">垂直按钮1</button>
+        <button class="btn btn-primary">垂直按钮2</button>
+      </div>
+    </section>
+
+    <section class="mt-5">
+      <h3>badge 徽章</h3>
+      <div class="row">
+        <div class="col-12">
+          <div class="btn">文本 <span class="badge bg-primary">主要</span></div>
+          <div class="btn">文本 <span class="badge bg-secondary">次要</span></div>
+          <div class="btn">文本 <span class="badge bg-success">绿色</span></div>
+          <div class="btn">文本 <span class="badge bg-info">蓝绿色</span></div>
+          <div class="btn">文本 <span class="badge bg-warning">黄色</span></div>
+          <div class="btn btn-primary">
+            文本 <span class="badge bg-danger">红色</span>
+          </div>
+          <div class="btn btn-danger">
+            文本 <span class="badge bg-dark">黑色</span>
+          </div>
+          <div class="btn btn-primary position-relative">
+            Inbox
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">99+</span>
+          </div>
+          <div class="btn btn-primary position-relative mx-3">
+            content
+            <span class=" rounded-circle position-absolute top-0 start-100 translate-middle bg-danger p-2">
+              <span class="visually-hidden">new alerts</span>
+            </span>
+          </div>
+        </div>
+        <div class="hstack">
+          <span class="badge text-bg-primary">Primary</span>
+          <span class="badge text-bg-secondary">Secondary</span>
+          <span class="badge text-bg-success">Success</span>
+          <span class="badge text-bg-danger">Danger</span>
+          <span class="badge text-bg-warning">Warning</span>
+          <span class="badge text-bg-info">Info</span>
+          <span class="badge text-bg-light">Light</span>
+          <span class="badge text-bg-dark">Dark</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="mt-5">
+      <h3>progress 进度条</h3>
+      <div class="row">
+        <div class="col-3">
+          <div class="progress">
+            <div class="progress-bar" style="width: 70%">70%</div>
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="progress" style="height: 10px">
+            <div class="progress-bar" style="height: 10px; width: 70%">70%</div>
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="progress" style="height: 30px">
+            <div class="progress-bar progress-bar-striped" style="height: 30px; width: 70%">
+              70%
+            </div>
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="progress">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 70%">
+              70%
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="progress">
+            <div class="progress-bar bg-success" style="width: 30%">视频</div>
+            <div class="progress-bar bg-warning" style="width: 20%">照片</div>
+            <div class="progress-bar bg-danger" style="width: 15%">文本</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="mt-5">
+      <h3>spinner 加载器</h3>
+      <div class="row g-3">
+        <div class="col-auto">
+          <span class="spinner-border"></span>
+        </div>
+        <div class="col-auto">
+          <span class="spinner-border text-primary"></span>
+        </div>
+        <div class="col-auto">
+          <span class="spinner-border text-secondary"></span>
+        </div>
+        <div class="col-auto">
+          <span class="spinner-border text-success"></span>
+        </div>
+        <div class="col-auto">
+          <span class="spinner-grow"></span>
+        </div>
+        <div class="col-auto">
+          <span class="spinner-grow text-primary"></span>
+        </div>
+        <div class="col-auto">
+          <span class="spinner-grow text-secondary"></span>
+        </div>
+        <div class="col-auto">
+          <span class="spinner-grow text-success"></span>
+        </div>
+        <div class="col-auto">
+          <span class="spinner-border spinner-border-sm"></span>
+        </div>
+        <div class="col-auto">
+          <span class="spinner-grow spinner-grow-sm"></span>
+        </div>
+        <div class="col-auto">
+          <div class="btn btn-primary">
+            <span class="spinner-border spinner-border-sm"></span>
+            等待...
+          </div>
+        </div>
+        <div class="col-auto">
+          <div class="btn btn-primary disabled">
+            <span class="spinner-border spinner-border-sm"></span>
+            等待...
+          </div>
+        </div>
+        <div class="col-auto">
+          <div class="btn btn-primary disabled">
+            <span class="spinner-grow spinner-grow-sm"></span>
+            等待...
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="mt-5">
+      <h3>分页 / breadcrumb 面包屑</h3>
+      <div class="row">
+        <div class="col-auto">
+          <ul class="pagination">
+            <li class="page-item disabled">
+              <a href="#" class="page-link">上一页</a>
+            </li>
+            <li class="page-item active">
+              <a href="#" class="page-link">1</a>
+            </li>
+            <li class="page-item"><a href="#" class="page-link">2</a></li>
+            <li class="page-item"><a href="#" class="page-link">3</a></li>
+            <li class="page-item">
+              <a href="#" class="page-link">下一页</a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-auto">
+          <ul class="pagination pagination-lg">
+            <li class="page-item disabled">
+              <a href="#" class="page-link">上一页</a>
+            </li>
+            <li class="page-item active">
+              <a href="#" class="page-link">1</a>
+            </li>
+            <li class="page-item"><a href="#" class="page-link">2</a></li>
+            <li class="page-item"><a href="#" class="page-link">3</a></li>
+            <li class="page-item">
+              <a href="#" class="page-link">下一页</a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-auto">
+          <ul class="pagination pagination-sm">
+            <li class="page-item disabled">
+              <a href="#" class="page-link">上一页</a>
+            </li>
+            <li class="page-item active">
+              <a href="#" class="page-link">1</a>
+            </li>
+            <li class="page-item"><a href="#" class="page-link">2</a></li>
+            <li class="page-item"><a href="#" class="page-link">3</a></li>
+            <li class="page-item">
+              <a href="#" class="page-link">下一页</a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-auto">
+          <ul class="pagination">
+            <li class="page-item">
+              <a class="page-link" href="#"><span>&laquo;</span></a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+              <a class="page-link" href="#"><span>&raquo;</span></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-auto">
+          <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">媒体</a></li>
+            <li class="breadcrumb-item"><a href="#">照片</a></li>
+            <li class="breadcrumb-item active"><a href="#">文本</a></li>
+          </ul>
+        </div>
+        <div class="col-auto">
+          <ol class="breadcrumb" style="--bs-breadcrumb-divider: '>';">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Library</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="mt-5">
+      <h3>list group</h3>
+      <div class="row">
+        <div class="col-2">
+          <ul class="list-group">
+            <li class="list-group-item list-group-item-action active">
+              第一项
+            </li>
+            <li class="list-group-item list-group-item-action">第二项</li>
+            <li class="list-group-item list-group-item-action">第三项</li>
+          </ul>
+        </div>
+        <div class="col-4">
+          <ul class="list-group list-group-horizontal">
+            <li class="list-group-item list-group-item-action active">
+              第一项
+            </li>
+            <li class="list-group-item list-group-item-action">第二项</li>
+            <li class="list-group-item list-group-item-action">第三项</li>
+          </ul>
+        </div>
+        <div class="col-3">
+          <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center active">
+              第一项
+              <span class="badge bg-primary rounded-pill">99</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              第二项
+              <span class="badge bg-primary rounded-pill">99</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              第三项
+              <span class="badge bg-primary rounded-pill">99</span>
+            </li>
+          </ul>
+        </div>
+        <div class="col-12">
+          <table class="table table-bordered table-hover table-sm">
+            <thead>
+              <tr class="table-primary">
+                <th class="col-3">class</th>
+                <th class="col-auto">说明</th>
+                <th>演示</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>list-group > list-group-item</td>
+                <td>基本样式</td>
+              </tr>
+              <tr>
+                <td>list-group-item-action</td>
+                <td>子tag 悬停时灰色背景</td>
+              </tr>
+              <tr>
+                <td>list-group-flush</td>
+                <td>主tag 删除边框和圆角</td>
+              </tr>
+              <tr>
+                <td>list-group-numbered</td>
+                <td>主tag 前面带有数字的列表项</td>
+              </tr>
+              <tr>
+                <td>list-group-horizontal</td>
+                <td>主tag 水平</td>
+              </tr>
+              <tr>
+                <td>list-group-item-[primary|secondary|...]</td>
+                <td>子tag</td>
+              </tr>
+              <tr>
+                <td>active disabled</td>
+                <td>子tag</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="mt-5">
+      <h3>card 带有图文的组合 带有页眉页脚功能</h3>
+      <div class="row">
+        <div class="col-3">
+          <div class="card">
+            <img class="card-img-top" src="./img/1-human.jpg" alt="img" />
+            <div class="card-body">
+              <h4 class="card-title">name</h4>
+              <p class="card-text">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Expedita minima eius sit tempore officiis, voluptatum fugit
+              </p>
+              <a href="#" class="btn btn-primary">查看个人资料</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">name</h4>
+              <p class="card-text">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Expedita minima eius sit tempore officiis, voluptatum fugit
+              </p>
+              <a href="#" class="btn btn-primary">查看个人资料</a>
+            </div>
+            <img src="./img/1-human.jpg" alt="img" />
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="card">
+            <img class="card-img-bottom" src="./img/1-human.jpg" alt="img" />
+            <div class="card-body card-img-overlay">
+              <h4 class="card-title">name</h4>
+              <div class="card-text">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Expedita minima eius sit tempore officiis, voluptatum fugit
+              </div>
+              <a href="#" class="btn btn-primary">查看个人资料</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-12">
+          <table class="table table-bordered table-hover table-sm">
+            <thead>
+              <tr class="table-primary">
+                <th class="col-4">class</th>
+                <th class="col-auto">说明</th>
+                <th>演示</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>card > [card-header|card-body|card-footer]</td>
+                <td>基本样式</td>
+              </tr>
+              <tr>
+                <td>card-body > [card-title|card-text]</td>
+                <td>基本样式</td>
+              </tr>
+              <tr>
+                <td>card-img-top card-img-bottom</td>
+                <td>实测 不能影响图像局部 可以不用</td>
+              </tr>
+              <tr>
+                <td>card-img-overlay</td>
+                <td>文字附加在图像上面</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- 此处下拉菜单写在button内部 和上面的案例不一样 todo -->
+    <section class="mt-5">
+      <h3>下拉菜单 dropdown</h3>
+      <div class="row">
+        <div class="col-1">
+          <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown">
+              下拉按钮
+            </button>
+            <button class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown">
+              下拉按钮
+            </button>
+            <ul class="dropdown-menu bg-dark">
+              <li><a class="dropdown-item text-light" href="#">按钮1</a></li>
+              <li><a class="dropdown-item text-light" href="#">按钮2</a></li>
+              <li><a class="dropdown-item text-light" href="#">按钮3</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-1">
+          <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+              下拉按钮
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">按钮1</a></li>
+              <li><a class="dropdown-item active" href="#">按钮2</a></li>
+              <li><a class="dropdown-item disabled" href="#">按钮3</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-1">
+          <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+              下拉按钮
+            </button>
+            <ul class="dropdown-menu">
+              <li><a href="#" class="dropdown-item">按钮1</a></li>
+              <li><a href="#" class="dropdown-item">按钮2</a></li>
+              <li>
+                <hr class="dropdown-divider" />
+              </li>
+              <li><a href="#" class="dropdown-item">按钮3</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-1">
+          <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+              下拉按钮
+            </button>
+            <ul class="dropdown-menu">
+              <li>
+                <h5 class="dropdown-header">dropdown header - 1</h5>
+              </li>
+              <li><a href="#" class="dropdown-item">按钮1</a></li>
+              <li><a href="#" class="dropdown-item">按钮2</a></li>
+              <li>
+                <h5 class="dropdown-header">dropdown header - 2</h5>
+              </li>
+              <li><a href="#" class="dropdown-item">按钮3</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-1">
+          <div class="dropdown dropend">
+            <button class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+              右侧弹出
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">按钮1</a></li>
+              <li><a class="dropdown-item" href="#">按钮2</a></li>
+              <li><a class="dropdown-item" href="#">按钮3</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-1">
+          <div class="dropdown dropstart">
+            <button class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+              左侧弹出
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">按钮1</a></li>
+              <li><a class="dropdown-item" href="#">按钮2</a></li>
+              <li><a class="dropdown-item" href="#">按钮3</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-1">
+          <div class="dropdown dropup">
+            <button class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+              上方弹出
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">按钮1</a></li>
+              <li><a class="dropdown-item" href="#">按钮2</a></li>
+              <li><a class="dropdown-item" href="#">按钮3</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-1">
+          <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+              右侧对齐
+            </button>
+            <ul class="dropdown-menu dropdown-menu-md-end">
+              <li><a class="dropdown-item" href="#">按钮1</a></li>
+              <li><a class="dropdown-item" href="#">按钮2</a></li>
+              <li><a class="dropdown-item" href="#">按钮3</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-1">
+          <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+              下拉按钮
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">按钮1</a></li>
+              <li><a class="dropdown-item" href="#">按钮2</a></li>
+              <li><a class="dropdown-item" href="#">按钮3</a></li>
+              <li><a href="#" class="dropdown-item-text">链接</a></li>
+              <li><span class="dropdown-item-text">文本</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="mt-5">
+      <h3>折叠面板 accordion</h3>
+      <div class="row">
+        <div class="col-3">
+          <div data-bs-toggle="collapse" data-bs-target="#demo">
+            <button class="btn btn-primary">春日</button>
+            <div class="collapse" id="demo">
+              <p>胜日寻芳泗水滨，无边光景一时新。</p>
+              <p>等闲识得东风面，万紫千红总是春。</p>
+            </div>
+          </div>
+        </div>
+        <div class="col3">
+          <div data-bs-toggle="collapse" data-bs-target="#demo2">
+            <button class="btn btn-primary">春日</button>
+            <div class="collapse show" id="demo2">
+              <p>胜日寻芳泗水滨，无边光景一时新。</p>
+              <p>等闲识得东风面，万紫千红总是春。</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div id="accordion">
+            <div class="card">
+              <div class="card-header">
+                <a href="#" class="btn" data-bs-toggle="collapse" data-bs-target="#demo3">折叠1</a>
+              </div>
+              <div id="demo3" class="collapse" data-bs-parent="#accordion">
+                <div class="card-body">
+                  <h3>春日</h3>
+                  <p>胜日寻芳泗水滨，无边光景一时新。</p>
+                  <p>等闲识得东风面，万紫千红总是春。</p>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <a href="#" class="btn" data-bs-toggle="collapse" data-bs-target="#demo4">折叠2</a>
+              </div>
+              <div id="demo4" class="collapse" data-bs-parent="#accordion">
+                <div class="card-body">
+                  <h3>春日</h3>
+                  <p>胜日寻芳泗水滨，无边光景一时新。</p>
+                  <p>等闲识得东风面，万紫千红总是春。</p>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <a href="#" class="btn" data-bs-toggle="collapse" data-bs-target="#demo5">折叠3</a>
+              </div>
+              <div id="demo5" class="collapse" data-bs-parent="#accordion">
+                <div class="card-body">
+                  <h3>春日</h3>
+                  <p>胜日寻芳泗水滨，无边光景一时新。</p>
+                  <p>等闲识得东风面，万紫千红总是春。</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="mt-5">
+      <h3>导航</h3>
+      <div class="row">
+        <div class="col-2">
+          <ul class="nav">
+            <li class="nav-item"><a href="#" class="nav-link">链接1</a></li>
+            <li class="nav-item">
+              <a href="#" class="nav-link disabled">链接2</a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-2">
+          <ul class="nav flex-column">
+            <li class="nav-item"><a href="#" class="nav-link">链接1</a></li>
+            <li class="nav-item">
+              <a href="#" class="nav-link disabled">链接2</a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-3">
+          <ul class="nav nav-tabs">
+            <li class="nav-item">
+              <a href="#" class="nav-link active">链接1</a>
+            </li>
+            <li class="nav-item"><a href="#" class="nav-link">链接2</a></li>
+            <li class="nav-item">
+              <a href="#" class="nav-link disabled">链接3</a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-3">
+          <ul class="nav nav-pills">
+            <li class="nav-item">
+              <a href="#" class="nav-link active">链接1</a>
+            </li>
+            <li class="nav-item"><a href="#" class="nav-link">链接2</a></li>
+            <li class="nav-item">
+              <a href="#" class="nav-link disabled">链接3</a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-3">
+          <ul class="nav nav-tabs nav-justified">
+            <li class="nav-item">
+              <a href="#" class="nav-link active">链接1</a>
+            </li>
+            <li class="nav-item"><a href="#" class="nav-link">链接2</a></li>
+            <li class="nav-item">
+              <a href="#" class="nav-link disabled">链接3</a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-4">
+          <ul class="nav nav-tabs">
+            <li class="nav-item">
+              <a href="#" class="nav-link active" data-bs-toggle="tab" data-bs-target="#nav1">春日</a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link" data-bs-toggle="tab" data-bs-target="#nav2">初夏</a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link" data-bs-toggle="tab" data-bs-target="#nav3">山行</a>
+            </li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane container active" id="nav1">
+              <h4>春日</h4>
+              <p>胜日寻芳泗水滨，无边光景一时新。</p>
+              <p>等闲识得东风面，万紫千红总是春。</p>
+            </div>
+            <div class="tab-pane container fade" id="nav2">
+              <h4>初夏绝句</h4>
+              <p>纷纷红紫已成尘，布谷声中夏令新。</p>
+              <p>夹路桑麻行不尽，始知身是太平人。</p>
+            </div>
+            <div class="tab-pane container fade" id="nav3">
+              <h4>山行</h4>
+              <p>远上寒山石径斜，白云生处有人家。</p>
+              <p>停车坐爱枫林晚，霜叶红于二月花。</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <ul class="nav nav-pills">
+            <li class="nav-item">
+              <a href="#" class="nav-link active" data-bs-toggle="tab" data-bs-target="#nav11">春日</a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link" data-bs-toggle="tab" data-bs-target="#nav12">初夏</a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link" data-bs-toggle="tab" data-bs-target="#nav13">山行</a>
+            </li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane container active" id="nav11">
+              <h4>春日</h4>
+              <p>胜日寻芳泗水滨，无边光景一时新。</p>
+              <p>等闲识得东风面，万紫千红总是春。</p>
+            </div>
+            <div class="tab-pane container fade" id="nav12">
+              <h4>初夏绝句</h4>
+              <p>纷纷红紫已成尘，布谷声中夏令新。</p>
+              <p>夹路桑麻行不尽，始知身是太平人。</p>
+            </div>
+            <div class="tab-pane container fade" id="nav13">
+              <h4>山行</h4>
+              <p>远上寒山石径斜，白云生处有人家。</p>
+              <p>停车坐爱枫林晚，霜叶红于二月花。</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <ul class="nav nav-pills">
+            <li class="nav-item">
+              <a class="nav-link active" href="#">Active</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button">Dropdown</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item" href="#">Separated link</a></li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled">Disabled</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="mt-5">
+      <h3>导航栏</h3>
+      <div class="navbar navbar-expand-sm bg-light justify-content-start navbar-light">
+        <a href="#" class="navbar-brand " style="width: 10%;">
+          <img src="./img/1-human.jpg" alt="img" class="rounded-circle img-fluid" />
+        </a>
+        <ul class="navbar-nav">
+          <li class="nav-item"><a href="#" class="nav-link">链接1</a></li>
+          <li class="nav-item"><a href="#" class="nav-link">链接2</a></li>
+          <li class="nav-item"><a href="#" class="nav-link">链接3</a></li>
+        </ul>
+      </div>
+      <div class="navbar navbar-expand-sm bg-dark justify-content-start navbar-dark">
+        <a href="#" class="navbar-brand " style="width: 10%;">
+          <img src="./img/1-human.jpg" alt="img" class="rounded-circle img-fluid" />
+        </a>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a href="#" class="nav-link active">链接1</a>
+          </li>
+          <li class="nav-item"><a href="#" class="nav-link">链接2</a></li>
+          <li class="nav-item">
+            <a href="#" class="nav-link disabled">链接3</a>
+          </li>
+        </ul>
+      </div>
+      <div class="navbar navbar-expand-sm bg-dark navbar-dark mt-1 px-3">
+        <a href="#" class="navbar-brand">Logo</a>
+        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#collapseNavBar">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapseNavBar">
+          <ul class="navbar-nav">
+            <li class="nav-item"><a href="#" class="nav-link">链接</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">链接</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">链接</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="navbar navbar-expand-sm bg-dark navbar-dark mt-1 px-3">
+        <a href="#" class="navbar-brand">Logo</a>
+        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#collapseNavBar">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapseNavBar">
+          <ul class="navbar-nav">
+            <li class="nav-item"><a href="#" class="nav-link">链接</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">链接</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">链接</a></li>
+            <li class="nav-item">
+              <div class="dropdown">
+                <a class="nav-link dropdown-toggle btn" data-bs-toggle="dropdown">下拉按钮</a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#">按钮1</a></li>
+                  <li><a class="dropdown-item" href="#">按钮2</a></li>
+                  <li><a class="dropdown-item" href="#">按钮3</a></li>
+                  <li><a href="#" class="dropdown-item-text">链接</a></li>
+                  <li><span class="dropdown-item-text">文本</span></li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="navbar navbar-expand-sm bg-dark navbar-dark mt-1 px-3">
+        <a href="#" class="navbar-brand">Logo</a>
+        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#collapseNavBar">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapseNavBar">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item"><a href="#" class="nav-link">链接</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">链接</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">链接</a></li>
+          </ul>
+          <form class="d-flex">
+            <input type="text" class="form-control me-2" placeholder="search" />
+            <button class="btn btn-primary">Search</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="navbar navbar-expand-lg bg-secondary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Navbar</a>
+          <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                  Dropdown
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#">Action</a></li>
+                  <li><a class="dropdown-item" href="#">Another action</a></li>
+                  <li>
+                    <hr class="dropdown-divider">
+                  </li>
+                  <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link disabled">Disabled</a>
+              </li>
+            </ul>
+            <form class="d-flex" role="search">
+              <input class="form-control me-2" type="search" placeholder="Search">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <nav class="navbar bg-body-tertiary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Offcanvas navbar</a>
+          <button class="navbar-toggler" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Offcanvas</h5>
+              <button class="btn-close" data-bs-dismiss="offcanvas"></button>
+            </div>
+            <div class="offcanvas-body">
+              <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                <li class="nav-item">
+                  <a class="nav-link active" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                    Dropdown
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                    <li>
+                      <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                  </ul>
+                </li>
+              </ul>
+              <form class="d-flex mt-3" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </section>
+
+    <section class="mt-5">
+      <h3>offcanvas 侧边导航栏</h3>
+      <div class="row">
+        <div class="col-2">
+          <button class="btn btn-primary" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample">
+            Button with data-bs-target
+          </button>
+          <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title" id="offcanvasExampleLabel">Offcanvas</h5>
+              <button class="btn-close" data-bs-dismiss="offcanvas"></button>
+            </div>
+            <div class="offcanvas-body">
+              <div>
+                Some text as placeholder. In real life you can have the elements you have chosen. Like, text, images,
+                lists, etc.
+              </div>
+              <div class="dropdown mt-3">
+                <button class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">
+                  Dropdown button
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#">Action</a></li>
+                  <li><a class="dropdown-item" href="#">Another action</a></li>
+                  <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-2">
+          <button class="btn btn-primary" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling">Enable body
+            scrolling</button>
+          <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
+            id="offcanvasScrolling">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Offcanvas with body scrolling</h5>
+              <button class="btn-close" data-bs-dismiss="offcanvas"></button>
+            </div>
+            <div class="offcanvas-body">
+              <p>Try scrolling the rest of the page to see this option in action.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-2">
+          <button class="btn btn-primary" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions">Enable
+            both scrolling &
+            backdrop</button>
+          <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Backdrop with scrolling</h5>
+              <button class="btn-close" data-bs-dismiss="offcanvas"></button>
+            </div>
+            <div class="offcanvas-body">
+              <p>Try scrolling the rest of the page to see this option in action.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12">
+        <table class="table table-bordered table-hover table-sm">
+          <thead>
+            <tr class="table-primary">
+              <th class="col-3">class</th>
+              <th class="col-auto">说明</th>
+              <th>演示</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>data-bs-scroll="true"</td>
+              <td>.offcanvas 添加后， 弹出侧边栏后body依旧可滚动</td>
+            </tr>
+            <tr>
+              <td>.offcanvas-[start|end|top|bottom]</td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="mt-5">
+      <h3>modal</h3>
+      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+        Open Modal
+      </button>
+      <div class="modal fade" id="myModal">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Modal heading</h4>
+              <button class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+              Aperiam eius quos vitae quas amet voluptatibus rem officia,
+              iure, neque at eos! Incidunt alias magnam praesentium obcaecati
+              recusandae neque laudantium minima!
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-danger" data-bs-dismiss="modal">
+                关闭
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <table class="table table-bordered table-hover table-sm">
+          <thead>
+            <tr class="table-primary">
+              <th class="col-3">class</th>
+              <th class="col-auto">说明</th>
+              <th>演示</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>modal-fullscreen</td>
+              <td>全屏</td>
+            </tr>
+            <tr>
+              <td>modal-dialog-centered</td>
+              <td>垂直水平居中</td>
+            </tr>
+            <tr>
+              <td>modal-dialog-scrollable</td>
+              <td>内部滚动条</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="mt-5">
+      <h3>popover</h3>
+      <div class="row">
+        <div class="col-2">
+          <button type="button" class="btn btn-primary" data-bs-trigger="focus" data-bs-toggle="popover" title="弹出框标题"
+            data-bs-content="弹出框内的一些内容">
+            Toggle popover
+          </button>
+        </div>
+        <div class="col-1">
+          <a href="javascript:void(0);" title="标题" data-bs-toggle="popover" data-bs-placement="top"
+            data-content="Content">Top</a>
+        </div>
+        <div class="col-1">
+          <a href="javascript:void(0);" title="标题" data-bs-toggle="popover" data-bs-placement="bottom"
+            data-content="Content">Bottom</a>
+        </div>
+        <div class="col-1">
+          <a href="javascript:void(0);" title="标题" data-bs-toggle="popover" data-bs-placement="left"
+            data-content="Content">Left</a>
+        </div>
+        <div class="col-1">
+          <a href="javascript:void(0);" title="标题" data-bs-toggle="popover" data-bs-placement="right"
+            data-content="Content">Right</a>
+        </div>
+        <div class="col-2">
+          <a type="button" class="" data-bs-trigger="hover" data-bs-toggle="popover" title="弹出框标题"
+            data-bs-content="弹出框内的一些内容">Toggle popover</a>
+        </div>
+
+        <div class="col-12">
+          <table class="table table-bordered table-hover table-sm">
+            <thead>
+              <tr class="table-primary">
+                <th class="col-3">class</th>
+                <th class="col-auto">说明</th>
+                <th>演示</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>ddata-bs-trigger="hover"</td>
+                <td>悬停触发</td>
+              </tr>
+              <tr>
+                <td>data-bs-trigger="focus"</td>
+                <td>点击其他自动关闭窗口</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="mt-5">
+      <h3>form 表单</h3>
+      <div class="row">
+        <div class="col-2">
+          <form>
+            <div>
+              <label for="email" class="form-label">电子邮件</label>
+              <input type="email" class="form-control" id="email" placeholder="请输入邮件地址" name="email" />
+            </div>
+            <div>
+              <label for="pwd" class="form-label">密码</label>
+              <input type="password" class="form-control" id="pwd" placeholder="请输入密码" name="pswd" />
+            </div>
+            <div class="form-check">
+              <label class="form-check-label">
+                <input type="checkbox" class="form-check-input" name="remember" />记住我
+              </label>
+            </div>
+            <button class="btn btn-primary" type="submit">提交</button>
+          </form>
+        </div>
+        <div class="col-3">
+          <form>
+            <div><label for="comment">评论：</label></div>
+            <div>
+              <textarea name="text" id="comment" cols="30" rows="10"></textarea>
+            </div>
+            <div>
+              <button class="btn btn-primary" type="submit">提交</button>
+            </div>
+          </form>
+        </div>
+        <div class="col-2">
+          <input type="text" class="form-control form-control-lg" placeholder="大型输入控件" />
+          <input type="text" class="form-control" placeholder="常规" />
+          <input type="text" class="form-control form-control-sm" placeholder="小型输入控件" />
+        </div>
+        <div class="col-2">
+          <input type="text" class="form-control" placeholder="常规" />
+          <input type="text" class="form-control" placeholder="禁用" disabled />
+          <input type="text" class="form-control" placeholder="只读" readonly />
+        </div>
+        <div class="col-2">
+          <input type="text" class="form-control-plaintext" placeholder="纯文本输入" />
+          <input type="text" class="form-control" placeholder="普通输入控件" />
+        </div>
+        <div class="col-2">
+          <p>着色器</p>
+          <input type="color" class="form-control form-control-color" value="#cccccc" />
+        </div>
+        <div class="col-2">
+          <label for="sel1" class="form-label">选择菜单（选择一项）：</label>
+          <select name="sellist1" id="sel1" class="form-select">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+          </select>
+          <label for="sel2" class="form-label">多选菜单（按住 ctrl 或 shift（或用鼠标拖动）可选择多个）：</label>
+          <select multiple name="sellist2" id="sel2" class="form-select">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+          </select>
+          <button class="btn btn-primary">提交</button>
+        </div>
+        <div class="col-2">
+          <label for="browser" class="form-label">请从列表中选择您的浏览器：</label>
+          <input type="text" class="form-control" list="browsers" name="browser" id="browser" />
+          <datalist id="browsers">
+            <option value="Edge"></option>
+            <option value="FireFox"></option>
+            <option value="Chrome"></option>
+            <option value="Opera"></option>
+            <option value="Safari"></option>
+          </datalist>
+        </div>
+        <div class="col-2">
+          <form action="">
+            <div class="form-check">
+              <input type="checkbox" id="check1" class="form-check-input" name="optoin1" value="v1" />
+              <label for="check1" class="form-check-label">复选1</label>
+            </div>
+            <div class="form-check">
+              <input type="checkbox" id="check2" class="form-check-input" name="optoin1" value="v1" checked />
+              <label for="check2" class="form-check-label">复选2</label>
+            </div>
+            <div class="form-check">
+              <input type="checkbox" id="check3" class="form-check-input" name="optoin1" value="v1" disabled />
+              <label for="check3" class="form-check-label">复选3</label>
+            </div>
+            <div class="form-check">
+              <input type="radio" class="form-check-input" id="radio1" name="optradio" value="option1" checked />
+              <label for="radio1" class="form-check-label">选项1</label>
+            </div>
+            <div class="form-check">
+              <input type="radio" class="form-check-input" id="radio2" name="optradio" value="option2" />
+              <label for="radio2" class="form-check-label">选项2</label>
+            </div>
+            <div class="form-check">
+              <input type="radio" class="form-check-input" id="radio3" name="optradio" value="option3" disabled />
+              <label for="radio3" class="form-check-label">选项3</label>
+            </div>
+          </form>
+        </div>
+        <div class="col-2">
+          <form action="">
+            <div class="form-check form-switch">
+              <input type="checkbox" class="form-check-input" id="mySwitch" name="darkmode" value="yes" checked />
+              <label for="mySwitch" class="form-check-label">深色模式</label>
+            </div>
+          </form>
+        </div>
+        <div class="col-2">
+          <form action="">
+            <label for="customRange" class="form-label">1-100 step1</label>
+            <input type="range" class="form-range" id="customRange" min="0" max="100" step="1" />
+          </form>
+        </div>
+        <div class="col-4">
+          <form action="">
+            <div class="input-group m-2">
+              <div class="input-group-text">@</div>
+              <input type="text" class="form-control" placeholder="用户名" />
+            </div>
+            <div class="input-group m-2">
+              <input type="text" class="form-control" placeholder="Email" />
+              <div class="input-group-text">@e.com</div>
+            </div>
+            <div class="input-group input-group-sm m-2">
+              <div class="input-group-text">小型</div>
+              <input type="text" class="form-control" placeholder="" />
+            </div>
+            <div class="input-group input-group-lg m-2">
+              <div class="input-group-text">大型</div>
+              <input type="text" class="form-control" placeholder="" />
+            </div>
+            <div class="input-group m-2">
+              <div class="input-group-text">人名</div>
+              <input type="text" class="form-control" placeholder="姓" />
+              <input type="text" class="form-control" placeholder="名" />
+            </div>
+            <div class="input-group m-2">
+              <div class="input-group-text">一</div>
+              <div class="input-group-text">二</div>
+              <div class="input-group-text">三</div>
+              <input type="text" class="form-control" />
+            </div>
+            <div class="input-group m-2">
+              <button class="btn btn-outline-primary">基础按钮</button>
+              <input type="text" class="form-control" placeholder="一些文本" />
+            </div>
+            <div class="input-group m-2">
+              <input type="text" class="form-control" placeholder="搜索" />
+              <button class="btn btn-success">Go</button>
+            </div>
+          </form>
+        </div>
+        <div class="col-4">
+          <div class="input-group m-2">
+            <button class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+              下拉按钮
+            </button>
+            <ul class="dropdown-menu">
+              <li class="dropdown-item" herf="javascript:void(0);">链接1</li>
+              <li class="dropdown-item" herf="javascript:void(0);">链接2</li>
+              <li class="dropdown-item" herf="javascript:void(0);">链接3</li>
+            </ul>
+            <input type="text" class="form-control" placeholder="用户名" />
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="form-floating m-2">
+            <input type="text" class="form-control" id="email" placeholder="" name="email" />
+            <label for="email">input必须在label前，input的placeholder必须</label>
+          </div>
+          <div class="form-floating m-2">
+            <select name="selist" id="sel1" class="form-select">
+              <option value="">1</option>
+              <option value="">2</option>
+              <option value="">3</option>
+              <option value="">4</option>
+            </select>
+            <label for="sel1" class="form-label">选择列表（选择一项）：</label>
+          </div>
+        </div>
+        <div class="col-4">
+          <form action="" class="was-validated m-2">
+            <div class="m-2">
+              <label for="uname" class="form-label">用户名</label>
+              <input type="text" class="form-control" id="uname" placeholder="请输入用户名" name="uname" required />
+              <div class="valid-feedback">有效的</div>
+              <div class="invalid-feedback">请填写此字段</div>
+            </div>
+            <div class="m-2">
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="myCheck" name="remember" required />
+                <label for="myCheck" class="form-check-label">我同意这些条款</label>
+                <div class="valid-feedback">有效的</div>
+                <div class="invalid-feedback">选中此复选框以继续</div>
+              </div>
+              <button class="btn btn-primary">提交</button>
+            </div>
+          </form>
+        </div>
+        <div class="col-4">
+          <form action="" class="needs-validated m-2">
+            <div class="m-2">
+              <label for="uname" class="form-label">用户名</label>
+              <input type="text" class="form-control" id="uname" placeholder="请输入用户名" name="uname" required />
+              <div class="valid-feedback">有效的</div>
+              <div class="invalid-feedback">请填写此字段</div>
+            </div>
+            <div class="m-2">
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="myCheck" name="remember" required />
+                <label for="myCheck" class="form-check-label">我同意这些条款</label>
+                <div class="valid-feedback">有效的</div>
+                <div class="invalid-feedback">选中此复选框以继续</div>
+              </div>
+              <button class="btn btn-primary">提交</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section class="mt-5">
+      <h3>浮动</h3>
+      <div class="clearfix w-50">
+        <img src="./img/1-human.jpg" class="col-12 col-md-6 float-md-end mb-3 ms-md-3" alt="...">
+        <p>
+          A paragraph of placeholder text. We're using it here to show the use of the clearfix class. We're adding quite
+          a few meaningless phrases here to demonstrate how the columns interact here with the floated image.
+        </p>
+        <p>
+          As you can see the paragraphs gracefully wrap around the floated image. Now imagine how this would look with
+          some actual content in here, rather than just this boring placeholder text that goes on and on, but actually
+          conveys no tangible information at. It simply takes up space and should not really be read.
+        </p>
+      </div>
+    </section>
+
+    <section class="mt-5">
+      <h3>Carousel 轮播</h3>
+      <div class="row">
+        <div class="col-4">
+          <div id="carouselExample" class="carousel slide">
+            <div class="carousel-indicators">
+              <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="0" class="active"></button>
+              <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="1"></button>
+              <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="2"></button>
+            </div>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="img/1-human.jpg" class="d-block w-100" alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="img/2-human.jpg" class="d-block w-100" alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="img/3-human.jpg" class="d-block w-100" alt="...">
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+              <span class="carousel-control-next-icon"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+        </div>
+        <div class="col-4">
+          <div id="carouselExample_2" class="carousel slide">
+            <div class="carousel-indicators">
+              <button type="button" data-bs-target="#carouselExample_2" data-bs-slide-to="0" class="active"></button>
+              <button type="button" data-bs-target="#carouselExample_2" data-bs-slide-to="1"></button>
+              <button type="button" data-bs-target="#carouselExample_2" data-bs-slide-to="2"></button>
+            </div>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="img/1-human.jpg" class="d-block w-100" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                  <h5>First slide label</h5>
+                  <p>Some representative placeholder content for the first slide.</p>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <img src="img/2-human.jpg" class="d-block w-100" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                  <h5>Second slide label</h5>
+                  <p>Some representative placeholder content for the second slide.</p>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <img src="img/3-human.jpg" class="d-block w-100" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                  <h5>Third slide label</h5>
+                  <p>Some representative placeholder content for the third slide.</p>
+                </div>
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample_2"
+              data-bs-slide="prev">
+              <span class="carousel-control-prev-icon"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample_2"
+              data-bs-slide="next">
+              <span class="carousel-control-next-icon"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+        </div>
+        <div class="col-4">
+          <div id="carouselExample3" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+              <button type="button" data-bs-target="#carouselExample3" data-bs-slide-to="0" class="active"></button>
+              <button type="button" data-bs-target="#carouselExample3" data-bs-slide-to="1"></button>
+              <button type="button" data-bs-target="#carouselExample3" data-bs-slide-to="2"></button>
+            </div>
+            <div class="carousel-inner">
+              <div class="carousel-item active" data-bs-interval="1000">
+                <img src="img/1-human.jpg" class="d-block w-100" alt="...">
+              </div>
+              <div class="carousel-item" data-bs-interval="2000">
+                <img src="img/2-human.jpg" class="d-block w-100" alt="...">
+              </div>
+              <div class="carousel-item" data-bs-interval="3000">
+                <img src="img/3-human.jpg" class="d-block w-100" alt="...">
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample3" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample3" data-bs-slide="next">
+              <span class="carousel-control-next-icon"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <table class="table table-bordered table-hover table-sm">
+        <thead>
+          <tr class="table-primary">
+            <th class="col-3">class</th>
+            <th class="col-auto">说明</th>
+            <th>演示</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>data-bs-ride="carousel"</td>
+            <td>.carousel 添加 data-bs-ride="carousel" 自动轮播</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="mt-5">
+      <h3>Scrollspy</h3>
+      not work todo
+      <div class="overflow-y-auto" style="height:10rem">
+      </div>
+    </section>
+
+    <section class="mt-5">
+      <h3>toast <span class="fs-6 lead">lightweight and easily customizable alert message.</span></h3>
+      <div class="row">
+        <div class="col-6">
+          <button type="button" class="btn btn-primary" id="liveToastBtn">Show live toast</button>
+          <div class="toast-container position-fixed bottom-0 end-0 p-3">
+            <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+              <div class="toast-header">
+                <img src="..." class="rounded me-2" alt="...">
+                <strong class="me-auto">Bootstrap</strong>
+                <small>11 mins ago</small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+              </div>
+              <div class="toast-body">
+                Hello, world! This is a toast message.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="toast fade show" role="alert">
+            <div class="toast-header">
+              <svg class="bd-placeholder-img rounded me-2" width="20" height="20" xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
+                <rect width="100%" height="100%" fill="#007aff"></rect>
+              </svg>
+              <strong class="me-auto">Bootstrap</strong>
+              <small>11 mins ago</small>
+              <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+              Hello, world! This is a toast message.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="mt-5">
+      <h3>其他</h3>
+      <table class="table table-bordered table-hover table-sm">
+        <thead>
+          <tr class="table-primary">
+            <th class="col-3">class</th>
+            <th class="col-auto">说明</th>
+            <th>演示</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>.clearfix</td>
+            <td>clear float</td>
+          </tr>
+          <tr>
+            <td>icon 其他超链接样式</td>
+            <td>todo</td>
+          </tr>
+          <tr>
+            <td>.vr</td>
+            <td>竖直线使用div， 效果同hr标签</td>
+          </tr>
+          <tr>
+            <td>.shadow .shadow-none .shadow-[md|lg]</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </div>
+
+  <script src="./public/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // 初始化bootstrap的tips
+    var tooltipTriggerList = [].slice.call(
+      document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    )
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+  </script>
+
+  <script>
+    // 初始化bootstrap的popover
+    var popoverTriggerList = [].slice.call(
+      document.querySelectorAll('[data-bs-toggle="popover"]')
+    )
+    var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+      return new bootstrap.Popover(popoverTriggerEl)
+    })
+  </script>
+
+  <script>
+    // 初始化toast
+    const toastTrigger = document.getElementById('liveToastBtn')
+    const toastLiveExample = document.getElementById('liveToast')
+
+    if (toastTrigger) {
+      const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+      toastTrigger.addEventListener('click', () => {
+        toastBootstrap.show()
+      })
+    }
+  </script>
+</body>
+
+</html>

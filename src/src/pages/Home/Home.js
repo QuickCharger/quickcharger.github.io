@@ -21,6 +21,7 @@ function Home () {
             { content: 'Css', jumpTo: '/tutor/css' },
             { content: 'Effect', jumpTo: '/tutor/effect' },
             { content: 'Bootstrap5', jumpTo: '/tutor/bootstrap5' },
+            { content: 'Libevent', jumpTo: '/tutor/libevent' },
           ].map((item, idx) => {
             return <Button key={item.content} sx={{ my: 2, color: 'white', display: 'block' }} onClick={() => { navigate(item.jumpTo) }}>{item.content}</Button>
           })}
@@ -41,7 +42,7 @@ function Home () {
                 { header: 'socket', desc: 'tcp、ip层的数据封装要写 建立链接时的数据同步也就是三次握手要写 数据传输阶段的包同步过程要写 断开链接时的数据同步也就是四次握手要写' },
                 { header: 'c++多线程', desc: '创建 销毁 通信 信息量' },
                 { header: 'c++锁', desc: '常见互斥量 锁 常见问题解决方法' },
-                { header: '', desc: '' },
+                { header: 'libevent', desc: 'libevent的翻译' },
               ].map((item, idx) => {
                 return (
                   <Grid item xs={3}>

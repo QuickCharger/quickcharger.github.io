@@ -1,0 +1,1205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<meta name="generator" content="AsciiDoc 10.1.2" />
+<title>Using the built-in HTTP server</title>
+<style type="text/css">
+/* Shared CSS for AsciiDoc xhtml11 and html5 backends */
+
+/* Default font. */
+body {
+  font-family: Georgia,serif;
+}
+
+/* Title font. */
+h1, h2, h3, h4, h5, h6,
+div.title, caption.title,
+thead, p.table.header,
+#toctitle,
+#author, #revnumber, #revdate, #revremark,
+#footer {
+  font-family: Arial,Helvetica,sans-serif;
+}
+
+body {
+  margin: 1em 5% 1em 5%;
+}
+
+a {
+  color: blue;
+  text-decoration: underline;
+}
+a:visited {
+  color: fuchsia;
+}
+
+em {
+  font-style: italic;
+  color: navy;
+}
+
+strong {
+  font-weight: bold;
+  color: #083194;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #527bbd;
+  margin-top: 1.2em;
+  margin-bottom: 0.5em;
+  line-height: 1.3;
+}
+
+h1, h2, h3 {
+  border-bottom: 2px solid silver;
+}
+h2 {
+  padding-top: 0.5em;
+}
+h3 {
+  float: left;
+}
+h3 + * {
+  clear: left;
+}
+h5 {
+  font-size: 1.0em;
+}
+
+div.sectionbody {
+  margin-left: 0;
+}
+
+hr {
+  border: 1px solid silver;
+}
+
+p {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+ul, ol, li > p {
+  margin-top: 0;
+}
+ul > li     { color: #aaa; }
+ul > li > * { color: black; }
+
+.monospaced, code, pre {
+  font-family: "Courier New", Courier, monospace;
+  font-size: inherit;
+  color: navy;
+  padding: 0;
+  margin: 0;
+}
+pre {
+  white-space: pre-wrap;
+}
+
+#author {
+  color: #527bbd;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+#email {
+}
+#revnumber, #revdate, #revremark {
+}
+
+#footer {
+  font-size: small;
+  border-top: 2px solid silver;
+  padding-top: 0.5em;
+  margin-top: 4.0em;
+}
+#footer-text {
+  float: left;
+  padding-bottom: 0.5em;
+}
+#footer-badges {
+  float: right;
+  padding-bottom: 0.5em;
+}
+
+#preamble {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+div.imageblock, div.exampleblock, div.verseblock,
+div.quoteblock, div.literalblock, div.listingblock, div.sidebarblock,
+div.admonitionblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+div.admonitionblock {
+  margin-top: 2.0em;
+  margin-bottom: 2.0em;
+  margin-right: 10%;
+  color: #606060;
+}
+
+div.content { /* Block element content. */
+  padding: 0;
+}
+
+/* Block element titles. */
+div.title, caption.title {
+  color: #527bbd;
+  font-weight: bold;
+  text-align: left;
+  margin-top: 1.0em;
+  margin-bottom: 0.5em;
+}
+div.title + * {
+  margin-top: 0;
+}
+
+td div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content + div.title {
+  margin-top: 0.0em;
+}
+
+div.sidebarblock > div.content {
+  background: #ffffee;
+  border: 1px solid #dddddd;
+  border-left: 4px solid #f0f0f0;
+  padding: 0.5em;
+}
+
+div.listingblock > div.content {
+  border: 1px solid #dddddd;
+  border-left: 5px solid #f0f0f0;
+  background: #f8f8f8;
+  padding: 0.5em;
+}
+
+div.quoteblock, div.verseblock {
+  padding-left: 1.0em;
+  margin-left: 1.0em;
+  margin-right: 10%;
+  border-left: 5px solid #f0f0f0;
+  color: #888;
+}
+
+div.quoteblock > div.attribution {
+  padding-top: 0.5em;
+  text-align: right;
+}
+
+div.verseblock > pre.content {
+  font-family: inherit;
+  font-size: inherit;
+}
+div.verseblock > div.attribution {
+  padding-top: 0.75em;
+  text-align: left;
+}
+/* DEPRECATED: Pre version 8.2.7 verse style literal block. */
+div.verseblock + div.attribution {
+  text-align: left;
+}
+
+div.admonitionblock .icon {
+  vertical-align: top;
+  font-size: 1.1em;
+  font-weight: bold;
+  text-decoration: underline;
+  color: #527bbd;
+  padding-right: 0.5em;
+}
+div.admonitionblock td.content {
+  padding-left: 0.5em;
+  border-left: 3px solid #dddddd;
+}
+
+div.exampleblock > div.content {
+  border-left: 3px solid #dddddd;
+  padding-left: 0.5em;
+}
+
+div.imageblock div.content { padding-left: 0; }
+span.image img { border-style: none; vertical-align: text-bottom; }
+a.image:visited { color: white; }
+
+dl {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+dt {
+  margin-top: 0.5em;
+  margin-bottom: 0;
+  font-style: normal;
+  color: navy;
+}
+dd > *:first-child {
+  margin-top: 0.1em;
+}
+
+ul, ol {
+    list-style-position: outside;
+}
+ol.arabic {
+  list-style-type: decimal;
+}
+ol.loweralpha {
+  list-style-type: lower-alpha;
+}
+ol.upperalpha {
+  list-style-type: upper-alpha;
+}
+ol.lowerroman {
+  list-style-type: lower-roman;
+}
+ol.upperroman {
+  list-style-type: upper-roman;
+}
+
+div.compact ul, div.compact ol,
+div.compact p, div.compact p,
+div.compact div, div.compact div {
+  margin-top: 0.1em;
+  margin-bottom: 0.1em;
+}
+
+tfoot {
+  font-weight: bold;
+}
+td > div.verse {
+  white-space: pre;
+}
+
+div.hdlist {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+div.hdlist tr {
+  padding-bottom: 15px;
+}
+dt.hdlist1.strong, td.hdlist1.strong {
+  font-weight: bold;
+}
+td.hdlist1 {
+  vertical-align: top;
+  font-style: normal;
+  padding-right: 0.8em;
+  color: navy;
+}
+td.hdlist2 {
+  vertical-align: top;
+}
+div.hdlist.compact tr {
+  margin: 0;
+  padding-bottom: 0;
+}
+
+.comment {
+  background: yellow;
+}
+
+.footnote, .footnoteref {
+  font-size: 0.8em;
+}
+
+span.footnote, span.footnoteref {
+  vertical-align: super;
+}
+
+#footnotes {
+  margin: 20px 0 20px 0;
+  padding: 7px 0 0 0;
+}
+
+#footnotes div.footnote {
+  margin: 0 0 5px 0;
+}
+
+#footnotes hr {
+  border: none;
+  border-top: 1px solid silver;
+  height: 1px;
+  text-align: left;
+  margin-left: 0;
+  width: 20%;
+  min-width: 100px;
+}
+
+div.colist td {
+  padding-right: 0.5em;
+  padding-bottom: 0.3em;
+  vertical-align: top;
+}
+div.colist td img {
+  margin-top: 0.3em;
+}
+
+@media print {
+  #footer-badges { display: none; }
+}
+
+#toc {
+  margin-bottom: 2.5em;
+}
+
+#toctitle {
+  color: #527bbd;
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-top: 1.0em;
+  margin-bottom: 0.1em;
+}
+
+div.toclevel0, div.toclevel1, div.toclevel2, div.toclevel3, div.toclevel4 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+div.toclevel2 {
+  margin-left: 2em;
+  font-size: 0.9em;
+}
+div.toclevel3 {
+  margin-left: 4em;
+  font-size: 0.9em;
+}
+div.toclevel4 {
+  margin-left: 6em;
+  font-size: 0.9em;
+}
+
+span.aqua { color: aqua; }
+span.black { color: black; }
+span.blue { color: blue; }
+span.fuchsia { color: fuchsia; }
+span.gray { color: gray; }
+span.green { color: green; }
+span.lime { color: lime; }
+span.maroon { color: maroon; }
+span.navy { color: navy; }
+span.olive { color: olive; }
+span.purple { color: purple; }
+span.red { color: red; }
+span.silver { color: silver; }
+span.teal { color: teal; }
+span.white { color: white; }
+span.yellow { color: yellow; }
+
+span.aqua-background { background: aqua; }
+span.black-background { background: black; }
+span.blue-background { background: blue; }
+span.fuchsia-background { background: fuchsia; }
+span.gray-background { background: gray; }
+span.green-background { background: green; }
+span.lime-background { background: lime; }
+span.maroon-background { background: maroon; }
+span.navy-background { background: navy; }
+span.olive-background { background: olive; }
+span.purple-background { background: purple; }
+span.red-background { background: red; }
+span.silver-background { background: silver; }
+span.teal-background { background: teal; }
+span.white-background { background: white; }
+span.yellow-background { background: yellow; }
+
+span.big { font-size: 2em; }
+span.small { font-size: 0.6em; }
+
+span.underline { text-decoration: underline; }
+span.overline { text-decoration: overline; }
+span.line-through { text-decoration: line-through; }
+
+div.unbreakable { page-break-inside: avoid; }
+
+
+/*
+ * xhtml11 specific
+ *
+ * */
+
+div.tableblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+div.tableblock > table {
+  border: 3px solid #527bbd;
+}
+thead, p.table.header {
+  font-weight: bold;
+  color: #527bbd;
+}
+p.table {
+  margin-top: 0;
+}
+/* Because the table frame attribute is overridden by CSS in most browsers. */
+div.tableblock > table[frame="void"] {
+  border-style: none;
+}
+div.tableblock > table[frame="hsides"] {
+  border-left-style: none;
+  border-right-style: none;
+}
+div.tableblock > table[frame="vsides"] {
+  border-top-style: none;
+  border-bottom-style: none;
+}
+
+
+/*
+ * html5 specific
+ *
+ * */
+
+table.tableblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+thead, p.tableblock.header {
+  font-weight: bold;
+  color: #527bbd;
+}
+p.tableblock {
+  margin-top: 0;
+}
+table.tableblock {
+  border-width: 3px;
+  border-spacing: 0px;
+  border-style: solid;
+  border-color: #527bbd;
+  border-collapse: collapse;
+}
+th.tableblock, td.tableblock {
+  border-width: 1px;
+  padding: 4px;
+  border-style: solid;
+  border-color: #527bbd;
+}
+
+table.tableblock.frame-topbot {
+  border-left-style: hidden;
+  border-right-style: hidden;
+}
+table.tableblock.frame-sides {
+  border-top-style: hidden;
+  border-bottom-style: hidden;
+}
+table.tableblock.frame-none {
+  border-style: hidden;
+}
+
+th.tableblock.halign-left, td.tableblock.halign-left {
+  text-align: left;
+}
+th.tableblock.halign-center, td.tableblock.halign-center {
+  text-align: center;
+}
+th.tableblock.halign-right, td.tableblock.halign-right {
+  text-align: right;
+}
+
+th.tableblock.valign-top, td.tableblock.valign-top {
+  vertical-align: top;
+}
+th.tableblock.valign-middle, td.tableblock.valign-middle {
+  vertical-align: middle;
+}
+th.tableblock.valign-bottom, td.tableblock.valign-bottom {
+  vertical-align: bottom;
+}
+
+
+/*
+ * manpage specific
+ *
+ * */
+
+body.manpage h1 {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  border-top: 2px solid silver;
+  border-bottom: 2px solid silver;
+}
+body.manpage h2 {
+  border-style: none;
+}
+body.manpage div.sectionbody {
+  margin-left: 3em;
+}
+
+@media print {
+  body.manpage div#toc { display: none; }
+}
+
+
+</style>
+<script type="text/javascript">
+/*<![CDATA[*/
+var asciidoc = {  // Namespace.
+
+/////////////////////////////////////////////////////////////////////
+// Table Of Contents generator
+/////////////////////////////////////////////////////////////////////
+
+/* Author: Mihai Bazon, September 2002
+ * http://students.infoiasi.ro/~mishoo
+ *
+ * Table Of Content generator
+ * Version: 0.4
+ *
+ * Feel free to use this script under the terms of the GNU General Public
+ * License, as long as you do not remove or alter this notice.
+ */
+
+ /* modified by Troy D. Hanson, September 2006. License: GPL */
+ /* modified by Stuart Rackham, 2006, 2009. License: GPL */
+
+// toclevels = 1..4.
+toc: function (toclevels) {
+
+  function getText(el) {
+    var text = "";
+    for (var i = el.firstChild; i != null; i = i.nextSibling) {
+      if (i.nodeType == 3 /* Node.TEXT_NODE */) // IE doesn't speak constants.
+        text += i.data;
+      else if (i.firstChild != null)
+        text += getText(i);
+    }
+    return text;
+  }
+
+  function TocEntry(el, text, toclevel) {
+    this.element = el;
+    this.text = text;
+    this.toclevel = toclevel;
+  }
+
+  function tocEntries(el, toclevels) {
+    var result = new Array;
+    var re = new RegExp('[hH]([1-'+(toclevels+1)+'])');
+    // Function that scans the DOM tree for header elements (the DOM2
+    // nodeIterator API would be a better technique but not supported by all
+    // browsers).
+    var iterate = function (el) {
+      for (var i = el.firstChild; i != null; i = i.nextSibling) {
+        if (i.nodeType == 1 /* Node.ELEMENT_NODE */) {
+          var mo = re.exec(i.tagName);
+          if (mo && (i.getAttribute("class") || i.getAttribute("className")) != "float") {
+            result[result.length] = new TocEntry(i, getText(i), mo[1]-1);
+          }
+          iterate(i);
+        }
+      }
+    }
+    iterate(el);
+    return result;
+  }
+
+  var toc = document.getElementById("toc");
+  if (!toc) {
+    return;
+  }
+
+  // Delete existing TOC entries in case we're reloading the TOC.
+  var tocEntriesToRemove = [];
+  var i;
+  for (i = 0; i < toc.childNodes.length; i++) {
+    var entry = toc.childNodes[i];
+    if (entry.nodeName.toLowerCase() == 'div'
+     && entry.getAttribute("class")
+     && entry.getAttribute("class").match(/^toclevel/))
+      tocEntriesToRemove.push(entry);
+  }
+  for (i = 0; i < tocEntriesToRemove.length; i++) {
+    toc.removeChild(tocEntriesToRemove[i]);
+  }
+
+  // Rebuild TOC entries.
+  var entries = tocEntries(document.getElementById("content"), toclevels);
+  for (var i = 0; i < entries.length; ++i) {
+    var entry = entries[i];
+    if (entry.element.id == "")
+      entry.element.id = "_toc_" + i;
+    var a = document.createElement("a");
+    a.href = "#" + entry.element.id;
+    a.appendChild(document.createTextNode(entry.text));
+    var div = document.createElement("div");
+    div.appendChild(a);
+    div.className = "toclevel" + entry.toclevel;
+    toc.appendChild(div);
+  }
+  if (entries.length == 0)
+    toc.parentNode.removeChild(toc);
+},
+
+
+/////////////////////////////////////////////////////////////////////
+// Footnotes generator
+/////////////////////////////////////////////////////////////////////
+
+/* Based on footnote generation code from:
+ * http://www.brandspankingnew.net/archive/2005/07/format_footnote.html
+ */
+
+footnotes: function () {
+  // Delete existing footnote entries in case we're reloading the footnodes.
+  var i;
+  var noteholder = document.getElementById("footnotes");
+  if (!noteholder) {
+    return;
+  }
+  var entriesToRemove = [];
+  for (i = 0; i < noteholder.childNodes.length; i++) {
+    var entry = noteholder.childNodes[i];
+    if (entry.nodeName.toLowerCase() == 'div' && entry.getAttribute("class") == "footnote")
+      entriesToRemove.push(entry);
+  }
+  for (i = 0; i < entriesToRemove.length; i++) {
+    noteholder.removeChild(entriesToRemove[i]);
+  }
+
+  // Rebuild footnote entries.
+  var cont = document.getElementById("content");
+  var spans = cont.getElementsByTagName("span");
+  var refs = {};
+  var n = 0;
+  for (i=0; i<spans.length; i++) {
+    if (spans[i].className == "footnote") {
+      n++;
+      var note = spans[i].getAttribute("data-note");
+      if (!note) {
+        // Use [\s\S] in place of . so multi-line matches work.
+        // Because JavaScript has no s (dotall) regex flag.
+        note = spans[i].innerHTML.match(/\s*\[([\s\S]*)]\s*/)[1];
+        spans[i].innerHTML =
+          "[<a id='_footnoteref_" + n + "' href='#_footnote_" + n +
+          "' title='View footnote' class='footnote'>" + n + "</a>]";
+        spans[i].setAttribute("data-note", note);
+      }
+      noteholder.innerHTML +=
+        "<div class='footnote' id='_footnote_" + n + "'>" +
+        "<a href='#_footnoteref_" + n + "' title='Return to text'>" +
+        n + "</a>. " + note + "</div>";
+      var id =spans[i].getAttribute("id");
+      if (id != null) refs["#"+id] = n;
+    }
+  }
+  if (n == 0)
+    noteholder.parentNode.removeChild(noteholder);
+  else {
+    // Process footnoterefs.
+    for (i=0; i<spans.length; i++) {
+      if (spans[i].className == "footnoteref") {
+        var href = spans[i].getElementsByTagName("a")[0].getAttribute("href");
+        href = href.match(/#.*/)[0];  // Because IE return full URL.
+        n = refs[href];
+        spans[i].innerHTML =
+          "[<a href='#_footnote_" + n +
+          "' title='View footnote' class='footnote'>" + n + "</a>]";
+      }
+    }
+  }
+},
+
+install: function(toclevels) {
+  var timerId;
+
+  function reinstall() {
+    asciidoc.footnotes();
+    if (toclevels) {
+      asciidoc.toc(toclevels);
+    }
+  }
+
+  function reinstallAndRemoveTimer() {
+    clearInterval(timerId);
+    reinstall();
+  }
+
+  timerId = setInterval(reinstall, 500);
+  if (document.addEventListener)
+    document.addEventListener("DOMContentLoaded", reinstallAndRemoveTimer, false);
+  else
+    window.onload = reinstallAndRemoveTimer;
+}
+
+}
+asciidoc.install();
+/*]]>*/
+</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-M3CEY418LQ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-M3CEY418LQ');
+</script>
+</head>
+<body class="article">
+<div id="header">
+<h1>Using the built-in HTTP server</h1>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="quoteblock">
+<div class="content">
+<div class="paragraph"><p>These documents are Copyright (c) 2009-2012 by Nick Mathewson, and are made
+available under the Creative Commons Attribution-Noncommercial-Share Alike
+license, version 3.0.  Future versions may be made available under a less
+restrictive license.</p></div>
+<div class="paragraph"><p>Additionally, the source code examples in these documents are also licensed
+under the so-called "3-Clause" or "Modified" BSD license. See
+<a href="license_bsd.html">the license_bsd file</a> distributed with these documents
+for the full terms.</p></div>
+<div class="paragraph"><p>To get the source for the latest version of this document, install git
+and run "git clone git://github.com/libevent/libevent-book.git"</p></div>
+</div>
+<div class="attribution">
+</div></div>
+<div class="paragraph"><p>The plain network-based Libevent interface is useful if you want to build native
+applications, but it is increasingly common to develop an application based
+around the HTTP protocol and a web page that loads, or more commonly dynamically
+reloads, information.</p></div>
+<div class="paragraph"><p>To use the Libevent service, you use the same basic structure as already
+described for the main network event model, but instead of having to handle the
+network interfacing, the HTTP wrapper handles that for you.  This turns the
+entire process into the four function calls (initialize, start HTTP server, set
+HTTP callback function, and enter event loop), plus the contents of the callback
+function that will send data back. A very simple example is provided in the listing:</p></div>
+<div class="listingblock">
+<div class="title">Example: A basic HTTP server</div>
+<div class="content">
+<pre><code>#include &lt;string.h&gt;
+#include &lt;signal.h&gt;
+#include &lt;event2/buffer.h&gt;
+#include &lt;event2/event.h&gt;
+#include &lt;event2/http.h&gt;
+
+<strong>static</strong> <strong>void</strong>
+generic_request_handler(<strong>struct</strong> evhttp_request *req, <strong>void</strong> *ctx)
+{
+        <strong>struct</strong> evbuffer *reply = evbuffer_new();
+
+        evbuffer_add_printf(reply, "It works!");
+        evhttp_send_reply(req, HTTP_OK, NULL, reply);
+        evbuffer_free(reply);
+}
+
+<strong>static</strong> <strong>void</strong>
+signal_cb(evutil_socket_t fd, <strong>short</strong> event, <strong>void</strong> *arg)
+{
+        printf("%s signal received\n", strsignal(fd));
+        event_base_loopbreak(arg);
+}
+
+<strong>int</strong>
+main()
+{
+        ev_uint16_t http_port = 8080;
+        <strong>char</strong> *http_addr = "0.0.0.0";
+        <strong>struct</strong> event_base *base;
+        <strong>struct</strong> evhttp *http_server;
+        <strong>struct</strong> event *sig_int;
+
+        base = event_base_new();
+
+        http_server = evhttp_new(base);
+        evhttp_bind_socket(http_server, http_addr, http_port);
+        evhttp_set_gencb(http_server, generic_request_handler, NULL);
+
+        sig_int = evsignal_new(base, SIGINT, signal_cb, base);
+        event_add(sig_int, NULL);
+
+        printf("Listening requests on http:<i>//%s:%d\n", http_addr, http_port);</i>
+
+        event_base_dispatch(base);
+
+        evhttp_free(http_server);
+        event_free(sig_int);
+        event_base_free(base);
+}</code></pre>
+</div></div>
+<div class="paragraph"><p>Given the previous example, the basics of the code here should be relatively
+self-explanatory. The main elements are the evhttp_set_gencb() function, which
+sets the callback function to be used when an HTTP request is received, and the
+generic_request_handler() callback function itself, which populates the response
+buffer with a simple message to show success.</p></div>
+<div class="paragraph"><p>The HTTP wrapper provides a wealth of different functionality. For example,
+there is a request parser that will extract the query arguments from a typical
+request (as you would use in a HTTP request), and you can also set different
+handlers to be triggered within different requested paths.</p></div>
+<div class="paragraph"><p>Let&#8217;s extend this example act Libevent as Nginx-like server for static content:</p></div>
+<div class="listingblock">
+<div class="title">Example: A static HTTP server implementation</div>
+<div class="content">
+<pre><code>#include &lt;dirent.h&gt;
+#include &lt;fcntl.h&gt;
+#include &lt;limits.h&gt;
+#include &lt;signal.h&gt;
+#include &lt;stdbool.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include &lt;sys/stat.h&gt;
+#include &lt;unistd.h&gt;
+
+#include &lt;event2/buffer.h&gt;
+#include &lt;event2/event.h&gt;
+#include &lt;event2/http.h&gt;
+
+#define BOOTSTRAP_CDN "https:<i>//cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist"</i>
+#define BOOTSTRAP_JS BOOTSTRAP_CDN "/js"
+#define BOOTSTRAP_CSS BOOTSTRAP_CDN "/css"
+
+<strong>static</strong> <strong>const</strong> <strong>struct</strong> table_entry {
+        <strong>const</strong> <strong>char</strong> *extension;
+        <strong>const</strong> <strong>char</strong> *content_type;
+} content_type_table[] = {
+        {"txt", "text/plain"},
+        {"c", "text/plain"},
+        {"h", "text/plain"},
+        {"html", "text/html"},
+        {"htm", "text/htm"},
+        {"css", "text/css"},
+        {"gif", "image/gif"},
+        {"jpg", "image/jpeg"},
+        {"jpeg", "image/jpeg"},
+        {"png", "image/png"},
+        {"pdf", "application/pdf"},
+        {"ps", "application/postscript"},
+        {NULL, NULL},
+};
+
+<strong>static</strong> <strong>void</strong>
+add_content_length(<strong>struct</strong> evhttp_request *req, <strong>unsigned</strong> len)
+{
+        <strong>char</strong> buf[128];
+
+        snprintf(buf, <strong>sizeof</strong>(buf), "%u", len);
+        evhttp_add_header(
+                evhttp_request_get_output_headers(req), "Content-Length", buf);
+}
+
+#<strong>if</strong> defined(WIN32)
+#define DIR_SEPARATOR '\\'
+#<strong>else</strong>
+#define DIR_SEPARATOR '/'
+#endif
+
+<strong>static</strong> <strong>void</strong>
+path_join(<strong>char</strong> *destination, <strong>const</strong> <strong>char</strong> *path1, <strong>const</strong> <strong>char</strong> *path2)
+{
+        <strong>if</strong> (path1 &amp;&amp; *path1) {
+                ssize_t len = strlen(path1);
+                strcpy(destination, path1);
+
+                <strong>if</strong> (destination[len - 1] == DIR_SEPARATOR) {
+                        <strong>if</strong> (path2 &amp;&amp; *path2) {
+                                strcpy(destination + len,
+                                        (*path2 == DIR_SEPARATOR) ? (path2 + 1) : path2);
+                        }
+                } <strong>else</strong> {
+                        <strong>if</strong> (path2 &amp;&amp; *path2) {
+                                <strong>if</strong> (*path2 == DIR_SEPARATOR)
+                                        strcpy(destination + len, path2);
+                                <strong>else</strong> {
+                                        destination[len] = DIR_SEPARATOR;
+                                        strcpy(destination + len + 1, path2);
+                                }
+                        }
+                }
+        } <strong>else</strong> <strong>if</strong> (path2 &amp;&amp; *path2)
+                strcpy(destination, path2);
+        <strong>else</strong>
+                destination[0] = '\0';
+}
+
+<i>/* Try to guess the content type of "path" */</i>
+<strong>static</strong> <strong>const</strong> <strong>char</strong> *
+guess_content_type(<strong>const</strong> <strong>char</strong> *path)
+{
+        <strong>const</strong> <strong>char</strong> *last_period, *extension;
+        <strong>const</strong> <strong>struct</strong> table_entry *ent;
+        last_period = strrchr(path, '.');
+        <strong>if</strong> (!last_period || strchr(last_period, '/'))
+                <strong>goto</strong> not_found; /* no exension */
+        extension = last_period + 1;
+        <strong>for</strong> (ent = &amp;content_type_table[0]; ent-&gt;extension; ++ent) {
+                <strong>if</strong> (!evutil_ascii_strcasecmp(ent-&gt;extension, extension))
+                        <strong>return</strong> ent-&gt;content_type;
+        }
+
+not_found:
+        <strong>return</strong> "application/stream";
+}
+
+<strong>static</strong> <strong>void</strong>
+send_file_to_user(<strong>struct</strong> evhttp_request *req, <strong>void</strong> *arg)
+{
+        <strong>struct</strong> evbuffer *evb = NULL;
+        <strong>struct</strong> evhttp_uri *decoded = NULL;
+        <strong>struct</strong> stat st;
+        <strong>int</strong> fd = -1;
+        <strong>const</strong> <strong>char</strong> *static_dir = ".";
+
+        <strong>enum</strong> evhttp_cmd_type cmd = evhttp_request_get_command(req);
+        <strong>if</strong> (cmd != EVHTTP_REQ_GET &amp;&amp; cmd != EVHTTP_REQ_HEAD) {
+                <strong>return</strong>;
+        }
+
+<i>        /* Decode the URI */</i>
+        decoded = evhttp_uri_parse(evhttp_request_get_uri(req));
+        <strong>if</strong> (!decoded) {
+                evhttp_send_error(req, HTTP_BADREQUEST, 0);
+                <strong>return</strong>;
+        }
+
+<i>        /* Let's see what path the user asked for. */</i>
+        <strong>const</strong> <strong>char</strong> *path = evhttp_uri_get_path(decoded);
+        <strong>if</strong> (!path)
+                path = "/";
+
+<i>        /* We need to decode it, to see what path the user really wanted. */</i>
+        <strong>char</strong> *decoded_path = evhttp_uridecode(path, 0, NULL);
+        <strong>if</strong> (decoded_path == NULL)
+                <strong>goto</strong> err;
+
+<i>        /* Don't allow any ".."s in the path, to avoid exposing stuff outside</i>
+<i>         * of the docroot.  This test is both overzealous and underzealous:</i>
+<i>         * it forbids aceptable paths like "/this/one..here", but it doesn't</i>
+<i>         * do anything to prevent symlink following." */</i>
+        <strong>if</strong> (strstr(decoded_path, ".."))
+                <strong>goto</strong> err;
+
+        <strong>char</strong> whole_path[PATH_MAX] = {0};
+        <strong>const</strong> <strong>char</strong> *type = NULL;
+        path_join(whole_path, static_dir, decoded_path);
+        <strong>char</strong> *real_file = realpath(whole_path, NULL);
+        <strong>if</strong> (real_file) {
+                strncpy(whole_path, real_file, <strong>sizeof</strong>(whole_path));
+                free(real_file);
+        } <strong>else</strong> {
+<i>                /* check also if is there gz-ready static version */</i>
+                type = guess_content_type(whole_path);
+
+                <strong>char</strong> gz_path[PATH_MAX + 3] = {0};
+                snprintf(gz_path, <strong>sizeof</strong>(gz_path), "%s.gz", whole_path);
+                <strong>char</strong> *real_file = realpath(gz_path, NULL);
+                <strong>if</strong> (real_file) {
+                        evhttp_add_header(evhttp_request_get_output_headers(req),
+                                "Content-Encoding", "gzip");
+                        strncpy(whole_path, real_file, <strong>sizeof</strong>(whole_path));
+                        free(real_file);
+                } <strong>else</strong> {
+                        fprintf(stderr, "File '%s' not found\n", whole_path);
+                        evhttp_send_error(req, HTTP_NOTFOUND, NULL);
+                        <strong>goto</strong> done;
+                }
+        }
+
+        <strong>if</strong> (stat(whole_path, &amp;st) &lt; 0) {
+                <strong>goto</strong> err;
+        }
+
+        <strong>if</strong> ((evb = evbuffer_new()) == NULL) {
+                evhttp_send_error(req, HTTP_INTERNAL, 0);
+                <strong>goto</strong> cleanup;
+        }
+
+        <strong>bool</strong> dir_mode = <strong>false</strong>;
+
+        <strong>if</strong> (S_ISDIR(st.st_mode)) {
+<i>                /* Check if there is index.html file */</i>
+                <strong>char</strong> index_file[PATH_MAX + 11];
+                snprintf(index_file, <strong>sizeof</strong>(index_file), "%s/index.html", whole_path);
+
+                <strong>if</strong> (stat(index_file, &amp;st) &lt; 0)
+                        dir_mode = <strong>true</strong>;
+                <strong>else</strong>
+                        strcpy(whole_path, index_file);
+        }
+
+        <strong>if</strong> (dir_mode) {
+                DIR *d;
+                <strong>struct</strong> dirent *ent;
+
+                <strong>const</strong> <strong>char</strong> *trailing_slash = "";
+
+                <strong>if</strong> (!strlen(path) || path[strlen(path) - 1] != '/')
+                        trailing_slash = "/";
+                <strong>if</strong> (!(d = opendir(whole_path))) {
+                        <strong>goto</strong> err;
+                }
+
+                evbuffer_add_printf(evb,
+                        "&lt;!DOCTYPE html&gt;\n"
+                        "&lt;html lang=\"en\"&gt;"
+                        "&lt;head&gt;\n"
+                        "&lt;meta name=\"viewport\" "
+                        "content=\"width=device-width,initial-scale=1\"&gt;\n"
+                        "&lt;title&gt;%s&lt;/title&gt;\n"
+                        "&lt;link rel=\"shortcut icon\" href=\"/favicon.png\"&gt;\n"
+                        "&lt;link rel=\"stylesheet\" href=\"" BOOTSTRAP_CSS
+                        "/bootstrap.min.css\"&gt;\n"
+                        "&lt;script src=\"" BOOTSTRAP_JS
+                        "/bootstrap.bundle.min.js\"&gt;&lt;/script&gt;\n"
+                        "&lt;base href='%s%s'&gt;\n"
+                        "&lt;/head&gt;\n"
+                        "&lt;body id=\"top\"&gt;\n"
+                        "&lt;nav <strong>class</strong>=\"navbar navbar-expand-lg navbar-dark sticky-top\"&gt;\n"
+                        "&lt;div <strong>class</strong>=\"container\"&gt;\n"
+                        "&lt;/div&gt;\n"
+                        "&lt;/nav&gt;\n"
+                        "&lt;main&gt;\n"
+                        "&lt;div <strong>class</strong>=\"container p-3\"&gt;\n"
+                        "&lt;h2&gt;%s&lt;/h2&gt;\n"
+                        "&lt;ul <strong>class</strong>=\"list-unstyled my-3\"&gt;\n",
+                        decoded_path, /* XXX html-escape <strong>this</strong>. */
+                        path,             /* XXX html-escape <strong>this</strong>? */
+                        trailing_slash, decoded_path /* XXX html-escape <strong>this</strong> */);
+                <strong>while</strong> ((ent = readdir(d))) {
+                        <strong>const</strong> <strong>char</strong> *name = ent-&gt;d_name;
+                        <i>// ignore '.' directory entries</i>
+                        <strong>if</strong> (strcmp(name, ".") == 0)
+                                <strong>continue</strong>;
+                        <i>// show '..' only for subdirs</i>
+                        <strong>if</strong> (strcmp(path, "/") == 0 &amp;&amp; strcmp(name, "..") == 0)
+                                <strong>continue</strong>;
+                        evbuffer_add_printf(evb, "&lt;li&gt;&lt;a href=\"%s\"&gt;%s&lt;/a&gt;\n", name,
+                                name); /* XXX escape <strong>this</strong> */
+                }
+                evbuffer_add_printf(evb, "&lt;/ul&gt;"
+                                                                 "&lt;/div&gt;\n"
+                                                                 "&lt;/main&gt;\n"
+                                                                 "&lt;footer <strong>class</strong>=\"p-3\"&gt;\n"
+                                                                 "&lt;div <strong>class</strong>=\"container\"&gt;\n"
+                                                                 "&lt;/div&gt;\n"
+                                                                 "&lt;/footer&gt;\n"
+                                                                 "&lt;/body&gt;"
+                                                                 "&lt;/html&gt;\n");
+                closedir(d);
+
+                add_content_length(req, evbuffer_get_length(evb));
+                <strong>if</strong> (cmd == EVHTTP_REQ_HEAD)
+                        evbuffer_drain(evb, evbuffer_get_length(evb));
+                evhttp_add_header(evhttp_request_get_output_headers(req),
+                        "Content-Type", "text/html");
+        } <strong>else</strong> {
+<i>                /* Otherwise it's a file; add it to the buffer to get</i>
+<i>                 * sent via sendfile */</i>
+                <strong>if</strong> (type == NULL)
+                        type = guess_content_type(whole_path);
+                evhttp_add_header(
+                        evhttp_request_get_output_headers(req), "Content-Type", type);
+
+                <strong>if</strong> (st.st_size != 0) {
+                        <strong>if</strong> ((fd = open(whole_path, O_RDONLY)) == -1) {
+                                <strong>if</strong> (errno == ENOENT) {
+                                        fprintf(stderr, "File '%s' not found\n", whole_path);
+                                        evhttp_send_error(req, HTTP_NOTFOUND, NULL);
+                                } <strong>else</strong> {
+                                        evhttp_send_error(req, HTTP_INTERNAL, NULL);
+                                }
+                                <strong>goto</strong> done;
+                        }
+                        <strong>if</strong> (cmd != EVHTTP_REQ_HEAD) {
+                                <strong>if</strong> (evbuffer_add_file(evb, fd, 0, st.st_size) != 0) {
+                                        evhttp_send_error(req, HTTP_INTERNAL, NULL);
+                                        <strong>goto</strong> cleanup;
+                                }
+                        }
+                }
+                add_content_length(req, st.st_size);
+        }
+        evhttp_send_reply(req, HTTP_OK, "OK", evb);
+
+        <strong>goto</strong> done;
+
+err:
+        evhttp_send_error(req, HTTP_NOTFOUND, NULL);
+cleanup:
+        <strong>if</strong> (fd &gt;= 0)
+                close(fd);
+
+done:
+        <strong>if</strong> (decoded)
+                evhttp_uri_free(decoded);
+        <strong>if</strong> (decoded_path)
+                free(decoded_path);
+        <strong>if</strong> (evb)
+                evbuffer_free(evb);
+}
+
+<strong>static</strong> <strong>void</strong>
+signal_cb(evutil_socket_t fd, <strong>short</strong> event, <strong>void</strong> *arg)
+{
+        printf("%s signal received\n", strsignal(fd));
+        event_base_loopbreak(arg);
+}
+
+<strong>int</strong>
+main()
+{
+        ev_uint16_t http_port = 8080;
+        <strong>char</strong> *http_addr = "0.0.0.0";
+        <strong>struct</strong> event_base *base;
+        <strong>struct</strong> evhttp *http_server;
+        <strong>struct</strong> event *sig_int;
+
+        base = event_base_new();
+
+        http_server = evhttp_new(base);
+        evhttp_bind_socket(http_server, http_addr, http_port);
+        evhttp_set_gencb(http_server, send_file_to_user, NULL);
+
+        sig_int = evsignal_new(base, SIGINT, signal_cb, base);
+        event_add(sig_int, NULL);
+
+        printf("Listening requests on http:<i>//%s:%d\n", http_addr, http_port);</i>
+
+        event_base_dispatch(base);
+
+        evhttp_free(http_server);
+        event_free(sig_int);
+        event_base_free(base);
+}</code></pre>
+</div></div>
+<div class="paragraph"><p>As you can see here we&#8217;ve replaced generic_request_handler() by specific
+send_file_to_user() handler which processes incoming request:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+First it checks if HTTP command is equal to <code>GET</code> or <code>HEAD</code>
+</p>
+</li>
+<li>
+<p>
+Then it parses request URI to extract request path and determine file path we
+  should handle by couple evhttp_request_get_uri()/evhttp_uri_parse() functions
+</p>
+</li>
+<li>
+<p>
+After that it decoded URI string from something like <code>folder%2Fmy%20doc.txt</code>
+  to plain <code>folder/my doc.txt</code>
+</p>
+</li>
+</ul></div>
+</div>
+</div>
+</div>
+<div id="footnotes"><hr /></div>
+<div id="footer">
+<div id="footer-text">
+Last updated
+ 2024-02-18 20:10:44 UTC
+</div>
+</div>
+</body>
+</html>

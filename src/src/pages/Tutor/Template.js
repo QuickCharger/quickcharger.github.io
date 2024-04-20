@@ -19,6 +19,7 @@ function TemplateTutor (props) {
           <Button key={3} sx={{ my: 2, color: 'white', display: 'block' }} onClick={() => { navigate('/tutor/css') }}>Css</Button>
           <Button key={4} sx={{ my: 2, color: 'white', display: 'block' }} onClick={() => { navigate('/tutor/effect') }}>Effect</Button>
           <Button key={5} sx={{ my: 2, color: 'white', display: 'block' }} onClick={() => { navigate('/tutor/bootStrap5') }}>BootStrap5</Button>
+          <Button key={6} sx={{ my: 2, color: 'white', display: 'block' }} onClick={() => { navigate('/tutor/libevent') }}>LIBEVENT</Button>
         </Stack>
       </Box>
     </>)

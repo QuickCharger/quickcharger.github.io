@@ -1,10 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
-    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
-<head>
-<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
-<meta name="generator" content="AsciiDoc 10.1.2" />
+<!--?xml version="1.0" encoding="UTF-8"?--><!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8">
+<meta name="generator" content="AsciiDoc 10.1.2">
 <title>A tiny introduction to synchronous non-blocking IO</title>
 <style type="text/css">
 /* Shared CSS for AsciiDoc xhtml11 and html5 backends */
@@ -732,7 +728,7 @@ asciidoc.install();
 /*]]>*/
 </script>
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-M3CEY418LQ"></script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-M3CEY418LQ"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -740,7 +736,13 @@ asciidoc.install();
 
   gtag('config', 'G-M3CEY418LQ');
 </script>
-</head>
+<style id="translation-style">
+      .translate {
+        background-color: #f0f0f0; /* 浅灰色背景 */
+        color: black;             /* 黑色文本 */
+        font-weight: bold;        /* 加粗字体 */
+      }
+    </style></head>
 <body class="article">
 <div id="header">
 <h1>A tiny introduction to synchronous non-blocking IO</h1>
@@ -771,10 +773,10 @@ connection, for example, your operating system queues a SYN packet to
 the host on the other side of the TCP connection.  It does not return
 control back to your application until either it has received a SYN ACK
 packet from the opposite host, or until enough time has passed that it
-decides to give up.</p></div>
-<div class="paragraph"><p>Here&#8217;s an example of a really simple client using blocking network
+decides to give up.</p><p class="translate">大多数初学者都是从阻塞IO调用开始的。一个IO调用是同步的，如果在你调用它时，它不会返回直到操作完成，或者直到过了足够的时间你的网络栈放弃为止。例如，当你在一个TCP链接上调用“connect()”时，你的操作系统会向TCP链接另一端的主机排队一个SYN包。它不会将控制权返回给你的应用程序，直到它从对面的主机收到一个SYN ACK包，或者直到过了足够的时间，它决定放弃为止。</p></div>
+<div class="paragraph"><p>Here’s an example of a really simple client using blocking network
 calls.  It opens a connection to www.google.com, sends it a simple
-HTTP request, and prints the response to stdout.</p></div>
+HTTP request, and prints the response to stdout.</p><p class="translate">这里有一个使用阻塞网络调用的非常简单的客户端示例。它打开一个到www.google.com的链接，向其发送一个简单的HTTP请求，并将响应打印到标准输出。</p></div>
 <div class="listingblock">
 <div class="title">Example: A simple blocking HTTP client</div>
 <div class="content">
@@ -868,13 +870,13 @@ gethostbyname does not return until it has succeeded or failed in
 resolving www.google.com; the connect does not return until it has
 connected; the recv calls do not return until they have received data
 or a close; and the send call does not return until it has at least
-flushed its output to the kernel&#8217;s write buffers.</p></div>
-<div class="paragraph"><p>Now, blocking IO is not necessarily evil.  If there&#8217;s nothing else you
+flushed its output to the kernel’s write buffers.</p><p class="translate">上面代码中的所有网络调用都是阻塞的：gethostbyname在成功(或失败)解析www.google.com之前不会返回；connect在链接上之前不会返回；recv调用在接收到数据或关闭之前不会返回；send调用在将数据刷新到内核的写缓冲区之前不会返回。</p></div>
+<div class="paragraph"><p>Now, blocking IO is not necessarily evil.  If there’s nothing else you
 wanted your program to do in the meantime, blocking IO will work fine
 for you.  But suppose that you need to write a program to handle
 multiple connections at once.  To make our example concrete: suppose
-that you want to read input from two connections, and you don&#8217;t know
-which connection will get input first.  You can&#8217;t say</p></div>
+that you want to read input from two connections, and you don’t know
+which connection will get input first.  You can’t say</p><p class="translate">并不是说阻塞IO就一定是坏事。如果你的程序暂时没有其他事情要做，阻塞IO对你来说会工作得很好。但假设你需要编写一个程序来同时处理多个链接。为了使我们的例子更具体：假设你想从两个链接中读取输入，而你不知道哪个链接会首先获得输入。你不能像下面这样：</p></div>
 <div class="listingblock">
 <div class="title">Bad Example</div>
 <div class="content">
@@ -893,20 +895,20 @@ which connection will get input first.  You can&#8217;t say</p></div>
     }
 }</code></pre>
 </div></div>
-<div class="paragraph"><p>because if data arrives on fd[2] first, your program won&#8217;t even try
+<div class="paragraph"><p>because if data arrives on fd[2] first, your program won’t even try
 reading from fd[2] until the reads from fd[0] and fd[1] have gotten some
-data and finished.</p></div>
+data and finished.</p><p class="translate">因为如果fd[2]的数据首先到达，你的程序甚至不会尝试从fd[2]读取，直到从fd[0]和fd[1]读取到一些数据并完成为止。</p></div>
 <div class="paragraph"><p>Sometimes people solve this problem with multithreading, or with
 multi-process servers.  One of the simplest ways to do multithreading
 is with a separate process (or thread) to deal with each connection.
 Since each connection has its own process, a blocking IO call that
-waits for one connection won&#8217;t make any of the other connections'
-processes block.</p></div>
-<div class="paragraph"><p>Here&#8217;s another example program.  It is a trivial server that listens
+waits for one connection won’t make any of the other connections'
+processes block.</p><p class="translate">有时人们解决这个问题是通过多线程，或者多进程服务器。进行多线程的最简单方法之一是使用一个单独的进程（或线程）来处理每个链接。由于每个链接都有自己的进程，所以在等待一个链接时的阻塞IO调用不会使其他链接的进程阻塞。</p></div>
+<div class="paragraph"><p>Here’s another example program.  It is a trivial server that listens
 for TCP connections on port 40713, reads data from its input one line
 at a time, and writes out the ROT13 obfuscation of line each as it
 arrives.  It uses the Unix fork() call to create a new process for
-each incoming connection.</p></div>
+each incoming connection.</p><p class="translate">这是另一个示例程序。这是一个简单的服务器，它在端口40713上监听TCP链接，一次从输入中读取一行数据，然后写出每行数据的ROT13加密版本。它使用Unix的fork()为每个新链接创建一个新线程。</p></div>
 <div class="listingblock">
 <div class="title">Example: Forking ROT13 server</div>
 <div class="content">
@@ -1022,26 +1024,26 @@ main(<strong>int</strong> c, <strong>char</strong> **v)
 at once?  Can I stop writing this book and go work on something else
 now?  Not quite.  First off, process creation (and even thread
 creation) can be pretty expensive on some platforms.  In real life,
-you&#8217;d want to use a thread pool instead of creating new processes.
-But more fundamentally, threads won&#8217;t scale as much as you&#8217;d like.  If
+you’d want to use a thread pool instead of creating new processes.
+But more fundamentally, threads won’t scale as much as you’d like.  If
 your program needs to handle thousands or tens of thousands of
 connections at a time, dealing with tens of thousands of threads will
-not be as efficient as trying to have only a few threads per CPU.</p></div>
-<div class="paragraph"><p>But if threading isn&#8217;t the answer to having multiple connections, what is?
+not be as efficient as trying to have only a few threads per CPU.</p><p class="translate">那么，我们是否已经找到了一种完美的解决方案处理多连接？我现在可以停止写这本书，去做其他事情了吗？并不完全是。首先，进程创建（甚至线程创建）在某些平台上可能相当耗资源。在现实生活中，你会想使用线程池。但是更根本的是，线程的数量不如你想象的那样。如果你的程序需要同时处理数千个或数万个连接，处理数万个线程的效率不会像仅在每个CPU上只有几个线程那样高效。</p></div>
+<div class="paragraph"><p>But if threading isn’t the answer to having multiple connections, what is?
 In the Unix paradigm, you make your sockets <em>nonblocking</em>.  The Unix
-call to do this is:</p></div>
+call to do this is:</p><p class="translate">但是，如果线程不是处理多链接的答案，那么什么是呢？在Unix范例中，你会使你的socket变为非阻塞。Unix下的调用是：</p></div>
 <div class="listingblock">
 <div class="content">
 <pre><code>fcntl(fd, F_SETFL, O_NONBLOCK);</code></pre>
 </div></div>
-<div class="paragraph"><p>where fd is the file descriptor for the socket.  <span class="footnote"><br />[A file descriptor is
+<div class="paragraph"><p>where fd is the file descriptor for the socket.  <span class="footnote"><br>[A file descriptor is
 the number the kernel assigns to the socket when you open it. You use
-this number to make Unix calls referring to the socket.]<br /></span>  Once you&#8217;ve
+this number to make Unix calls referring to the socket.]<br></span>  Once you’ve
 made fd (the socket) nonblocking, from then on, whenever you make a
 network call to fd the call will either complete the operation
 immediately or return with a special error code to indicate "I
-couldn&#8217;t make any progress now, try again."  So our two-socket example
-might be naively written as:</p></div>
+couldn’t make any progress now, try again."  So our two-socket example
+might be naively written as:</p><p class="translate">其中fd是socket的文件描述符。[1] 一旦你将fd（socket）设置为非阻塞，每当你对fd进行网络调用时，调用要么立即完成操作，要么返回一个特殊的错误码以指示“我现在无法取得任何进展，请再试一次。”所以我们的两个socket示例可能写成：</p></div>
 <div class="listingblock">
 <div class="title">Bad Example: busy-polling all sockets</div>
 <div class="content">
@@ -1067,20 +1069,20 @@ might be naively written as:</p></div>
     }
 }</code></pre>
 </div></div>
-<div class="paragraph"><p>Now that we&#8217;re using nonblocking sockets, the code above would
-<em>work</em>&#8230; but only barely.  The performance will be awful, for two
+<div class="paragraph"><p>Now that we’re using nonblocking sockets, the code above would
+<em>work</em>… but only barely.  The performance will be awful, for two
 reasons.  First, when there is no data to read on either connection
 the loop will spin indefinitely, using up all your CPU cycles.
 Second, if you try to handle more than one or two connections with
-this approach you&#8217;ll do a kernel call for each one, whether it has
+this approach you’ll do a kernel call for each one, whether it has
 any data for you or not.  So what we need is a way to tell the kernel
 "wait until one of these sockets is ready to give me some data, and
-tell me which ones are ready."</p></div>
+tell me which ones are ready."</p><p class="translate">现在我们开始使用非阻塞套接字，上面的代码会工作……但仅仅是勉强可行。性能会非常糟糕，原因有二。首先，如果两个链接都没有数据可读，循环将无限运行，耗尽你所有的CPU周期。其次，如果你尝试用这种方法处理超过一两个连接，你会发现不管是否有数据，每个连接都会执行一个内核调用。所以我们需要的是一种方法，告诉内核“等待，直到这些socket中的一个准备好给我一些数据，并告诉我是哪个准备好了。”</p></div>
 <div class="paragraph"><p>The oldest solution that people still use for this problem is
 select().  The select() call takes three sets of fds (implemented as
 bit arrays): one for reading, one for writing, and one for
 "exceptions".  It waits until a socket from one of the sets is ready
-and alters the sets to contain only the sockets ready for use.</p></div>
+and alters the sets to contain only the sockets ready for use.</p><p class="translate">人们仍然使用的解决这个问题的最古老方法是select()。select()调用接收三组fds（实现为位数组）：一组用于读取，一组用于写入，一组用于“异常”。它等待直到来自其中一组的socket准备就绪，并更改集合以只包含准备使用的socket。</p></div>
 <div class="paragraph"><p>Here is our example again, using select:</p></div>
 <div class="listingblock">
 <div class="title">Example: Using select</div>
@@ -1121,7 +1123,7 @@ fd_set readset;
     }
 }</code></pre>
 </div></div>
-<div class="paragraph"><p>And here&#8217;s a reimplementation of our ROT13 server, using select() this
+<div class="paragraph"><p>And here’s a reimplementation of our ROT13 server, using select() this
 time.</p></div>
 <div class="listingblock">
 <div class="title">Example: select()-based ROT13 server</div>
@@ -1354,38 +1356,38 @@ main(<strong>int</strong> c, <strong>char</strong> **v)
     <strong>return</strong> 0;
 }</code></pre>
 </div></div>
-<div class="paragraph"><p>But we&#8217;re still not done.  Because generating and reading the select()
+<div class="paragraph"><p>But we’re still not done.  Because generating and reading the select()
 bit arrays takes time proportional to the largest fd that you provided
 for select(), the select() call scales terribly when the number of
-sockets is high.  <span class="footnote"><br />[On the userspace side, generating and
+sockets is high.  <span class="footnote"><br>[On the userspace side, generating and
 reading the bit arrays can be made to take time proportional to the
 number of fds that you provided for select().  But on the kernel side,
 reading the bit arrays takes time proportional to the largest fd in the
 bit array, which tends to be around <em>the total number of fds in use in
 the whole program</em>, regardless of how many fds are added to the sets in
-select().]<br /></span></p></div>
+select().]<br></span></p><p class="translate">但我们还没有完成。因为生成和读取select()位数组所需的时间与你为select()提供的最大fd成正比，当socket数量很高时，select()调用的扩展性非常糟糕。</p></div>
 <div class="paragraph"><p>Different operating systems have provided different replacement
 functions for select.  These include poll(), epoll(), kqueue(),
 evports, and /dev/poll.  All of these give better performance than
 select(), and all but poll() give O(1) performance for adding a socket,
 removing a socket, and for noticing
-that a socket is ready for IO.</p></div>
+that a socket is ready for IO.</p><p class="translate">不同的操作系统提供了select的不同替代函数。这些包括poll()、epoll()、kqueue()、evports和/dev/poll。所有这些都比select()提供了更好的性能，在移除socket或socket的读写方面。(除了poll()在添加socket时的性能是O(1))。</p></div>
 <div class="paragraph"><p>Unfortunately, none of the efficient interfaces is a ubiquitous
 standard.  Linux has epoll(), the BSDs (including Darwin) have
-kqueue(), Solaris has evports and /dev/poll&#8230; <em>and none of these
+kqueue(), Solaris has evports and /dev/poll… <em>and none of these
 operating systems has any of the others</em>.  So if you want to write a
-portable high-performance asynchronous application, you&#8217;ll need an
+portable high-performance asynchronous application, you’ll need an
 abstraction that wraps all of these interfaces, and provides whichever
-one of them is the most efficient.</p></div>
-<div class="paragraph"><p>And that&#8217;s what the lowest level of the Libevent API does for you.  It
+one of them is the most efficient.</p><p class="translate">不幸的是，这些都不是普遍标准。Linux有epoll()，BSDs（包括Darwin）有kqueue()，Solaris有evports和/dev/poll……这些操作系统都没有其他的。因此，如果你想要编写一个可移植的高性能异步应用程序，你将需要一个抽象层，它包装了所有这些接口，并提供了最高效的一个。</p></div>
+<div class="paragraph"><p>And that’s what the lowest level of the Libevent API does for you.  It
 provides a consistent interface to various select() replacements,
-using the most efficient version available on the computer where it&#8217;s
-running.</p></div>
-<div class="paragraph"><p>Here&#8217;s yet another version of our non-blocking ROT13 server.  This
+using the most efficient version available on the computer where it’s
+running.</p><p class="translate">这正是Libevent API最底层为你所做的。它为各种select()替代品提供了一个一致的接口，使用在其运行的计算机上可用的最高效版本。</p></div>
+<div class="paragraph"><p>Here’s yet another version of our non-blocking ROT13 server.  This
 time, it uses Libevent 2 instead of select().  Note that the fd_sets
 are gone now: instead, we associate and disassociate events with a
 struct event_base, which might be implemented in terms of select(),
-poll(), epoll(), kqueue(), etc.</p></div>
+poll(), epoll(), kqueue(), etc.</p><p class="translate">这是我们非阻塞ROT13的又一个版本。这次，它使用的是Libevent 2而不是select()。请注意，fd_sets现在已经消失了：相反，我们使用struct event_base关联和解除事件，它可能在select()、poll()、epoll()、kqueue()等方面得到了实现。</p></div>
 <div class="listingblock">
 <div class="title">Example: A low-level ROT13 server with Libevent</div>
 <div class="content">
@@ -1601,38 +1603,38 @@ main(<strong>int</strong> c, <strong>char</strong> **v)
 }</code></pre>
 </div></div>
 <div class="paragraph"><p>(Other things to note in the code: instead of typing the sockets as
-"int", we&#8217;re using the type evutil_socket_t.  Instead of calling
-fcntl(O_NONBLOCK) to make the sockets nonblocking, we&#8217;re calling
+"int", we’re using the type evutil_socket_t.  Instead of calling
+fcntl(O_NONBLOCK) to make the sockets nonblocking, we’re calling
 evutil_make_socket_nonblocking.  These changes make our code compatible
-with the divergent parts of the Win32 networking API.)</p></div>
+with the divergent parts of the Win32 networking API.)</p><p class="translate">（代码中的其他需要注意的事项：我们没有将socket类型定义为"int"，而是使用了类型evutil_socket_t。我们没有调用fcntl(O_NONBLOCK)来使socket非阻塞，而是调用了evutil_make_socket_nonblocking。这些更改使我们的代码与Win32网络API不同的部分做到了兼容。）</p></div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_what_about_convenience_and_what_about_windows">What about convenience?  (and what about Windows?)</h2>
 <div class="sectionbody">
-<div class="paragraph"><p>You&#8217;ve probably noticed that as our code has gotten more efficient,
-it has also gotten more complex.  Back when we were forking, we didn&#8217;t
+<div class="paragraph"><p>You’ve probably noticed that as our code has gotten more efficient,
+it has also gotten more complex.  Back when we were forking, we didn’t
 have to manage a buffer for each connection: we just had a separate
-stack-allocated buffer for each process.  We didn&#8217;t need to explicitly
+stack-allocated buffer for each process.  We didn’t need to explicitly
 track whether each socket was reading or writing: that was implicit in
-our location in the code.  And we didn&#8217;t need a structure to track how
+our location in the code.  And we didn’t need a structure to track how
 much of each operation had completed: we just used loops and stack
-variables.</p></div>
-<div class="paragraph"><p>Moreover, if you&#8217;re deeply experienced with networking on Windows,
-you&#8217;ll realize that Libevent probably isn&#8217;t getting optimal
-performance when it&#8217;s used as in the example above.  On Windows, the
+variables.</p><p class="translate">你可能已经注意到了，随着我们的代码变得更高效，它也变得更复杂。回到我们使用fork时，我们不需要为每个链接管理一个缓冲区：我们为每个进程分配了一个栈缓冲区。我们不需要明确地跟踪每个socket是在读还是写：这在我们的代码位置中是隐含的。我们也不需要一个结构来跟踪每个操作完成了多少：我们只是使用循环和栈变量。</p></div>
+<div class="paragraph"><p>Moreover, if you’re deeply experienced with networking on Windows,
+you’ll realize that Libevent probably isn’t getting optimal
+performance when it’s used as in the example above.  On Windows, the
 way you do fast non-blocking IO is not with a select()-like interface:
-it&#8217;s by using the IOCP (IO Completion Ports) API.  Unlike all the
+it’s by using the IOCP (IO Completion Ports) API.  Unlike all the
 fast networking APIs, IOCP does not alert your program when a socket
 is <em>ready</em> for an operation that your program then has to perform.
 Instead, the program tells the Windows networking stack to <em>start</em> a
 network operation, and IOCP tells the program when the operation has
-finished.</p></div>
+finished.</p><p class="translate">此外，如果你对Windows上的网络编程有深入的了解，你会意识到当Libevent像上面的例子那样使用时，可能无法获得最佳性能。在Windows上，进行非阻塞IO的方式不是使用类似select()的接口：而是使用IOCP（输入输出完成端口）API。与所有快速网络API不同，IOCP不会在socket准备好进行操作时通知你的程序，然后你的程序必须执行该操作。相反，程序告诉Windows网络栈开始一个网络操作，而IOCP会告诉程序该操作何时完成。</p></div>
 <div class="paragraph"><p>Fortunately, the Libevent 2 "bufferevents" interface solves both of
 these issues: it makes programs much simpler to write, and provides
 an interface that Libevent can implement efficiently on Windows <em>and</em>
-on Unix.</p></div>
-<div class="paragraph"><p>Here&#8217;s our ROT13 server one last time, using the bufferevents API.</p></div>
+on Unix.</p><p class="translate">幸运的是，Libevent 2的"bufferevents"接口解决了这两个问题：它使程序编写得更简单，并提供了一个接口，Libevent可以在Windows和Unix上高效实现。</p></div>
+<div class="paragraph"><p>Here’s our ROT13 server one last time, using the bufferevents API.</p><p class="translate">这是我们ROT13服务器的最后一次演示，使用bufferevents API。</p></div>
 <div class="listingblock">
 <div class="title">Example: A simpler ROT13 server with Libevent</div>
 <div class="content">
@@ -1803,12 +1805,13 @@ page are really out of date.</p></div>
 </div>
 </div>
 </div>
-<div id="footnotes"><hr /></div>
+<div id="footnotes"><hr></div>
 <div id="footer">
 <div id="footer-text">
 Last updated
  2024-02-18 20:10:44 UTC
 </div>
 </div>
-</body>
-</html>
+
+
+</body></html>

@@ -1,10 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
-    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
-<head>
-<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
-<meta name="generator" content="AsciiDoc 10.1.2" />
+<!--?xml version="1.0" encoding="UTF-8"?--><!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8">
+<meta name="generator" content="AsciiDoc 10.1.2">
 <title>Using the built-in HTTP server</title>
 <style type="text/css">
 /* Shared CSS for AsciiDoc xhtml11 and html5 backends */
@@ -732,7 +728,7 @@ asciidoc.install();
 /*]]>*/
 </script>
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-M3CEY418LQ"></script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-M3CEY418LQ"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -740,7 +736,13 @@ asciidoc.install();
 
   gtag('config', 'G-M3CEY418LQ');
 </script>
-</head>
+<style id="translation-style">
+      .translate {
+        background-color: #f0f0f0; /* 浅灰色背景 */
+        color: black;             /* 黑色文本 */
+        font-weight: bold;        /* 加粗字体 */
+      }
+    </style></head>
 <body class="article">
 <div id="header">
 <h1>Using the built-in HTTP server</h1>
@@ -766,13 +768,13 @@ and run "git clone git://github.com/libevent/libevent-book.git"</p></div>
 <div class="paragraph"><p>The plain network-based Libevent interface is useful if you want to build native
 applications, but it is increasingly common to develop an application based
 around the HTTP protocol and a web page that loads, or more commonly dynamically
-reloads, information.</p></div>
+reloads, information.</p><p class="translate">Libevent的简单网络接口在您想要构建原生应用程序时很有用，但基于HTTP协议和加载页面的网络应用程序的开发日渐普遍，这种页面通常会动态地重新加载信息。</p></div>
 <div class="paragraph"><p>To use the Libevent service, you use the same basic structure as already
 described for the main network event model, but instead of having to handle the
 network interfacing, the HTTP wrapper handles that for you.  This turns the
 entire process into the four function calls (initialize, start HTTP server, set
 HTTP callback function, and enter event loop), plus the contents of the callback
-function that will send data back. A very simple example is provided in the listing:</p></div>
+function that will send data back. A very simple example is provided in the listing:</p><p class="translate">要使用Libevent服务，您可以使用已经描述的主网络事件模型的相同基本结构，但是不需要处理网络接口，HTTP包装器会为您处理。HTTP包装器将整个过程转变为四个函数调用（初始化、启动HTTP服务器、设置HTTP回调函数、进入事件循环），加上回调函数的内容，该函数将发送数据回来。在列表中提供了一个非常简单的示例：</p></div>
 <div class="listingblock">
 <div class="title">Example: A basic HTTP server</div>
 <div class="content">
@@ -830,12 +832,12 @@ main()
 self-explanatory. The main elements are the evhttp_set_gencb() function, which
 sets the callback function to be used when an HTTP request is received, and the
 generic_request_handler() callback function itself, which populates the response
-buffer with a simple message to show success.</p></div>
+buffer with a simple message to show success.</p><p class="translate">基于前面的例子，这里的代码基础应该相对容易理解。主要元素包括evhttp_set_gencb()函数，其设置了在接收到HTTP请求时要使用的回调函数，以及generic_request_handler()回调函数本身，它用一个简单的消息填充响应缓冲区以显示成功。</p></div>
 <div class="paragraph"><p>The HTTP wrapper provides a wealth of different functionality. For example,
 there is a request parser that will extract the query arguments from a typical
 request (as you would use in a HTTP request), and you can also set different
-handlers to be triggered within different requested paths.</p></div>
-<div class="paragraph"><p>Let&#8217;s extend this example act Libevent as Nginx-like server for static content:</p></div>
+handlers to be triggered within different requested paths.</p><p class="translate">HTTP包装器提供了丰富的不同功能。例如，有一个请求解析器，它会从典型请求中提取查询参数（就像您在HTTP请求中使用的那样），并且您还可以设置不同的处理程序来触发不同请求路径下的操作。</p></div>
+<div class="paragraph"><p>Let’s extend this example act Libevent as Nginx-like server for static content:</p><p class="translate">让我们扩展这个示例，使Libevent充当类似Nginx的服务器来托管静态内容：</p></div>
 <div class="listingblock">
 <div class="title">Example: A static HTTP server implementation</div>
 <div class="content">
@@ -1170,7 +1172,7 @@ main()
         event_base_free(base);
 }</code></pre>
 </div></div>
-<div class="paragraph"><p>As you can see here we&#8217;ve replaced generic_request_handler() by specific
+<div class="paragraph"><p>As you can see here we’ve replaced generic_request_handler() by specific
 send_file_to_user() handler which processes incoming request:</p></div>
 <div class="ulist"><ul>
 <li>
@@ -1188,18 +1190,19 @@ Then it parses request URI to extract request path and determine file path we
 <p>
 After that it decoded URI string from something like <code>folder%2Fmy%20doc.txt</code>
   to plain <code>folder/my doc.txt</code>
-</p>
+</p><p class="translate">如您所见，我们用特定的send_file_to_user()处理程序替换了generic_request_handler()，它用来处理传入的请求：<br>1.首先它检查HTTP命令是否等于GET或HEAD。<br>2.然后它解析请求URI，通过一对evhttp_request_get_uri()/evhttp_uri_parse()函数提取请求路径，并确定我们应当处理的文件路径。<br>3.之后，它将URI字符串从类似folder%2Fmy%20doc.txt的编码形式解码为普通的folder/my doc.txt。</p>
 </li>
 </ul></div>
 </div>
 </div>
 </div>
-<div id="footnotes"><hr /></div>
+<div id="footnotes"><hr></div>
 <div id="footer">
 <div id="footer-text">
 Last updated
  2024-02-18 20:10:44 UTC
 </div>
 </div>
-</body>
-</html>
+
+
+</body></html>

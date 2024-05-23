@@ -1,10 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
-    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
-<head>
-<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
-<meta name="generator" content="AsciiDoc 10.1.2" />
+<!--?xml version="1.0" encoding="UTF-8"?--><!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8">
+<meta name="generator" content="AsciiDoc 10.1.2">
 <title>Bufferevents: advanced topics</title>
 <style type="text/css">
 /* Shared CSS for AsciiDoc xhtml11 and html5 backends */
@@ -732,7 +728,7 @@ asciidoc.install();
 /*]]>*/
 </script>
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-M3CEY418LQ"></script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-M3CEY418LQ"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -740,7 +736,13 @@ asciidoc.install();
 
   gtag('config', 'G-M3CEY418LQ');
 </script>
-</head>
+<style id="translation-style">
+      .translate {
+        background-color: #f0f0f0; /* 浅灰色背景 */
+        color: black;             /* 黑色文本 */
+        font-weight: bold;        /* 加粗字体 */
+      }
+    </style></head>
 <body class="article">
 <div id="header">
 <h1>Bufferevents: advanced topics</h1>
@@ -763,10 +765,10 @@ and run "git clone git://github.com/libevent/libevent-book.git"</p></div>
 </div>
 <div class="attribution">
 </div></div>
-<div class="paragraph"><p>This chapter describes some advanced features of Libevent&#8217;s bufferevent
-implementation that aren&#8217;t necessary for typical uses.  If you&#8217;re just
+<div class="paragraph"><p>This chapter describes some advanced features of Libevent’s bufferevent
+implementation that aren’t necessary for typical uses.  If you’re just
 learning how to use bufferevents, you should skip this chapter for now
-and go on to read <a href="Ref7_evbuffer.html">the evbuffer chapter</a>.</p></div>
+and go on to read <a href="Ref7_evbuffer.html">the evbuffer chapter</a>.</p><p class="translate">本章节将介绍Libevent的bufferevent实现中一些高级功能，这些功能对于典型用途来说并不是必需的。如果你刚开始学习如何使用bufferevents，你现在应该跳过这一章，继续阅读evbuffer章节。</p></div>
 </div>
 </div>
 <div class="sect1">
@@ -778,10 +780,10 @@ over some protocol that sometimes also wants to tunnel connections <em>of
 its own</em> over that protocol.  You could achieve this by opening a
 connection to your own listening port and having your program use
 itself, of course, but that would waste resources by having your program
-talk to itself via the network stack.</p></div>
+talk to itself via the network stack.</p><p class="translate">有时你的程序需要与自身通信。例如，你的程序，用于通过某种协议隧道化连接用户，有时也希望通过该协议隧道化自己的连接。当然，你可以通过连接到自己的监听端口来实现这一点，但这样会通过网络堆栈让程序与自己通信而浪费资源。</p></div>
 <div class="paragraph"><p>Instead, you can create a pair of <em>paired</em> bufferevents such that all bytes
 written on one are received on the other (and vice versa), but no actual
-platform sockets are used.</p></div>
+platform sockets are used.</p><p class="translate">相反，你可以创建一对配对的bufferevents，这样在一端写入的所有字节都会在另一端接收到（反之亦然），但不使用任何实际的socket。</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
@@ -791,22 +793,22 @@ platform sockets are used.</p></div>
 <div class="paragraph"><p>Calling bufferevent_pair_new() sets pair[0] and pair[1] to a pair of
 bufferevents, each connected to the other.  All the usual options are
 supported, except for BEV_OPT_CLOSE_ON_FREE, which has no effect, and
-BEV_OPT_DEFER_CALLBACKS, which is always on.</p></div>
-<div class="paragraph"><p>Why do bufferevent pairs need to run with callbacks deferred?  It&#8217;s pretty
+BEV_OPT_DEFER_CALLBACKS, which is always on.</p><p class="translate">调用bufferevent_pair_new()会将pair[0]和pair[1]设置为一对bufferevents，每个都连接到另一个。所有常见的选项都支持，除了BEV_OPT_CLOSE_ON_FREE无效，以及BEV_OPT_DEFER_CALLBACKS始终开启。</p></div>
+<div class="paragraph"><p>Why do bufferevent pairs need to run with callbacks deferred?  It’s pretty
 common for an operation on one element of the pair to invoke a callback that
-alters the bufferevent, thus invoking the other bufferevent&#8217;s callbacks, and
+alters the bufferevent, thus invoking the other bufferevent’s callbacks, and
 so on through many steps.  When the callbacks were not deferred, this chain
 of calls would pretty frequently overflow the stack, starve other
-connections, and require all the callbacks to be reentrant.</p></div>
+connections, and require all the callbacks to be reentrant.</p><p class="translate">为什么bufferevent对需要延迟执行回调？在对配对的元素进行操作时，通常会调用一个回调来改变bufferevent，从而调用另一个bufferevent的回调，如此通过许多步骤。当回调没有被延迟时，这一连串的调用会相当频繁地导致栈溢出、饿死其他连接，并且要求所有回调都是可重入的。</p></div>
 <div class="paragraph"><p>Paired bufferevents support flushing; setting the mode argument to either
 either BEV_NORMAL or BEV_FLUSH forces all the relevant data to get
 transferred from one bufferevent in the pair to the other, ignoring the
 watermarks that would otherwise restrict it.  Setting mode to BEV_FINISHED
-additionally generates an EOF event on the opposite bufferevent.</p></div>
+additionally generates an EOF event on the opposite bufferevent.</p><p class="translate">配对的bufferevents支持刷新；将mode参数设置为BEV_NORMAL或BEV_FLUSH会强制将一对bufferevents中的一端的所有相关数据传输到另一端，忽略限制它的watermark。将mode设置为BEV_FINISHED还会在对面的bufferevent上生成一个EOF事件。</p></div>
 <div class="paragraph"><p>Freeing either member of the pair <em>does not</em> automatically free the other or
 generate an EOF event; it just makes the other member of the pair become
 unlinked.  Once the bufferevent is unlinked, it will no longer successfully
-read or write data or generate any events.</p></div>
+read or write data or generate any events.</p><p class="translate">释放任何一个成员不会自动释放另一个或生成EOF事件；它只会使配对中的另一个成员变得未链接。一旦bufferevent未链接，它将不再成功读取或写入数据或生成任何事件。</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
@@ -816,9 +818,9 @@ read or write data or generate any events.</p></div>
 only one member.  To do this, you can invoke the
 bufferevent_pair_get_partner() function.  It will return the other member of
 the pair if <em>bev</em> is a member of a pair, and the other member still exists.
-Otherwise, it returns NULL.</p></div>
+Otherwise, it returns NULL.</p><p class="translate">有时候，你可能需要通过bufferevent对的一个来获取另一个。为了做到这一点，你可以调用bufferevent_pair_get_partner()函数。如果bev是对成对的，并且另一个成员仍然存在，它会返回对中的另一个成员。否则，它返回NULL。</p></div>
 <div class="paragraph"><p>Bufferevent pairs were new in Libevent 2.0.1-alpha; the
-bufferevent_pair_get_partner() function was introduced in Libevent 2.0.6.</p></div>
+bufferevent_pair_get_partner() function was introduced in Libevent 2.0.6.</p><p class="translate">Bufferevent对是在Libevent 2.0.1-alpha中新引入的功能；bufferevent_pair_get_partner()函数则是在Libevent 2.0.6中引入的。</p></div>
 </div>
 </div>
 <div class="sect1">
@@ -826,7 +828,7 @@ bufferevent_pair_get_partner() function was introduced in Libevent 2.0.6.</p></d
 <div class="sectionbody">
 <div class="paragraph"><p>Sometimes you want to transform all the data passing through a bufferevent
 object.  You could do this to add a compression layer, or wrap a protocol in
-another protocol for transport.</p></div>
+another protocol for transport.</p><p class="translate">有时你想转换通过bufferevent对象传递的所有数据。你可以这样做来添加压缩层，或者封装一个协议。</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
@@ -852,20 +854,20 @@ wrapped around an existing "underlying" bufferevent.  All data received via
 the underlying bufferevent is transformed with the "input" filter before
 arriving at the filtering bufferevent, and all data sent via the filtering
 bufferevent is transformed with an "output" filter before being sent out to
-the underlying bufferevent.</p></div>
+the underlying bufferevent.</p><p class="translate">bufferevent_filter_new()函数创建一个新的过滤bufferevent，围绕一个现有的"底层"bufferevent。通过底层bufferevent接收的所有数据都会在到达过滤bufferevent之前用"输入"过滤器进行转换，通过过滤bufferevent发送的所有数据都会在发送给底层bufferevent之前用一个"输出"过滤器进行转换。</p></div>
 <div class="paragraph"><p>Adding a filter to an underlying bufferevent replaces the callbacks on the
 underlying bufferevent.  You can still add callbacks to the underlying
-bufferevent&#8217;s evbuffers, but you can&#8217;t set the callbacks on the bufferevent
-itself if you want the filter to still work.</p></div>
+bufferevent’s evbuffers, but you can’t set the callbacks on the bufferevent
+itself if you want the filter to still work.</p><p class="translate">向底层bufferevent添加过滤器将替换底层bufferevent上的回调。你仍然可以向底层bufferevent的evbuffers添加回调，但如果你希望过滤器仍然工作，你就不能设置bufferevent本身的回调。</p></div>
 <div class="paragraph"><p>The <em>input_filter</em> and <em>output_filter</em> functions are described below.
 All the usual options are supported in <em>options</em>.  If BEV_OPT_CLOSE_ON_FREE
 is set, then freeing the filtering bufferevent also frees the underlying
 bufferevent.  The <em>ctx</em> field is an arbitrary pointer passed to the filter
 functions; if a <em>free_context</em> function is provided, it is called on <em>ctx</em> just
-before the filtering bufferevent is closed.</p></div>
+before the filtering bufferevent is closed.</p><p class="translate">输入过滤器和输出过滤器函数如上所述。所有常见的选项在options中都支持。如果设置了BEV_OPT_CLOSE_ON_FREE，则释放过滤bufferevent也会释放底层bufferevent。ctx字段是传递给过滤函数的任意指针；如果提供了free_context函数，在关闭过滤bufferevent之前将对ctx调用该函数。</p></div>
 <div class="paragraph"><p>The input filter function will be called whenever there is new readable data
 on the underlying input buffer.  The output filter function is called
-whenever there is new writable data on the filter&#8217;s output buffer.  Each one
+whenever there is new writable data on the filter’s output buffer.  Each one
 receives a pair of evbuffers: a <em>source</em> evbuffer to read data from, and a
 <em>destination</em> evbuffer to write data to.  The <em>dst_limit</em> argument describes
 the upper bound of bytes to add to <em>destination</em>.  The filter function is
@@ -875,32 +877,32 @@ parameter tells the filter how aggressive to be in writing.  If it is
 BEV_NORMAL, then it should write as much as can be conveniently transformed.
 The BEV_FLUSH value means to write as much as possible, and BEV_FINISHED
 means that the filtering function should additionally do any cleanup
-necessary at the end of the stream.  Finally, the filter function&#8217;s <em>ctx</em>
+necessary at the end of the stream.  Finally, the filter function’s <em>ctx</em>
 argument is a void pointer as provided to the bufferevent_filter_new()
-constructor.</p></div>
+constructor.</p><p class="translate">每当底层输入buffer有新的可读数据时，都会调用输入过滤器函数。每当过滤器的输出buffer有新的可写空间，都会调用输出过滤器函数。每个函数都会接收一对evbuffers：一个源evbuffer来读取数据，一个目的evbuffer来写入数据。dst_limit参数描述了添加到目的地的字节上限。过滤器函数被允许忽略此值，但这样做可能会违反high-water marks或速率限制。如果dst_limit是-1，则没有限制。mode参数告诉过滤器写入时的积极性。如果它是BEV_NORMAL，则它应该写尽可能多的能够方便转换的数据。BEV_FLUSH值意味着要写尽可能多，而BEV_FINISHED意味着过滤器函数还应该在流结束时做任何必要的清理工作。最后，过滤器函数的ctx参数是一个void指针，如同提供给bufferevent_filter_new()构造函数的一样。</p></div>
 <div class="paragraph"><p>Filter functions must return BEV_OK if any data was successfully written to
 the destination buffer, BEV_NEED_MORE if no more data can be written to the
 destination buffer without getting more input or using a different flush
-mode, and BEV_ERROR if there is a non-recoverable error on the filter.</p></div>
+mode, and BEV_ERROR if there is a non-recoverable error on the filter.</p><p class="translate">过滤器函数必须在成功将任何数据写入目的缓冲区时返回BEV_OK，如果没有更多的输入或使用不同的刷新模式就无法将更多数据写入目的缓冲区，则返回BEV_NEED_MORE，如果过滤器上有不可恢复的错误，则返回BEV_ERROR。</p></div>
 <div class="paragraph"><p>Creating the filter enables both reading and writing on the underlying
 bufferevent.  You do not need to manage reads/writes on your own: the filter
 will suspend reading on the underlying bufferevent for you whenever it
-doesn&#8217;t want to read.  For 2.0.8-rc and later, it is permissible to
+doesn’t want to read.  For 2.0.8-rc and later, it is permissible to
 enable/disable reading and writing on the underlying bufferevent
 independently from the filter.  If you do this, though, you may keep the
-filter from successfully getting the data it wants.</p></div>
-<div class="paragraph"><p>You don&#8217;t need to specify both an input filter and an output filter: any
+filter from successfully getting the data it wants.</p><p class="translate">创建过滤器会在底层bufferevent上启用读写功能。你不需要自己管理读/写：当过滤器不想读取时，它会为你暂停底层bufferevent上的读取。对于2.0.8-rc及之后的版本，允许独立于过滤器启用/禁用底层bufferevent上的读写。但如果你这样做，你可能会阻止过滤器成功获取它想要的数据。</p></div>
+<div class="paragraph"><p>You don’t need to specify both an input filter and an output filter: any
 filter you omit is replaced with one that passes data on without transforming
-it.</p></div>
+it.</p><p class="translate">你不需要指定输入过滤器和输出过滤器：你省略的任何过滤器都会被替换为不转换数据就传递数据的过滤器。</p></div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_limiting_maximum_single_read_write_size">Limiting maximum single read/write size</h2>
 <div class="sectionbody">
-<div class="paragraph"><p>By default, bufferevents won&#8217;t read or write the maximum possible amount
+<div class="paragraph"><p>By default, bufferevents won’t read or write the maximum possible amount
 of bytes on each invocation of the event loop; doing so can lead to
 weird unfair behaviors and resource starvation.  On the other hand, the
-defaults might not be reasonable for all situations.</p></div>
+defaults might not be reasonable for all situations.</p><p class="translate">默认情况下，bufferevents在每次事件循环的调用中不会读取或写入最大可能的字节数；这样做可能会导致奇怪的不公平行为和资源饥饿。另一方面，默认设置可能并不适用于所有情况。</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
@@ -913,10 +915,10 @@ ev_ssize_t bufferevent_get_max_single_write(<strong>struct</strong> bufferevent 
 <div class="paragraph"><p>The two "set" functions replace the current read and write maxima
 respectively.  If the <em>size</em> value is 0 or above EV_SSIZE_MAX, they
 instead set the maxima to the default value.  These functions return 0
-on success and -1 on failure.</p></div>
+on success and -1 on failure.</p><p class="translate">这两个“set”函数分别替换当前的读取和写入最大值。如果size值为0或超过EV_SSIZE_MAX，它们会将最大值设置为默认值。这些函数在成功时返回0，在失败时返回-1。</p></div>
 <div class="paragraph"><p>The two "get" functions return the current per-loop read and write
-maxima respectively.</p></div>
-<div class="paragraph"><p>These functions were added in 2.1.1-alpha.</p></div>
+maxima respectively.</p><p class="translate">这两个“get”函数分别返回当前每次循环的读取和写入最大值。</p></div>
+<div class="paragraph"><p>These functions were added in 2.1.1-alpha.</p><p class="translate">这些函数在2.1.1-alpha中被添加。</p></div>
 </div>
 </div>
 <div class="sect1">
@@ -925,21 +927,21 @@ maxima respectively.</p></div>
 <div class="paragraph"><p>Some programs want to limit the amount of bandwidth used for any single
 bufferevent, or for a group of bufferevents.  Libevent 2.0.4-alpha and
 Libevent 2.0.5-alpha added a basic facility to put caps on individual
-bufferevents, or to assign bufferevents to a rate-limited group.</p></div>
+bufferevents, or to assign bufferevents to a rate-limited group.</p><p class="translate">一些程序希望限制单个bufferevent或一组bufferevent的带宽。Libevent 2.0.4-alpha和Libevent 2.0.5-alpha增加了一个基本功能，可以对单个bufferevent进行带宽上限限制，或将bufferevent分配到一个速率限制组中。</p></div>
 <div class="sect2">
 <h3 id="_the_rate_limiting_model">The rate-limiting model</h3>
-<div class="paragraph"><p>Libevent&#8217;s rate-limiting uses a <em>token bucket</em> algorithm to decide how many
+<div class="paragraph"><p>Libevent’s rate-limiting uses a <em>token bucket</em> algorithm to decide how many
 bytes to read or write at a time.  Every rate-limited object, at any given
 time, has a "read bucket" and a "write bucket", the sizes of which determine
 how many bytes the object is allowed to read or write immediately.  Each
 bucket has a refill rate, a maximum burst size, and a
 timing unit or "tick".  Whenever the timing unit elapses, the bucket is refilled
-proportionally to the refill rate&#8212;but if would become fuller than its burst
-size, any excess bytes are lost.</p></div>
+proportionally to the refill rate—but if would become fuller than its burst
+size, any excess bytes are lost.</p><p class="translate">Libevent的速率限制使用一个令牌桶算法来决定一次读取或写入多少字节。每个速率限制对象在任何给定时间都有一个“读桶”和一个“写桶”，其大小决定了对象可以立即读取或写入多少字节。每个桶都有一个补充率、最大突发大小和一个时间单位或“tick”。每当时间单位过去，桶就会根据补充率按比例补充——但如果桶比其突发大小更满，任何超出的字节都会丢失。</p></div>
 <div class="paragraph"><p>Thus, the refill rate determines the maximum average rate at which the object
 will send or receive bytes, and the burst size determines the largest number
 of bytes that will be sent or received in a single burst.  The timing unit
-determines the smoothness of the traffic.</p></div>
+determines the smoothness of the traffic.</p><p class="translate">因此，补充率决定了对象发送或接收字节的最大平均速率，突发大小决定了在单次突发中将发送或接收的最大字节数。时间单位决定了流量的平滑度。</p></div>
 </div>
 <div class="sect2">
 <h3 id="_setting_a_rate_limit_on_a_bufferevent">Setting a rate limit on a bufferevent</h3>
@@ -962,24 +964,24 @@ bufferevent or group of bufferevents.  To create one, call the
 ev_token_bucket_cfg_new function and provide the maximum average read rate, the
 maximum read burst, the maximum write rate, the maximum write burst, and the
 length of a tick.  If the <em>tick_len</em> argument is NULL, the length of a tick
-defaults to one second.  The function may return NULL on error.</p></div>
+defaults to one second.  The function may return NULL on error.</p><p class="translate">ev_token_bucket_cfg结构表示用于限制单个bufferevent或一组bufferevent的读写的一对令牌桶的配置值。要创建一个，调用ev_token_bucket_cfg_new函数并提供最大平均读取速率、最大读取突发、最大写入速率、最大写入突发和滴答的长度。如果tick_len参数为NULL，tick的长度默认为一秒。该函数可能在错误时返回NULL。</p></div>
 <div class="paragraph"><p>Note that the <em>read_rate</em> and <em>write_rate</em> arguments are scaled in units of
 bytes per tick.  That is, if the tick is one tenth of a second, and
 <em>read_rate</em> is 300, then the maximum average read rate is 3000 bytes per
-second.  Rate and burst values over EV_RATE_LIMIT_MAX are not supported.</p></div>
-<div class="paragraph"><p>To limit a bufferevent&#8217;s transfer rate, call bufferevent_set_rate_limit() on
+second.  Rate and burst values over EV_RATE_LIMIT_MAX are not supported.</p><p class="translate">请注意，read_rate和write_rate参数的单位是每个tick的字节。也就是说，如果tick是十分之一秒，而read_rate是300，那么最大平均读取速率是每秒3000字节。超过EV_RATE_LIMIT_MAX的速率和突发值不受支持。</p></div>
+<div class="paragraph"><p>To limit a bufferevent’s transfer rate, call bufferevent_set_rate_limit() on
 it with an ev_token_bucket_cfg.  The function returns 0 on success, and -1 on
 failure.  You can give any number of bufferevents the same
-ev_token_bucket_cfg.  To remove a bufferevent&#8217;s rate limits, call
-bufferevent_set_rate_limit(), passing NULL for the <em>cfg</em> parameter.</p></div>
+ev_token_bucket_cfg.  To remove a bufferevent’s rate limits, call
+bufferevent_set_rate_limit(), passing NULL for the <em>cfg</em> parameter.</p><p class="translate">要限制bufferevent的传输速率，对其调用bufferevent_set_rate_limit()并使用一个ev_token_bucket_cfg。该函数成功时返回0，失败时返回-1。您可以给任意数量的bufferevent相同的ev_token_bucket_cfg。要移除bufferevent的速率限制，调用bufferevent_set_rate_limit()，并为cfg参数传递NULL。</p></div>
 <div class="paragraph"><p>To free an ev_token_bucket_cfg, call ev_token_bucket_cfg_free().  Note that
 it is NOT currently safe to do this until no bufferevents are using the
-ev_token_bucket_cfg.</p></div>
+ev_token_bucket_cfg.</p><p class="translate">要释放一个ev_token_bucket_cfg，请调用ev_token_bucket_cfg_free()。请注意，直到没有bufferevent使用ev_token_bucket_cfg时，释放才是安全的。</p></div>
 </div>
 <div class="sect2">
 <h3 id="_setting_a_rate_limit_on_a_group_of_bufferevents">Setting a rate limit on a group of bufferevents</h3>
 <div class="paragraph"><p>You can assign bufferevents to a <em>rate limiting group</em> if you want to limit
-their total bandwidth usage.</p></div>
+their total bandwidth usage.</p><p class="translate">如果您想限制它们的总带宽使用量，您可以将bufferevent分配到一个速率限制组中。</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
@@ -1000,24 +1002,24 @@ their total bandwidth usage.</p></div>
 event_base and an initial ev_token_bucket_cfg.  You can add bufferevents to
 the group with bufferevent_add_to_rate_limit_group() and
 bufferevent_remove_from_rate_limit_group(); these functions return 0 on
-success and -1 on error.</p></div>
+success and -1 on error.</p><p class="translate">要构建一个速率限制组，请使用一个event_base和一个初始过的ev_token_bucket_cfg调用bufferevent_rate_limit_group()。您可以通过bufferevent_add_to_rate_limit_group()和bufferevent_remove_from_rate_limit_group()将bufferevent添加到组中或从组中移除；这些函数成功时返回0，错误时返回-1。</p></div>
 <div class="paragraph"><p>A single bufferevent can be a member of no more than one rate limiting group
 at a time.  A bufferevent can have both an individual rate limit (as set with
 bufferevent_set_rate_limit()) and a group rate limit.  When both limits are
-set, the lower limit for each bufferevent applies.</p></div>
+set, the lower limit for each bufferevent applies.</p><p class="translate">单个bufferevent一次只能是一个速率限制组的成员。一个bufferevent可以同时有独立的速率限制（如通过bufferevent_set_rate_limit()设置）和组速率限制。当两个限制都设置时，bufferevent适用较低的限制。</p></div>
 <div class="paragraph"><p>You can change the rate limit for an existing group by calling
 bufferevent_rate_limit_group_set_cfg().  It returns 0 on success and -1 on
 failure.  The bufferevent_rate_limit_group_free() function frees a rate limit
-group and removes all of its members.</p></div>
-<div class="paragraph"><p>As of version 2.0, Libevent&#8217;s group rate limiting tries to be fair on
+group and removes all of its members.</p><p class="translate">您可以通过调用bufferevent_rate_limit_group_set_cfg()来更改现有组的速率限制。它成功时返回0，失败时返回-1。bufferevent_rate_limit_group_free()函数释放一个速率限制组并移除其所有成员。</p></div>
+<div class="paragraph"><p>As of version 2.0, Libevent’s group rate limiting tries to be fair on
 aggregate, but the implementation can be unfair on very small timescales.  If
 you care strongly about scheduling fairness, please help out
-with patches for future versions.</p></div>
+with patches for future versions.</p><p class="translate">截至2.0版，Libevent的组速率限制试图在总体上公平，但在非常小的时间尺度上实现可能不公平。如果您非常关心调度公平性，请通过补丁帮助未来版本。</p></div>
 </div>
 <div class="sect2">
 <h3 id="_inspecting_current_rate_limit_values">Inspecting current rate-limit values</h3>
 <div class="paragraph"><p>Sometimes your code may want to inspect the current rate limits that apply
-for a given bufferevent or group.  Libevent provides some functions to do so.</p></div>
+for a given bufferevent or group.  Libevent provides some functions to do so.</p><p class="translate">有时您的代码可能想检查bufferevent或组的当前速率限制。Libevent提供了一些函数来做到这一点。</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
@@ -1028,10 +1030,10 @@ ev_ssize_t bufferevent_rate_limit_group_get_read_limit(
 ev_ssize_t bufferevent_rate_limit_group_get_write_limit(
         <strong>struct</strong> bufferevent_rate_limit_group *);</code></pre>
 </div></div>
-<div class="paragraph"><p>The above functions return the current size, in bytes, of a bufferevent&#8217;s or
-a group&#8217;s read or write token buckets.  Note that these values can be
+<div class="paragraph"><p>The above functions return the current size, in bytes, of a bufferevent’s or
+a group’s read or write token buckets.  Note that these values can be
 negative if a bufferevent has been forced to exceed its allocations.
-(Flushing the bufferevent can do this.)</p></div>
+(Flushing the bufferevent can do this.)</p><p class="translate">上述函数返回bufferevent或组的读或写令牌桶的当前大小，单位是字节。请注意，如果bufferevent被迫超出其分配，则这些值可以是负数。（刷新bufferevent可以做到这一点。）</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
@@ -1041,7 +1043,7 @@ ev_ssize_t bufferevent_get_max_to_write(<strong>struct</strong> bufferevent *bev
 <div class="paragraph"><p>These functions return the number of bytes that a bufferevent would be
 willing to read or write right now, taking into account any rate limits that
 apply to the bufferevent, its rate limiting group (if any), and any
-maximum-to-read/write-at-a-time values imposed by Libevent as a whole.</p></div>
+maximum-to-read/write-at-a-time values imposed by Libevent as a whole.</p><p class="translate">这些函数返回bufferevent现在愿意读取或写入的字节数，考虑到适用于bufferevent、其速率限制组（如果有的话），以及Libevent作为一个整体的任何最大一次读取/写入值。</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
@@ -1058,13 +1060,13 @@ bufferevent_rate_limit_group_get_totals() on a group sets *<em>total_read_out</e
 and *<em>total_written_out</em> to the total number of bytes read and written on a
 bufferevent group respectively.  These totals start at 0 when the group is
 created, and reset to 0 whenever bufferevent_rate_limit_group_reset_totals()
-is called on a group.</p></div>
+is called on a group.</p><p class="translate">每个bufferevent_rate_limit_group跟踪它发送的总字节数。您可以使用此功能来跟踪组中多个bufferevent的总使用量。在组上调用bufferevent_rate_limit_group_get_totals()会将*total_read_out和*total_written_out设置为分别在bufferevent组上读取和写入的总字节数。这些总数在创建组时从0开始，并且每当在一个组上调用bufferevent_rate_limit_group_reset_totals()时重置为0。</p></div>
 </div>
 <div class="sect2">
 <h3 id="_manually_adjusting_rate_limits">Manually adjusting rate limits</h3>
 <div class="paragraph"><p>For programs with really complex needs, you might want to adjust the current
 values of a token bucket.  You might want to do this, for example, if your
-program is generating traffic in some way that isn&#8217;t via a bufferevent.</p></div>
+program is generating traffic in some way that isn’t via a bufferevent.</p><p class="translate">对于复杂需求的程序，您可能希望调整令牌桶的值。例如，如果您的程序以不通过bufferevent的方式生成流量。</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
@@ -1077,34 +1079,34 @@ program is generating traffic in some way that isn&#8217;t via a bufferevent.</p
 </div></div>
 <div class="paragraph"><p>These functions decrement a current read or write bucket in a bufferevent or
 rate limiting group.  Note that the decrements are signed: if you want to
-increment a bucket, pass a negative value.</p></div>
+increment a bucket, pass a negative value.</p><p class="translate">这些功能减少了bufferevent或速率限制组中当前的读或写桶。请注意，递减是有符号的：如果您想增加一个桶，请传递一个负值。</p></div>
 </div>
 <div class="sect2">
 <h3 id="_setting_the_smallest_share_possible_in_a_rate_limited_group">Setting the smallest share possible in a rate-limited group</h3>
-<div class="paragraph"><p>Frequently, you don&#8217;t want to divide the bytes available in a rate-limiting
+<div class="paragraph"><p>Frequently, you don’t want to divide the bytes available in a rate-limiting
 group up evenly among all bufferevents in every tick.  For example, if you
 had 10,000 active bufferevents in a rate-limiting group with 10,000 bytes
-available for writing every tick, it wouldn&#8217;t be efficient to let each
+available for writing every tick, it wouldn’t be efficient to let each
 bufferevent write only 1 byte per tick, due to the overheads of system calls
-and TCP headers.</p></div>
+and TCP headers.</p><p class="translate">通常，您不希望在速率限制组中给所有bufferevent平均分配速率。例如，如果您有10,000个活跃的bufferevent在一个速率限制组中，每个tick有10,000字节可用于写入，由于系统调用和TCP头部的开销，让每个bufferevent每个tick只写1字节是不高效的。</p></div>
 <div class="paragraph"><p>To solve this, each rate-limiting group has a notion of its "minimum share".
 In the situation above, instead of every bufferevent being allowed to write 1
 byte per tick, 10,000/SHARE bufferevents will be allowed to write SHARE bytes
 each every tick, and the rest will be allowed to write nothing.  Which
-bufferevents are allowed to write first is chosen randomly each tick.</p></div>
+bufferevents are allowed to write first is chosen randomly each tick.</p><p class="translate">为了解决这个问题，每个速率限制组都有一个“最小份额”的概念。在上述情况下，不是每个bufferevent每个tick都被允许写入1字节，而是10,000/SHARE的bufferevent被允许每个tick写入SHARE字节，其余的则不允许写入。每个tick中首先允许哪些bufferevent写入是随机选择的。</p></div>
 <div class="paragraph"><p>The default minimum share is chosen to give decent performance, and is
 currently (as of 2.0.6-rc) set to 64. You can adjust this value with the
-following function:</p></div>
+following function:</p><p class="translate">默认的最小份额是为了提供良好的性能，并且目前（截至2.0.6-rc）设置为64。您可以使用以下函数调整这个值：</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
 <pre><code><strong>int</strong> bufferevent_rate_limit_group_set_min_share(
         <strong>struct</strong> bufferevent_rate_limit_group *group, size_t min_share);</code></pre>
 </div></div>
-<div class="paragraph"><p>Setting the min_share to 0 disables the minimum-share code entirely.</p></div>
-<div class="paragraph"><p>Libevent&#8217;s rate-limiting has had minimum shares since it was first
+<div class="paragraph"><p>Setting the min_share to 0 disables the minimum-share code entirely.</p><p class="translate">将min_share设置为0将完全禁用最小份额。</p></div>
+<div class="paragraph"><p>Libevent’s rate-limiting has had minimum shares since it was first
 introduced.  The function to change them was first exposed in Libevent
-2.0.6-rc.</p></div>
+2.0.6-rc.</p><p class="translate">Libevent的速率限制自引入以来就有最小份额。更改它们的函数是在Libevent 2.0.6-rc首次公开的。</p></div>
 </div>
 <div class="sect2">
 <h3 id="_limitations_of_the_rate_limiting_implementation">Limitations of the rate-limiting implementation</h3>
@@ -1125,7 +1127,7 @@ Bufferevent rate limiting groups cannot nest, and a bufferevent can only be
 <li>
 <p>
 The rate limiting implementation only counts bytes transferred in TCP
-  packets as data, doesn&#8217;t include TCP headers.
+  packets as data, doesn’t include TCP headers.
 </p>
 </li>
 <li>
@@ -1143,7 +1145,7 @@ Some implementations of bufferevents (particularly the windows IOCP
 </li>
 <li>
 <p>
-Buckets start out with one full tick&#8217;s worth of traffic.  This means that a
+Buckets start out with one full tick’s worth of traffic.  This means that a
   bufferevent can start reading or writing immediately, and not wait until a
   full tick has passed.  It also means, though, that a bufferevent that has
   been rate limited for N.1 ticks can potentially transfer N+1 ticks worth of
@@ -1154,10 +1156,10 @@ Buckets start out with one full tick&#8217;s worth of traffic.  This means that 
 <p>
 Ticks cannot be smaller than 1 millisecond, and all fractions of a
   millisecond are ignored.
-</p>
+</p><p class="translate">截至Libevent 2.0版，您应该知道速率限制实现有一些局限性。<br>- 并非每一种bufferevent类型都能很好地或完全支持速率限制。<br>- Bufferevent速率限制组不能嵌套，且一个bufferevent一次只能在一个速率限制组中。<br>- 速率限制实现仅将TCP数据包中传输的字节计为数据，不包括TCP头部。<br>- 读取限制实现依赖于TCP堆栈，应用程序仅以特定速率消费数据，并在其缓冲区变满时对TCP连接的另一侧施加压力。<br>- 某些bufferevents实现（特别是Windows IOCP实现）可能会超额。<br>- 桶在开始时有一个完整tick流量。这意味着bufferevent可以立即开始读取或写入，而不必等待完整的tick通过。然而，这也意味着，一个已经被限制为N.1 tick的bufferevent可以潜在地传输N+1 tick的流量。<br>- tick不能小于1毫秒，所有小于1毫秒的分数都会被忽略。</p>
 </li>
 </ul></div>
-<div class="paragraph"><p>/// TODO: Write an example for rate-limiting</p></div>
+<div class="paragraph"><p>/// TODO: Write an example for rate-limiting</p><p class="translate">/// todo：写一个关于速率限制的示例</p></div>
 </div>
 </div>
 </div>
@@ -1165,15 +1167,15 @@ Ticks cannot be smaller than 1 millisecond, and all fractions of a
 <h2 id="_bufferevents_and_ssl">Bufferevents and SSL</h2>
 <div class="sectionbody">
 <div class="paragraph"><p>Bufferevents can use the OpenSSL library to implement the SSL/TLS secure
-transport layer.  Because many applications don&#8217;t need or want to link
+transport layer.  Because many applications don’t need or want to link
 OpenSSL, this functionality is implemented in a separate library installed as
 "libevent_openssl".  Future versions of Libevent could add support for other
-SSL/TLS libraries such as NSS or GnuTLS, but right now OpenSSL is all that&#8217;s
-there.</p></div>
-<div class="paragraph"><p>OpenSSL functionality was introduced in Libevent 2.0.3-alpha, though it didn&#8217;t
-work so well before Libevent 2.0.5-beta or Libevent 2.0.6-rc.</p></div>
-<div class="paragraph"><p>This section is not a tutorial on OpenSSL, SSL/TLS, or cryptography in general.</p></div>
-<div class="paragraph"><p>These functions are all declared in the header "event2/bufferevent_ssl.h".</p></div>
+SSL/TLS libraries such as NSS or GnuTLS, but right now OpenSSL is all that’s
+there.</p><p class="translate">bufferevent 可以使用OpenSSL库来实现SSL/TLS安全传输层。因为许多应用程序不需要或不想链接OpenSSL，这个功能被实现在一个独立的库中，安装时称为"libevent_openssl"。未来的Libevent版本可能会增加对其他SSL/TLS库如NSS或GnuTLS的支持，但现在只有OpenSSL。</p></div>
+<div class="paragraph"><p>OpenSSL functionality was introduced in Libevent 2.0.3-alpha, though it didn’t
+work so well before Libevent 2.0.5-beta or Libevent 2.0.6-rc.</p><p class="translate">在Libevent 2.0.3-alpha中引入了OpenSSL功能，尽管在Libevent 2.0.5-beta或Libevent 2.0.6-rc之前它的工作表现并不理想。</p></div>
+<div class="paragraph"><p>This section is not a tutorial on OpenSSL, SSL/TLS, or cryptography in general.</p><p class="translate">本节不是关于OpenSSL，SSL/TLS或一般加密技术的教程。</p></div>
+<div class="paragraph"><p>These functions are all declared in the header "event2/bufferevent_ssl.h".</p><p class="translate">这些函数都在头文件"event2/bufferevent_ssl.h"中声明。</p></div>
 <div class="sect2">
 <h3 id="_setting_up_and_using_an_openssl_based_bufferevent">Setting up and using an OpenSSL-based bufferevent</h3>
 <div class="listingblock">
@@ -1203,19 +1205,19 @@ bufferevent_openssl_socket_new(<strong>struct</strong> event_base *base,
 communicates over another underlying bufferevent, or a socket-based
 bufferevent that tells OpenSSL to communicate with the network directly over.  In
 either case, you must provide an SSL object and a description of the SSL
-object&#8217;s state.  The state should be BUFFEREVENT_SSL_CONNECTING if the SSL is
+object’s state.  The state should be BUFFEREVENT_SSL_CONNECTING if the SSL is
 currently performing negotiation as a client, BUFFEREVENT_SSL_ACCEPTING
 if the SSL is currently performing negotiation as a server, or
-BUFFEREVENT_SSL_OPEN if the SSL handshake is done.</p></div>
+BUFFEREVENT_SSL_OPEN if the SSL handshake is done.</p><p class="translate">你可以创建两种类型的SSL bufferevent：一种基于过滤器的bufferevent，通过另一个底层bufferevent进行通信，或者是一个基于socket的bufferevent，告诉OpenSSL直接通过网络进行通信。在任何一种情况下，你都必须提供一个SSL对象和对SSL对象状态的描述。如果SSL当前作为客户端进行协商，则状态应为BUFFEREVENT_SSL_CONNECTING；如果SSL当前作为服务器，则为BUFFEREVENT_SSL_ACCEPTING；或者如果SSL握手已完成，则为BUFFEREVENT_SSL_OPEN。</p></div>
 <div class="paragraph"><p>The usual options are accepted; BEV_OPT_CLOSE_ON_FREE makes the SSL object
 and the underlying fd or bufferevent get closed when the openssl bufferevent
-itself is closed.</p></div>
-<div class="paragraph"><p>Once the handshake is complete, the new bufferevent&#8217;s event callback gets invoked
-with BEV_EVENT_CONNECTED in flags.</p></div>
-<div class="paragraph"><p>If you&#8217;re creating a socket-based bufferevent and the SSL object already
+itself is closed.</p><p class="translate">通常的选项：BEV_OPT_CLOSE_ON_FREE使得SSL对象和底层的fd或bufferevent在openssl bufferevent本身关闭时被关闭。</p></div>
+<div class="paragraph"><p>Once the handshake is complete, the new bufferevent’s event callback gets invoked
+with BEV_EVENT_CONNECTED in flags.</p><p class="translate">一旦握手完成，新的bufferevent的事件回调将被调用，并在标志中带有BEV_EVENT_CONNECTED。</p></div>
+<div class="paragraph"><p>If you’re creating a socket-based bufferevent and the SSL object already
 has a socket set, you do not need to provide the socket yourself: just pass
--1.  You can also set the fd later with bufferevent_setfd().</p></div>
-<div class="paragraph"><p>/// TODO: Remove this once bufferevent_shutdown() API has been finished.</p></div>
+-1.  You can also set the fd later with bufferevent_setfd().</p><p class="translate">如果你正在创建一个基于socket的bufferevent，并且SSL对象已经设置了一个socket，你不需要自己提供套接字：只需传递-1。你也可以稍后用bufferevent_setfd()设置fd。</p></div>
+<div class="paragraph"><p>/// TODO: Remove this once bufferevent_shutdown() API has been finished.</p><p class="translate">/// TODO：一旦bufferevent_shutdown() API完成后删除此项。</p></div>
 <div class="paragraph"><p>Note that when BEV_OPT_CLOSE_ON_FREE is set on a SSL bufferevent,
 a clean shutdown will not be performed on the SSL connection.  This has two
 problems: first, the connection will seem to have been "broken" by the other
@@ -1223,10 +1225,10 @@ side, rather than having been closed cleanly: the other party will not be
 able to tell whether you closed the connection, or whether it was broken
 by an attacker or third party.  Second, OpenSSL will treat
 the session as "bad", and removed from the session cache. This
-can cause significant performance degradation on SSL applications under load.</p></div>
+can cause significant performance degradation on SSL applications under load.</p><p class="translate">请注意，当在SSL bufferevent上设置了BEV_OPT_CLOSE_ON_FREE时，SSL连接上不会执行干净的关闭。这有两个问题：首先，连接会看起来像是被对方"断开"的，而不是被干净地关闭：对方将无法判断是你关闭了连接，还是它被攻击者或第三方破坏了。其次，OpenSSL会将会话视为"坏的"，并从会话缓存中移除。这可能会在负载下的SSL应用程序上造成显著的性能下降。</p></div>
 <div class="paragraph"><p>Currently the only workaround is to do lazy SSL shutdowns manually. While this
 breaks the TLS RFC, it will make sure that sessions will stay in
-cache once closed. The following code implements this workaround.</p></div>
+cache once closed. The following code implements this workaround.</p><p class="translate">目前唯一的解决方法是手动进行懒惰的SSL关闭。虽然这违反了TLS RFC，但它将确保一旦关闭，会话将保留在缓存中。以下代码实现了这种解决方法。</p></div>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
@@ -1253,15 +1255,15 @@ bufferevent_free(bev);</code></pre>
 <pre><code>SSL *bufferevent_openssl_get_ssl(<strong>struct</strong> bufferevent *bev);</code></pre>
 </div></div>
 <div class="paragraph"><p>This function returns the SSL object used by an OpenSSL bufferevent, or NULL
-if <em>bev</em> is not an OpenSSL-based bufferevent.</p></div>
+if <em>bev</em> is not an OpenSSL-based bufferevent.</p><p class="translate">这个函数返回由OpenSSL bufferevent使用的SSL对象，如果bev不是基于OpenSSL的bufferevent，则返回NULL。</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
 <pre><code><strong>unsigned</strong> <strong>long</strong> bufferevent_get_openssl_error(<strong>struct</strong> bufferevent *bev);</code></pre>
 </div></div>
 <div class="paragraph"><p>This function returns the first pending OpenSSL error for a given
-bufferevent&#8217;s operations, or 0 if there was no pending error.  The error
-format is as returned by ERR_get_error() in the openssl library.</p></div>
+bufferevent’s operations, or 0 if there was no pending error.  The error
+format is as returned by ERR_get_error() in the openssl library.</p><p class="translate">这个函数返回给定bufferevent操作的第一个挂起的OpenSSL错误，如果没有挂起错误，则返回0。错误格式与openssl库中的ERR_get_error()返回的格式相同。</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
@@ -1269,9 +1271,9 @@ format is as returned by ERR_get_error() in the openssl library.</p></div>
 </div></div>
 <div class="paragraph"><p>Calling this function tells the SSL to renegotiate, and the bufferevent to
 invoke appropriate callbacks.  This is an advanced topic; you should
-generally avoid it unless you really know what you&#8217;re doing, especially since
+generally avoid it unless you really know what you’re doing, especially since
 many SSL versions have had known security issues related to
-renegotiation.</p></div>
+renegotiation.</p><p class="translate">调用这个函数告诉SSL重新协商，并且bufferevent调用相应的回调。这是一个高级主题；除非你真的知道你在做什么，通常应该避免它，尤其是因为许多SSL版本已知存在与重新协商相关的安全问题。</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
@@ -1285,8 +1287,8 @@ parties to distinguish an intentional close from an accidental or
 maliciously induced termination in the underling buffer.  By default, we
 treat anything besides a proper shutdown as an error on the connection.
 If the allow_dirty_shutdown flag is set to 1, however, we treat a close
-in the connection as a BEV_EVENT_EOF.</p></div>
-<div class="paragraph"><p>The allow_dirty_shutdown functions were added in Libevent 2.1.1-alpha.</p></div>
+in the connection as a BEV_EVENT_EOF.</p><p class="translate">优秀的SSL版本（即SSLv3和所有TLS版本）都支持经过验证的关闭操作，它使得双方能够区分有意的关闭和意外或恶意引起的底层缓冲终止。默认情况下，我们将除了正确的关闭之外的任何事情视为连接上的错误。然而，如果将allow_dirty_shutdown标志设置为1，我们将在连接中的关闭视为BEV_EVENT_EOF。</p></div>
+<div class="paragraph"><p>The allow_dirty_shutdown functions were added in Libevent 2.1.1-alpha.</p><p class="translate">allow_dirty_shutdown函数在Libevent 2.1.1-alpha中被添加。</p></div>
 <div class="listingblock">
 <div class="title">Example: A simple SSL-based echo server</div>
 <div class="content">
@@ -1403,7 +1405,7 @@ main(<strong>int</strong> argc, <strong>char</strong> **argv)
 <div class="paragraph"><p>The built in threading mechanisms of Libevent do not cover OpenSSL locking.
 Since OpenSSL uses a myriad of global variables, you must still configure
 OpenSSL to be thread safe. While this process is outside the scope of Libevent,
-this topic comes up enough to warrant discussion.</p></div>
+this topic comes up enough to warrant discussion.</p><p class="translate">Libevent的内置线程机制不覆盖OpenSSL锁。由于OpenSSL使用了大量的全局变量，你仍然必须配置OpenSSL以确保线程安全。虽然这个过程不在Libevent的范围内，但这个话题被足够多地提及，值得进行讨论。</p></div>
 <div class="listingblock">
 <div class="title">Example: A very simple example of how to enable thread safe OpenSSL</div>
 <div class="content">
@@ -1488,12 +1490,13 @@ init_ssl_locking(<strong>void</strong>)
 </div>
 </div>
 </div>
-<div id="footnotes"><hr /></div>
+<div id="footnotes"><hr></div>
 <div id="footer">
 <div id="footer-text">
 Last updated
  2024-02-18 20:10:44 UTC
 </div>
 </div>
-</body>
-</html>
+
+
+</body></html>

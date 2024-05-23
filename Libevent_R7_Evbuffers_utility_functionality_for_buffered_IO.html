@@ -1,10 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
-    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
-<head>
-<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
-<meta name="generator" content="AsciiDoc 10.1.2" />
+<!--?xml version="1.0" encoding="UTF-8"?--><!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8">
+<meta name="generator" content="AsciiDoc 10.1.2">
 <title>Evbuffers: utility functionality for buffered IO</title>
 <style type="text/css">
 /* Shared CSS for AsciiDoc xhtml11 and html5 backends */
@@ -732,7 +728,7 @@ asciidoc.install();
 /*]]>*/
 </script>
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-M3CEY418LQ"></script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-M3CEY418LQ"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -740,7 +736,13 @@ asciidoc.install();
 
   gtag('config', 'G-M3CEY418LQ');
 </script>
-</head>
+<style id="translation-style">
+      .translate {
+        background-color: #f0f0f0; /* 浅灰色背景 */
+        color: black;             /* 黑色文本 */
+        font-weight: bold;        /* 加粗字体 */
+      }
+    </style></head>
 <body class="article">
 <div id="header">
 <h1>Evbuffers: utility functionality for buffered IO</h1>
@@ -763,14 +765,14 @@ and run "git clone git://github.com/libevent/libevent-book.git"</p></div>
 </div>
 <div class="attribution">
 </div></div>
-<div class="paragraph"><p>Libevent&#8217;s evbuffer functionality implements a queue of bytes,
-optimized for adding data to the end and removing it from the front.</p></div>
+<div class="paragraph"><p>Libevent’s evbuffer functionality implements a queue of bytes,
+optimized for adding data to the end and removing it from the front.</p><p class="translate">Libevent的evbuffer功能实现了字节队列，针对从末尾添加数据和从前端移除数据进行了优化。</p></div>
 <div class="paragraph"><p>Evbuffers are meant to be generally useful for doing the "buffer"
 part of buffered network IO.  They do not provide functions to
-schedule the IO or trigger the IO when it&#8217;s ready: that is what
-bufferevents do.</p></div>
+schedule the IO or trigger the IO when it’s ready: that is what
+bufferevents do.</p><p class="translate">Evbuffers旨在通用地执行网络IO的“缓冲”部分。它们不提供用于调度IO或在IO准备就绪时触发IO的函数：这是bufferevents的工作。</p></div>
 <div class="paragraph"><p>The functions in this chapter are declared in event2/buffer.h unless
-otherwise noted.</p></div>
+otherwise noted.</p><p class="translate">除非另有说明，本章中的函数都声明在event2/buffer.h中。</p></div>
 </div>
 </div>
 <div class="sect1">
@@ -784,8 +786,8 @@ otherwise noted.</p></div>
 </div></div>
 <div class="paragraph"><p>These functions should be relatively clear: evbuffer_new() allocates
 and returns a new empty evbuffer, and evbuffer_free() deletes one and
-all of its contents.</p></div>
-<div class="paragraph"><p>These functions have existed since Libevent 0.8.</p></div>
+all of its contents.</p><p class="translate">这些函数应该相对明确：evbuffer_new() 会分配并返回一个新的空evbuffer，而evbuffer_free() 则会删除一个evbuffer以及其所有内容。</p></div>
+<div class="paragraph"><p>These functions have existed since Libevent 0.8.</p><p class="translate">这些函数自Libevent 0.8版以来一直存在。</p></div>
 </div>
 </div>
 <div class="sect1">
@@ -803,17 +805,17 @@ at once.  If you need to do this, you can call
 evbuffer_enable_locking() on the evbuffer.  If its <em>lock</em> argument is
 NULL, Libevent allocates a new lock using the lock creation function
 that was provided to evthread_set_lock_creation_callback.  Otherwise,
-it uses the argument as the lock.</p></div>
+it uses the argument as the lock.</p><p class="translate">默认情况下，同时从多个线程访问evbuffer是不安全的。如果你需要这样做，你可以在evbuffer上调用evbuffer_enable_locking()。如果其lock参数为NULL，Libevent将使用evthread_set_lock_creation_callback分配一个新锁。否则，它将使用该参数作为锁。</p></div>
 <div class="paragraph"><p>The evbuffer_lock() and evbuffer_unlock() functions acquire and
 release the lock on an evbuffer respectively.  You can use them to
 make a set of operations atomic.  If locking has not been enabled on
-the evbuffer, these functions do nothing.</p></div>
+the evbuffer, these functions do nothing.</p><p class="translate">evbuffer_lock() 和 evbuffer_unlock() 函数分别获取和释放evbuffer上的锁。你可以使用它们使一组操作成为原子操作。如果没有在evbuffer上启用锁定，这些函数不会执行任何操作。</p></div>
 <div class="paragraph"><p>(Note that you do not need to call evbuffer_lock() and
 evbuffer_unlock() around <em>individual</em> operations: if locking is
 enabled on the evbuffer, individual operations are already atomic.
 You only need to lock the evbuffer manually when you have more than
-one operation that need to execute without another thread butting in.)</p></div>
-<div class="paragraph"><p>These functions were all introduced in Libevent 2.0.1-alpha.</p></div>
+one operation that need to execute without another thread butting in.)</p><p class="translate">（注意，你不需要在单个操作周围调用evbuffer_lock() 和 evbuffer_unlock()：如果在evbuffer上启用了锁，单个操作已经是原子的。只有当你有多个需要执行的操作，且不希望其他线程介入时，你才需要手动锁定evbuffer。）</p></div>
+<div class="paragraph"><p>These functions were all introduced in Libevent 2.0.1-alpha.</p><p class="translate">这些函数都是在Libevent 2.0.1-alpha中引入的。</p></div>
 </div>
 </div>
 <div class="sect1">
@@ -824,8 +826,8 @@ one operation that need to execute without another thread butting in.)</p></div>
 <div class="content">
 <pre><code>size_t evbuffer_get_length(<strong>const</strong> <strong>struct</strong> evbuffer *buf);</code></pre>
 </div></div>
-<div class="paragraph"><p>This function returns the number of bytes stored in an evbuffer.</p></div>
-<div class="paragraph"><p>It was introduced in Libevent 2.0.1-alpha.</p></div>
+<div class="paragraph"><p>This function returns the number of bytes stored in an evbuffer.</p><p class="translate">这个函数返回存储在evbuffer中的字节数。</p></div>
+<div class="paragraph"><p>It was introduced in Libevent 2.0.1-alpha.</p><p class="translate">它在Libevent 2.0.1-alpha中被引入。</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
@@ -834,8 +836,8 @@ one operation that need to execute without another thread butting in.)</p></div>
 <div class="paragraph"><p>This function returns the number of bytes stored contiguously at the
 front of the evbuffer.  The bytes in an evbuffer may be stored in
 multiple separate chunks of memory; this function returns the number
-of bytes currently stored in the <em>first</em> chunk.</p></div>
-<div class="paragraph"><p>It was introduced in Libevent 2.0.1-alpha.</p></div>
+of bytes currently stored in the <em>first</em> chunk.</p><p class="translate">这个函数返回evbuffer顶部存储的字节数。evbuffer中的数据可能被存储在多个分开的内存块中；这个函数返回第一个块中存储的字节数。</p></div>
+<div class="paragraph"><p>It was introduced in Libevent 2.0.1-alpha.</p><p class="translate">它在Libevent 2.0.1-alpha中被引入。</p></div>
 </div>
 </div>
 <div class="sect1">
@@ -847,7 +849,7 @@ of bytes currently stored in the <em>first</em> chunk.</p></div>
 <pre><code><strong>int</strong> evbuffer_add(<strong>struct</strong> evbuffer *buf, <strong>const</strong> <strong>void</strong> *data, size_t datlen);</code></pre>
 </div></div>
 <div class="paragraph"><p>This function appends the <em>datlen</em> bytes in <em>data</em> to the end of
-<em>buf</em>.  It returns 0 on success, and -1 on failure.</p></div>
+<em>buf</em>.  It returns 0 on success, and -1 on failure.</p><p class="translate">这个函数将datlen字节的数据添加到buf的末尾。成功时返回0，失败时返回-1。</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
@@ -857,7 +859,7 @@ of bytes currently stored in the <em>first</em> chunk.</p></div>
 <div class="paragraph"><p>These functions append formatted data to the end of <em>buf</em>.  The format
 argument and other remaining arguments are handled as if by the C
 library functions "printf" and "vprintf" respectively.  The functions
-return the number of bytes appended.</p></div>
+return the number of bytes appended.</p><p class="translate">这些函数将格式化数据添加到buf的末尾。格式参数和其他剩余参数被处理，就像由C库函数"printf"和"vprintf"分别处理一样。函数返回追加的字节数。</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
@@ -865,7 +867,7 @@ return the number of bytes appended.</p></div>
 </div></div>
 <div class="paragraph"><p>This function alters the last chunk of memory in the buffer, or adds a
 new chunk, such that the buffer is now large enough to contain datlen
-bytes without any further allocations.</p></div>
+bytes without any further allocations.</p><p class="translate">这个函数修改缓冲区中的最后一个内存块，或添加一个新的内存块，以使缓冲区足够大，可以在不进行任何进一步分配的情况下包含datlen字节。</p></div>
 <div class="listingblock">
 <div class="title">Examples</div>
 <div class="content">
@@ -878,14 +880,14 @@ evbuffer_add_printf(buf, "Hello %s %d.%d.%d", "world", 2, 0, 1);</code></pre>
 </div></div>
 <div class="paragraph"><p>The evbuffer_add() and evbuffer_add_printf() functions were introduced in
 Libevent 0.8; evbuffer_expand() was in Libevent 0.9, and
-evbuffer_add_vprintf() first appeared in Libevent 1.1.</p></div>
+evbuffer_add_vprintf() first appeared in Libevent 1.1.</p><p class="translate">evbuffer_add() 和 evbuffer_add_printf() 函数在Libevent 0.8中引入；evbuffer_expand() 在Libevent 0.9中引入，而evbuffer_add_vprintf() 首次出现在Libevent 1.1中。</p></div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_moving_data_from_one_evbuffer_to_another">Moving data from one evbuffer to another</h2>
 <div class="sectionbody">
 <div class="paragraph"><p>For efficiency, Libevent has optimized functions for moving data from
-one evbuffer to another.</p></div>
+one evbuffer to another.</p><p class="translate">为了提高效率，Libevent对从一个evbuffer移动数据到另一个evbuffer有专门的优化。</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
@@ -894,13 +896,13 @@ one evbuffer to another.</p></div>
     size_t datlen);</code></pre>
 </div></div>
 <div class="paragraph"><p>The evbuffer_add_buffer() function moves all data from <em>src</em> to the
-end of <em>dst</em>.  It returns 0 on success, -1 on failure.</p></div>
+end of <em>dst</em>.  It returns 0 on success, -1 on failure.</p><p class="translate">evbuffer_add_buffer() 函数将所有数据从src移动到dst的末尾。成功时返回0，失败时返回-1。</p></div>
 <div class="paragraph"><p>The evbuffer_remove_buffer() function moves exactly <em>datlen</em> bytes
 from <em>src</em> to the end of <em>dst</em>, copying as little as possible.  If
 there are fewer than <em>datlen</em> bytes to move, it moves all the bytes.
-It returns the number of bytes moved.</p></div>
+It returns the number of bytes moved.</p><p class="translate">evbuffer_remove_buffer() 函数从src移动datlen字节的数据到dst的末尾，尽可能少地复制。如果src的字节数少于datlen，它将移动所有的字节。它返回移动的字节数。</p></div>
 <div class="paragraph"><p>We introduced evbuffer_add_buffer() in Libevent 0.8;
-evbuffer_remove_buffer() was new in Libevent 2.0.1-alpha.</p></div>
+evbuffer_remove_buffer() was new in Libevent 2.0.1-alpha.</p><p class="translate">我们在Libevent 0.8中引入了evbuffer_add_buffer()；evbuffer_remove_buffer() 在Libevent 2.0.1-alpha中是新功能。</p></div>
 </div>
 </div>
 <div class="sect1">
@@ -914,9 +916,9 @@ evbuffer_remove_buffer() was new in Libevent 2.0.1-alpha.</p></div>
 </div></div>
 <div class="paragraph"><p>These functions behave as evbuffer_add() and evbuffer_add_buffer()
 respectively, except that they move data to the <em>front</em> of the
-destination buffer.</p></div>
+destination buffer.</p><p class="translate">这些函数的行为类似于evbuffer_add()和evbuffer_add_buffer()，不同之处在于它们将数据移动到目标缓冲区的前端。</p></div>
 <div class="paragraph"><p>These functions should be used with caution, and never on an evbuffer
-shared with a bufferevent.  They were new in Libevent 2.0.1-alpha.</p></div>
+shared with a bufferevent.  They were new in Libevent 2.0.1-alpha.</p><p class="translate">这些函数应谨慎使用，且永远不要在与bufferevent共享的evbuffer上使用。它们在Libevent 2.0.1-alpha中是新功能。</p></div>
 </div>
 </div>
 <div class="sect1">
@@ -925,7 +927,7 @@ shared with a bufferevent.  They were new in Libevent 2.0.1-alpha.</p></div>
 <div class="paragraph"><p>Sometimes you want to peek at the first N bytes of data in the
 front of an evbuffer, and see it as a contiguous array of bytes.  To
 do this, you must first ensure that the front of the buffer really <em>is</em>
-contiguous.</p></div>
+contiguous.</p><p class="translate">有时你想要查看evbuffer前端的N个字节数据，并将其视为一个连续的字节数组。要做到这一点，你首先必须确保缓冲区的前端确实是连续的。</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
@@ -937,9 +939,9 @@ contiguous and occupying the same chunk of memory.  If <em>size</em> is
 negative, the function linearizes the entire buffer.  If <em>size</em> is
 greater than the number of bytes in the buffer, the function returns
 NULL.  Otherwise, evbuffer_pullup() returns a pointer to the first
-byte in buf.</p></div>
+byte in buf.</p><p class="translate">evbuffer_pullup()函数“线性化”buf的前size字节，必要时通过复制或移动它们来确保它们都是连续的，并占据相同的内存块。如果size为负数，该函数将线性化整个缓冲区。如果size大于缓冲区中的字节数，函数返回NULL。否则，evbuffer_pullup()返回指向buf中第一个字节的指针。</p></div>
 <div class="paragraph"><p>Calling evbuffer_pullup() with a large size can be quite slow, since
-it potentially needs to copy the entire buffer&#8217;s contents.</p></div>
+it potentially needs to copy the entire buffer’s contents.</p><p class="translate">使用较大的size调用evbuffer_pullup()可能会相当慢，因为它可能需要复制整个缓冲区的内容。</p></div>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
@@ -977,10 +979,10 @@ it potentially needs to copy the entire buffer&#8217;s contents.</p></div>
 </div></div>
 <div class="paragraph"><div class="title">Note</div><p>Calling evbuffer_pullup() with size equal to the value returned by
 evbuffer_get_contiguous_space() will not result in any data being
-copied or moved.</p></div>
+copied or moved.</p><p class="translate">调用evbuffer_pullup()时，size如果等于evbuffer_get_contiguous_space()不会导致任何数据被复制或移动。</p></div>
 <div class="paragraph"><p>The evbuffer_pullup() function was new in Libevent 2.0.1-alpha:
 previous versions of Libevent always kept evbuffer data contiguous,
-regardless of the cost.</p></div>
+regardless of the cost.</p><p class="translate">evbuffer_pullup()函数在Libevent 2.0.1-alpha中是新功能：之前的Libevent版本总是保持evbuffer数据连续，不管成本如何。</p></div>
 </div>
 </div>
 <div class="sect1">
@@ -996,12 +998,12 @@ regardless of the cost.</p></div>
 bytes from the front of <em>buf</em> into the memory at <em>data</em>.  If there are
 fewer than <em>datlen</em> bytes available, the function copies all the bytes
 there are.  The return value is -1 on failure, and is otherwise the
-number of bytes copied.</p></div>
+number of bytes copied.</p><p class="translate">evbuffer_remove()函数将buf前端的前datlen字节数据复制并移除，放到data中。如果可用字节数少于datlen，那么函数会复制所有可用的字节。失败返回-1，在其他情况下返回复制的字节数。</p></div>
 <div class="paragraph"><p>The evbuffer_drain() function behaves as evbuffer_remove(), except
 that it does not copy the data: it just removes it from the front of
-the buffer.  It returns 0 on success and -1 on failure.</p></div>
+the buffer.  It returns 0 on success and -1 on failure.</p><p class="translate">evbuffer_drain()函数的行为类似于evbuffer_remove()，区别在于它不复制数据：它只是将数据从缓冲区前端移除。成功时返回0，失败时返回-1。</p></div>
 <div class="paragraph"><p>Libevent 0.8 introduced evbuffer_drain(); evbuffer_remove() appeared in
-Libevent 0.9.</p></div>
+Libevent 0.9.</p><p class="translate">Libevent 0.8引入了evbuffer_drain()；evbuffer_remove()出现在Libevent 0.9中。</p></div>
 </div>
 </div>
 <div class="sect1">
@@ -1011,7 +1013,7 @@ Libevent 0.9.</p></div>
 draining it.  For example, you might want to see whether a complete record
 of some kind has arrived, without draining any of the data (as
 evbuffer_remove would do), or rearranging the buffer internally (as
-evbuffer_pullup() would do.)</p></div>
+evbuffer_pullup() would do.)</p><p class="translate">有时候，你希望在不清空数据的情况下，获取缓冲区开始处的数据副本。例如，你可能想要检查完整记录是否已经到达，而不需要移除任何数据（如evbuffer_remove所做的那样），或者内部重新排列缓冲区（如evbuffer_pullup()所做的那样）。</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
@@ -1025,12 +1027,12 @@ drain any data from the buffer. That is, it copies the first <em>datlen</em>
 bytes from the front of <em>buf</em> into the memory at <em>data</em>.  If there are
 fewer than <em>datlen</em> bytes available, the function copies all the bytes
 there are.  The return value is -1 on failure, and is otherwise the
-number of bytes copied.</p></div>
+number of bytes copied.</p><p class="translate">evbuffer_copyout()的行为就像evbuffer_remove()，但不会从缓冲区中移除任何数据。也就是说，它会将buf前端的前datlen字节复制到data中。如果可用的字节数少于datlen，函数将复制所有可用的字节。失败时返回-1，在其他情况下是复制的字节数。</p></div>
 <div class="paragraph"><p>The evbuffer_copyout_from() function behaves like evbuffer_copyout(), but
 instead of copying bytes from the front of the buffer, it copies them
 beginning at the position provided in <em>pos</em>.  See "Searching within an
-evbuffer" below for information on the evbuffer_ptr structure.</p></div>
-<div class="paragraph"><p>If copying data from the buffer is too slow, use evbuffer_peek() instead.</p></div>
+evbuffer" below for information on the evbuffer_ptr structure.</p><p class="translate">evbuffer_copyout_from()函数的行为类似于evbuffer_copyout()，但它不是从缓冲区的前端复制字节，而是从pos位置开始复制。有关evbuffer_ptr结构的信息，请参阅下面的“在evbuffer内搜索”。</p></div>
+<div class="paragraph"><p>If copying data from the buffer is too slow, use evbuffer_peek() instead.</p><p class="translate">如果从缓冲区复制数据太慢，使用evbuffer_peek()代替。</p></div>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
@@ -1075,7 +1077,7 @@ evbuffer" below for information on the evbuffer_ptr structure.</p></div>
 }</code></pre>
 </div></div>
 <div class="paragraph"><p>The evbuffer_copyout() function first appeared in Libevent 2.0.5-alpha;
-evbuffer_copyout_from() was added in Libevent 2.1.1-alpha.</p></div>
+evbuffer_copyout_from() was added in Libevent 2.1.1-alpha.</p><p class="translate">evbuffer_copyout()函数首次出现在Libevent 2.0.5-alpha中；evbuffer_copyout_from()在Libevent 2.1.1-alpha中被添加。</p></div>
 </div>
 </div>
 <div class="sect1">
@@ -1099,7 +1101,7 @@ function extracts a line from the front of an evbuffer and returns it
 in a newly allocated NUL-terminated string.  If <em>n_read_out</em> is not
 NULL, *<em>n_read_out</em> is set to the number of bytes in the string
 returned.  If there is not a whole line to read, the function returns
-NULL.  The line terminator is not included in the copied string.</p></div>
+NULL.  The line terminator is not included in the copied string.</p><p class="translate">许多互联网协议使用基于行的格式。evbuffer_readln()函数从evbuffer的前端提取一行，并将其以NUL结尾的字符串返回。如果n_read_out不是NULL，*n_read_out被设置为返回的字符串中的字节数。如果没有完整的行可以读取，则该函数返回NULL。复制的字符串中不包括行终止符。</p></div>
 <div class="paragraph"><p>The evbuffer_readln() function understands 4 line termination formats:</p></div>
 <div class="dlist"><dl>
 <dt class="hdlist1">
@@ -1149,14 +1151,20 @@ EVBUFFER_EOL_NUL
 </dt>
 <dd>
 <p>
-    The end of line is a single byte with the value 0&#8201;&#8212;&#8201;that is,
+    The end of line is a single byte with the value 0 — that is,
     an ASCII NUL.
 </p>
 </dd>
 </dl></div>
 <div class="paragraph"><p>(Note that if you used event_set_mem_functions() to override the
 default malloc, the string returned by evbuffer_readln will be
-allocated by the malloc-replacement you specified.)</p></div>
+allocated by the malloc-replacement you specified.)</p><p class="translate">evbuffer_readln()函数理解4种行终止格式：<br>EVBUFFER_EOL_LF<br>  一行的结束是单个换行符。（这也被称为"
+"。它的ASCII值是0x0A。）<br>EVBUFFER_EOL_CRLF_STRICT<br>  一行的结束是一个回车符，后跟一个换行符。（这也被称为"
+"。ASCII值是0x0D 0x0A。）<br>EVBUFFER_EOL_CRLF<br>  行的结束是一个可选的回车符，后跟一个换行符。（换句话说，它可以是"
+"或"
+"）。这种格式在解析基于文本的互联网协议时非常有用，因为标准通常规定一个"
+"作为行终结符，但不符合标准的客户端有时只使用"
+"。<br>EVBUFFER_EOL_ANY<br>  行的结束是任意数量的回车符和换行符序列。这种格式不是很有用；它主要存在是为了向后兼容。<br>EVBUFFER_EOL_NUL<br>  行的结束是一个值为0的单字节 —— 也就是，一个ASCII NUL。<br>（请注意，如果你使用event_set_mem_functions()覆盖默认的malloc，那么由evbuffer_readln返回的字符串将由你指定的malloc替换函数分配。）</p></div>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
@@ -1174,14 +1182,14 @@ request_line = evbuffer_readln(buf, &amp;len, EVBUFFER_EOL_CRLF);
 }</code></pre>
 </div></div>
 <div class="paragraph"><p>The evbuffer_readln() interface is available in Libevent 1.4.14-stable and
-later.  EVBUFFER_EOL_NUL was added in Libevent 2.1.1-alpha.</p></div>
+later.  EVBUFFER_EOL_NUL was added in Libevent 2.1.1-alpha.</p><p class="translate">evbuffer_readln()接口在Libevent 1.4.14-stable及以后版本中可用。EVBUFFER_EOL_NUL在Libevent 2.1.1-alpha中被添加。</p></div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_searching_within_an_evbuffer">Searching within an evbuffer</h2>
 <div class="sectionbody">
 <div class="paragraph"><p>The evbuffer_ptr structure points to a location within an evbuffer,
-and contains data that you can use to iterate through an evbuffer.</p></div>
+and contains data that you can use to iterate through an evbuffer.</p><p class="translate">evbuffer_ptr结构指向evbuffer中的一个位置，并包含可用于遍历evbuffer的数据。</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
@@ -1194,7 +1202,7 @@ and contains data that you can use to iterate through an evbuffer.</p></div>
 </div></div>
 <div class="paragraph"><p>The <em>pos</em> field is the only public field; the others should not be
 used by user code.  It indicates a position in the evbuffer as an
-offset from the start.</p></div>
+offset from the start.</p><p class="translate">pos字段是唯一的公开字段；其他字段不应由用户使用。它表示在evbuffer中的位置，作为从起始处的偏移。</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
@@ -1210,15 +1218,15 @@ offset from the start.</p></div>
 <div class="paragraph"><p>The evbuffer_search() function scans the buffer for an occurrence of the
 <em>len</em>-character string <em>what</em>.  It returns an evbuffer_ptr containing
 the position of the string, or -1 if the string was not found.  If the
-<em>start</em> argument is provided, it&#8217;s the position at which the search
-should begin; otherwise, the search is from the start of the string.</p></div>
+<em>start</em> argument is provided, it’s the position at which the search
+should begin; otherwise, the search is from the start of the string.</p><p class="translate">evbuffer_search()函数扫描缓冲区以寻找len字符长的字符串what。它返回一个包含字符串位置的evbuffer_ptr，如果找不到字符串则返回-1。如果提供了start参数，搜索应从该位置开始；否则，搜索从字符串的开头开始。</p></div>
 <div class="paragraph"><p>The evbuffer_search_range() function behaves as evbuffer_search, except that
 it only considers occurrences of <em>what</em> that occur before the evbuffer_ptr
-<em>end</em>.</p></div>
+<em>end</em>.</p><p class="translate">evbuffer_search_range()函数的行为类似于evbuffer_search，不同之处在于它只只搜索到end位置。</p></div>
 <div class="paragraph"><p>The evbuffer_search_eol() function detects line-endings as evbuffer_readln(),
 but instead of copying out the line, returns an evbuffer_ptr to the
 start of the end-of-line characters(s).  If eol_len_out is non-NULL, it is
-set to the length of the EOL string.</p></div>
+set to the length of the EOL string.</p><p class="translate">evbuffer_search_eol()函数检测行尾，类似于evbuffer_readln()，但不是复制行，而是返回一个指向行尾字符(s)开始的evbuffer_ptr。如果eol_len_out非NULL，它被设置为EOL字符串的长度。</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
@@ -1233,7 +1241,7 @@ set to the length of the EOL string.</p></div>
 evbuffer_ptr <em>pos</em> within <em>buffer</em>.  If <em>how</em> is EVBUFFER_PTR_SET, the
 pointer is moved to an absolute position <em>position</em> within the buffer.
 If it is EVBUFFER_PTR_ADD, the pointer moves <em>position</em> bytes
-forward.  This function returns 0 on success and -1 on failure.</p></div>
+forward.  This function returns 0 on success and -1 on failure.</p><p class="translate">evbuffer_ptr_set函数操纵evbuffer_ptr pos在buffer内的位置。如果how是EVBUFFER_PTR_SET，则指针被移动到缓冲区内的绝对位置position。如果是EVBUFFER_PTR_ADD，则指针向前移动position字节。此函数成功时返回0，失败时返回-1。</p></div>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
@@ -1265,18 +1273,18 @@ forward.  This function returns 0 on success and -1 on failure.</p></div>
 }</code></pre>
 </div></div>
 <div class="paragraph"><div class="title">WARNING</div><p>Any call that modifies an evbuffer or its layout invalidates all
-outstanding evbuffer_ptr values, and makes them unsafe to use.</p></div>
-<div class="paragraph"><p>These interfaces were new in Libevent 2.0.1-alpha.</p></div>
+outstanding evbuffer_ptr values, and makes them unsafe to use.</p><p class="translate">任何修改evbuffer或其布局的调用会使所有未完成的evbuffer_ptr值无效，并使它们不安全。</p></div>
+<div class="paragraph"><p>These interfaces were new in Libevent 2.0.1-alpha.</p><p class="translate">这些接口是在Libevent 2.0.1-alpha中新增的。</p></div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_inspecting_data_without_copying_it">Inspecting data without copying it</h2>
 <div class="sectionbody">
 <div class="paragraph"><p>Sometimes, you want to read data in an evbuffer without copying it out (as
-evbuffer_copyout() does), and without rearranging the evbuffer&#8217;s internal
+evbuffer_copyout() does), and without rearranging the evbuffer’s internal
 memory (as evbuffer_pullup() does).  Sometimes you might want to see data in
-the middle of an evbuffer.</p></div>
-<div class="paragraph"><p>You can do this with:</p></div>
+the middle of an evbuffer.</p><p class="translate">有时候，您可能想要在不复制数据（如evbuffer_copyout()所做的）以及不重新排列evbuffer的内部内存（如evbuffer_pullup()所做的）的情况下，阅读evbuffer中的数据。有时您可能想要查看evbuffer中间的数据。</p></div>
+<div class="paragraph"><p>You can do this with:</p><p class="translate">您可以通过以下方式实现：</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
@@ -1290,18 +1298,18 @@ the middle of an evbuffer.</p></div>
     <strong>struct</strong> evbuffer_iovec *vec_out, <strong>int</strong> n_vec);</code></pre>
 </div></div>
 <div class="paragraph"><p>When you call evbuffer_peek(), you give it an array of evbuffer_iovec
-structures in <em>vec_out</em>.  The array&#8217;s length is <em>n_vec</em>.  It sets these
-structures so that each one contains a pointer to a chunk of the evbuffer&#8217;s
+structures in <em>vec_out</em>.  The array’s length is <em>n_vec</em>.  It sets these
+structures so that each one contains a pointer to a chunk of the evbuffer’s
 internal RAM (<em>iov_base</em>), and the length of memory that is set in that
-chunk.</p></div>
+chunk.</p><p class="translate">当您调用evbuffer_peek()时，您需要在vec_out中提供一个evbuffer_iovec结构的数组。数组的长度是n_vec。它设置这些结构，使每一个都包含一个指向evbuffer内部RAM的指针（iov_base），以及在该块内设置的内存长度。</p></div>
 <div class="paragraph"><p>If <em>len</em> is less than 0, evbuffer_peek() tries to fill all of the
 evbuffer_iovec structs you have given it.  Otherwise, it fills them until
 either they are all used, or at least <em>len</em> bytes are visible.  If the
 function could give you all the data you asked for, it returns the number of
 evbuffer_iovec structures that it actually used.  Otherwise, it returns the
-number that it would need in order to give what you asked for.</p></div>
+number that it would need in order to give what you asked for.</p><p class="translate">如果len小于0，evbuffer_peek()尝试填充您提供的所有evbuffer_iovec结构。否则，它会填充它们，直到它们都被使用，或者至少len字节。如果函数能够给您所有请求的数据，它返回它实际使用的evbuffer_iovec结构的数量。否则，它返回为了满足您的请求需要的数量。</p></div>
 <div class="paragraph"><p>When <em>ptr</em> is NULL, evbuffer_peek() starts at the beginning of the buffer.
-Otherwise, it starts at the pointer given in <em>ptr</em>.</p></div>
+Otherwise, it starts at the pointer given in <em>ptr</em>.</p><p class="translate">当ptr为NULL时，evbuffer_peek()从缓冲区的开头开始。否则，它从ptr的位置开始。</p></div>
 <div class="listingblock">
 <div class="title">Examples</div>
 <div class="content">
@@ -1391,10 +1399,10 @@ If any function is called that modifies the evbuffer, the pointers
 If your evbuffer could be used in multiple threads, make sure to lock
   it with evbuffer_lock() before you call evbuffer_peek(), and unlock it
   once you are done using the extents that evbuffer_peek() gave you.
-</p>
+</p><p class="translate">- 修改evbuffer_iovec指向的数据可能会导致未定义行为。<br>- 如果调用任何修改evbuffer的函数，evbuffer_peek()产生的指针可能会变无效。<br>- 如果您的evbuffer可能在多个线程中使用，请确保在调用evbuffer_peek()之前使用evbuffer_lock()对其进行锁定，并在使用完后解锁。</p>
 </li>
 </ul></div>
-<div class="paragraph"><p>This function is new in Libevent 2.0.2-alpha.</p></div>
+<div class="paragraph"><p>This function is new in Libevent 2.0.2-alpha.</p><p class="translate">此函数是在Libevent 2.0.2-alpha中新增的。</p></div>
 </div>
 </div>
 <div class="sect1">
@@ -1405,7 +1413,7 @@ first writing it into a character array and then copying it in with
 evbuffer_add().  There are an advanced pair of functions you can use to do
 this: evbuffer_reserve_space() and evbuffer_commit_space().
 As with evbuffer_peek(), these functions use the evbuffer_iovec
-structure to provide direct access to memory inside the evbuffer.</p></div>
+structure to provide direct access to memory inside the evbuffer.</p><p class="translate">有时候，您希望直接将数据插入到evbuffer中，而不是首先将其写入字符数组然后再使用evbuffer_add()复制进来。有一对高级函数可以让您做到这一点：evbuffer_reserve_space()和evbuffer_commit_space()。与evbuffer_peek()一样，这些函数使用evbuffer_iovec结构直接访问evbuffer内部的内存。</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
@@ -1418,20 +1426,20 @@ structure to provide direct access to memory inside the evbuffer.</p></div>
 the evbuffer.  It expands the buffer as necessary to give you at least
 <em>size</em> bytes.  The pointers to these extents, and their lengths, will be
 stored in the array of vectors you pass in with <em>vec</em>; <em>n_vec</em> is the
-length of this array.</p></div>
+length of this array.</p><p class="translate">evbuffer_reserve_space()函数为您提供了指向evbuffer内部空间的指针。它根据需要扩展缓冲区，以给您提供至少size字节的空间。这些范围的指针及其长度将存储在vec中；n_vec是此数组的长度。</p></div>
 <div class="paragraph"><p>The value of <em>n_vec</em> must be at least 1.  If you provide only one
 vector, then Libevent will ensure that you have all the contiguous space
 you requested in a single extent, but it may have to rearrange the
 buffer or waste memory in order to do so.  For better performance,
 provide at least 2 vectors.  The function returns the number of provided
-vectors that it needed for the space you requested.</p></div>
+vectors that it needed for the space you requested.</p><p class="translate">n_vec的值必须至少为1。如果您只提供一个向量，那么Libevent将确保您在单个范围内拥有所请求的所有连续空间，但它可能不得不重新排列缓冲区或浪费内存才能做到这一点。为了获得更好的性能，请提供至少2个向量。该函数返回它为您请求的空间所需的向量数量。</p></div>
 <div class="paragraph"><p>The data that you write into these vectors is not part of the buffer
 until you call evbuffer_commit_space(), which actually makes the data
 you wrote count as being in the buffer.  If you want to commit less space
 than you asked for, you can decrease the iov_len field in any of the
 evbuffer_iovec structures you were given.  You can also pass back fewer
 vectors than you were given.  The evbuffer_commit_space() function
-returns 0 on success and -1 on failure.</p></div>
+returns 0 on success and -1 on failure.</p><p class="translate">在您调用evbuffer_commit_space()之前，您写入这些向量的数据并不属于缓冲区的一部分，调用后，实际上使您写入的数据才在缓冲区内。如果您想提交的空间小于您请求的空间，您可以减少evbuffer_iovec结构的iov_len字段。您也可以传递更少的向量。evbuffer_commit_space()函数成功时返回0，失败时返回-1。</p></div>
 <div class="ulist"><div class="title">Notes and Caveats</div><ul>
 <li>
 <p>
@@ -1457,7 +1465,7 @@ It is safe to call evbuffer_reserve_space() any number of times.
 If your evbuffer could be used in multiple threads, make sure to lock
   it with evbuffer_lock() before you call evbuffer_reserve_space(), and
   unlock it once you commit.
-</p>
+</p><p class="translate">- 调用任何重排evbuffer或向其添加数据的函数将使您从evbuffer_reserve_space()获得的指针失效。<br>- 在当前实现中，无论用户提供多少向量，evbuffer_reserve_space()永远不会使用超过两个向量。这可能在未来的版本中改变。<br>- 多次调用evbuffer_reserve_space()是安全的。<br>- 如果您的evbuffer可能在多个线程中使用，请确保在调用evbuffer_reserve_space()之前使用evbuffer_lock()对其进行锁定，并在提交后解锁。</p>
 </li>
 </ul></div>
 <div class="listingblock">
@@ -1528,14 +1536,14 @@ n = evbuffer_reserve_space(buf, n_to_add, v, 2);
 }</code></pre>
 </div></div>
 <div class="paragraph"><p>These functions have existed with their present interfaces since Libevent
-2.0.2-alpha.</p></div>
+2.0.2-alpha.</p><p class="translate">这些函数自Libevent 2.0.2-alpha起就以其现有接口存在。</p></div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_network_io_with_evbuffers">Network IO with evbuffers</h2>
 <div class="sectionbody">
 <div class="paragraph"><p>The most common use case for evbuffers in Libevent is network IO.
-The interface for performing network IO on an evbuffer is:</p></div>
+The interface for performing network IO on an evbuffer is:</p><p class="translate">在Libevent中，evbuffers最常见的用例是网络IO。在evbuffer上执行网络IO的接口是：</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
@@ -1550,22 +1558,22 @@ success, 0 on EOF, and -1 on an error.  Note that the error may
 indicate that a nonblocking operation would not succeed; you need to
 check the error code for EAGAIN (or WSAEWOULDBLOCK on Windows).
 If <em>howmuch</em> is negative, evbuffer_read() tries to guess how much to
-read itself.</p></div>
+read itself.</p><p class="translate">evbuffer_read()函数从socket fd读取最多howmuch字节的数据到buffer的末端。成功时返回读取的字节数，EOF时返回0，错误时返回-1。请注意，错误可能表示非阻塞操作无法成功；您需要检查错误代码是否为EAGAIN（或在Windows上的WSAEWOULDBLOCK）。如果howmuch是负数，evbuffer_read()会尝试自己猜测要读取多少数据。</p></div>
 <div class="paragraph"><p>The evbuffer_write_atmost() function tries to write up to <em>howmuch</em>
 bytes from the front of <em>buffer</em> onto the socket <em>fd</em>.  It returns a
 number of bytes written on success, and -1 on failure.  As with
 evbuffer_read(), you need to check the error code to see whether the
 error is real, or just indicates that nonblocking IO could not be
 completed immediately.  If you give a negative value for <em>howmuch</em>,
-we try to write the entire contents of the buffer.</p></div>
+we try to write the entire contents of the buffer.</p><p class="translate">evbuffer_write_atmost()函数尝试从buffer的前端向socket fd写入最多howmuch字节的数据。成功时返回写入的字节数，失败时返回-1。与evbuffer_read()一样，您需要检查错误代码以确定错误是真实的还是仅表明非阻塞IO无法立即完成。如果您为howmuch提供了一个负值，我们会尝试写入buffer的全部内容。</p></div>
 <div class="paragraph"><p>Calling evbuffer_write() is the same as calling
 evbuffer_write_atmost() with a negative <em>howmuch</em> argument: it
-attempts to flush as much of the buffer as it can.</p></div>
+attempts to flush as much of the buffer as it can.</p><p class="translate">调用evbuffer_write()与调用带有负howmuch参数的evbuffer_write_atmost()相同：它尝试flush尽可能多的数据。</p></div>
 <div class="paragraph"><p>On Unix, these functions should work on any file descriptor that
-supports read and write.  On Windows, only sockets are supported.</p></div>
+supports read and write.  On Windows, only sockets are supported.</p><p class="translate">在Unix上，这些函数应该也适用于任何支持读和写的fd上。在Windows上，只支持socket。</p></div>
 <div class="paragraph"><p>Note that when you are using bufferevents, you do not need to call
-these IO functions; the bufferevents code does it for you.</p></div>
-<div class="paragraph"><p>The evbuffer_write_atmost() function was introduced in Libevent 2.0.1-alpha.</p></div>
+these IO functions; the bufferevents code does it for you.</p><p class="translate">请注意，当您使用bufferevents时，您不需要调用这些IO函数；bufferevents代码会为您做。</p></div>
+<div class="paragraph"><p>The evbuffer_write_atmost() function was introduced in Libevent 2.0.1-alpha.</p><p class="translate">evbuffer_write_atmost()函数在Libevent 2.0.1-alpha中引入。</p></div>
 </div>
 </div>
 <div class="sect1">
@@ -1573,7 +1581,7 @@ these IO functions; the bufferevents code does it for you.</p></div>
 <div class="sectionbody">
 <div class="paragraph"><p>Users of evbuffers frequently want to know when data is added to or
 removed from an evbuffer.  To support this, Libevent provides a
-generic evbuffer callback mechanism.</p></div>
+generic evbuffer callback mechanism.</p><p class="translate">使用evbuffers的用户经常希望知道何时有数据被添加到evbuffer中或从中删除。为支持这一需求，Libevent提供了通用的evbuffer回调机制。</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
@@ -1589,10 +1597,10 @@ generic evbuffer callback mechanism.</p></div>
 <div class="paragraph"><p>An evbuffer callback is invoked whenever data is added to or removed
 from the evbuffer.  It receives the buffer, a pointer to an
 evbuffer_cb_info structure, and a user-supplied argument.  The
-evbuffer_cb_info structure&#8217;s orig_size field records how many bytes
+evbuffer_cb_info structure’s orig_size field records how many bytes
 there were on the buffer before its size changed; its n_added field
 records how many bytes were added to the buffer, and its n_deleted
-field records how many bytes were removed.</p></div>
+field records how many bytes were removed.</p><p class="translate">每当数据被添加到evbuffer中或从中删除时，就会调用一个evbuffer回调。它接收缓冲区、指向evbuffer_cb_info结构的指针以及用户提供的参数。evbuffer_cb_info结构的orig_size字段记录了在其大小发生变化之前缓冲区上有多少字节；n_added字段记录了添加到缓冲区的字节数，n_deleted字段记录了从缓冲区删除的字节数。</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
@@ -1604,9 +1612,9 @@ field records how many bytes were removed.</p></div>
 returns an opaque pointer that can later be used to refer to this
 particular callback instance.  The <em>cb</em> argument is the function that
 will be invoked, and the <em>cbarg</em> is the user-supplied pointer to pass
-to the function.</p></div>
+to the function.</p><p class="translate">evbuffer_add_cb()函数向evbuffer添加一个回调，并返回一个不透明指针，该指针稍后可用于引用这个特定的回调实例。cb参数是将被调用的函数，cbarg是用户提供的指针，用于传递给该函数。</p></div>
 <div class="paragraph"><p>You can have multiple callbacks set on a single evbuffer.  Adding a
-new callback does not remove old callbacks.</p></div>
+new callback does not remove old callbacks.</p><p class="translate">你可以在单个evbuffer上设置多个回调。添加新回调不会移除旧回调。</p></div>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
@@ -1646,10 +1654,10 @@ new callback does not remove old callbacks.</p></div>
 </div></div>
 <div class="paragraph"><p>Note in passing that freeing a nonempty evbuffer does not count as
 draining data from it, and that freeing an evbuffer does not free the
-user-supplied data pointer for its callbacks.</p></div>
-<div class="paragraph"><p>If you don&#8217;t want a callback to be permanently active on a buffer, you
+user-supplied data pointer for its callbacks.</p><p class="translate">顺便提一下，释放非空的evbuffer并不算作从中排空数据，释放evbuffer也不会释放其回调的用户提供的数据指针。</p></div>
+<div class="paragraph"><p>If you don’t want a callback to be permanently active on a buffer, you
 can <em>remove</em> it (to make it gone for good), or disable it (to turn it
-off for a while):</p></div>
+off for a while):</p><p class="translate">如果你不希望回调在缓冲区上永久激活，你可以移除它（永久消除），或禁用它（暂时关闭）：</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
@@ -1668,13 +1676,13 @@ off for a while):</p></div>
 </div></div>
 <div class="paragraph"><p>You can remove a callback either by the evbuffer_cb_entry you got when
 you added it, or by the callback and pointer you used.  The
-evbuffer_remove_cb() functions return 0 on success and -1 on failure.</p></div>
+evbuffer_remove_cb() functions return 0 on success and -1 on failure.</p><p class="translate">你可以删除回调通过evbuffer_cb_entry的返回值，或者通过回调和指针来移除回调。evbuffer_remove_cb()函数成功返回0，失败返回-1。</p></div>
 <div class="paragraph"><p>The evbuffer_cb_set_flags() function and the evbuffer_cb_clear_flags()
 function make a given flag be set or cleared on a given callback
 respectively.  Right now, only one user-visible flag is supported:
 <em>EVBUFFER_CB_ENABLED</em>.  The flag is set by default.  When it is
 cleared, modifications to the evbuffer do not cause this callback to
-get invoked.</p></div>
+get invoked.</p><p class="translate">evbuffer_cb_set_flags()函数和evbuffer_cb_clear_flags()函数分别使给定回调上的给定标志被设置或清除。目前，只支持一个对用户可见的标志：EVBUFFER_CB_ENABLED。该标志默认设置。当它被清除时，对evbuffer的修改不会导致回调。</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
@@ -1685,15 +1693,15 @@ run immediately when the evbuffer is changed, but rather to be
 <em>deferred</em> and run as part of the event loop of a given event base.
 This can be helpful if you have multiple evbuffers whose callbacks
 potentially cause data to be added and removed from one another, and
-you want to avoid smashing the stack.</p></div>
-<div class="paragraph"><p>If an evbuffer&#8217;s callbacks are deferred, then when they are finally
-invoked, they may summarize the results for multiple operations.</p></div>
+you want to avoid smashing the stack.</p><p class="translate">与bufferevent回调一样，你可以使evbuffer回调在evbuffer改变时不立即运行，而是延迟并作为base的event loop的一部分运行。这可能会有所帮助,如果你有多个evbuffers，其回调可能导致数据互相被添加和删除，而你希望避免堆栈被破坏时。</p></div>
+<div class="paragraph"><p>If an evbuffer’s callbacks are deferred, then when they are finally
+invoked, they may summarize the results for multiple operations.</p><p class="translate">如果一个evbuffer的回调被延迟，那么当它们最终被调用时，它们可能会总结多个操作的结果。</p></div>
 <div class="paragraph"><p>Like bufferevents, evbuffers are internally reference-counted, so that
 it is safe to free an evbuffer even if it has deferred callbacks that
-have not yet executed.</p></div>
+have not yet executed.</p><p class="translate">像bufferevents一样，evbuffers在内部是引用计数的，因此即使它有尚未执行的延迟回调，释放evbuffer也是安全的。</p></div>
 <div class="paragraph"><p>This entire callback system was new in Libevent 2.0.1-alpha.  The
 evbuffer_cb_(set|clear)_flags() functions have existed with their
-present interfaces since 2.0.2-alpha.</p></div>
+present interfaces since 2.0.2-alpha.</p><p class="translate">整个回调系统是在Libevent 2.0.1-alpha中新增的。evbuffer_cb_(set|clear)_flags()函数自从2.0.2-alpha以来就存在</p></div>
 </div>
 </div>
 <div class="sect1">
@@ -1701,7 +1709,7 @@ present interfaces since 2.0.2-alpha.</p></div>
 <div class="sectionbody">
 <div class="paragraph"><p>Really fast network programming often calls for doing as few data
 copies as possible.  Libevent provides some mechanisms to help out
-with this.</p></div>
+with this.</p><p class="translate">进行真正快速的网络编程经常要求尽可能少地进行数据复制。Libevent提供了一些机制来帮助实现这一点。</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
@@ -1719,7 +1727,7 @@ pointer must remain valid for as long as the evbuffer is using it.
 When the evbuffer no longer needs data, it will call the provided
 "cleanupfn" function with the provided "data" pointer, "datlen" value,
 and "extra" pointer as arguments.
-This function returns 0 on success, -1 on failure.</p></div>
+This function returns 0 on success, -1 on failure.</p><p class="translate">这个函数通过引用将一块数据添加到evbuffer的末尾。不执行复制：相反，evbuffer仅仅存储一个指向datlen字节的、存储在data处的指针。因此，只要evbuffer正在使用该指针，指针就必须保持有效。当evbuffer不再需要data时，它会调用提供的“cleanupfn”函数，并将提供的“data”指针、“datlen”值和“extra”指针作为参数。此函数成功返回0，失败返回-1。</p></div>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
@@ -1771,7 +1779,7 @@ This function returns 0 on success, -1 on failure.</p></div>
 }</code></pre>
 </div></div>
 <div class="paragraph"><p>The evbuffer_add_reference() function has had is present
-interface since 2.0.2-alpha.</p></div>
+interface since 2.0.2-alpha.</p><p class="translate">evbuffer_add_reference()函数自从2.0.2-alpha以来就有了其现在的接口。</p></div>
 </div>
 </div>
 <div class="sect1">
@@ -1779,7 +1787,7 @@ interface since 2.0.2-alpha.</p></div>
 <div class="sectionbody">
 <div class="paragraph"><p>Some operating systems provide ways to write files to the network
 without ever copying the data to userspace.  You can access these
-mechanisms, where available, with the simple interface:</p></div>
+mechanisms, where available, with the simple interface:</p><p class="translate">某些操作系统提供了将文件发送到网络而无需将数据复制到用户空间的方法。在可用的情况下，您可以通过以下简单的接口访问这些机制：</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
@@ -1790,32 +1798,32 @@ mechanisms, where available, with the simple interface:</p></div>
 descriptor (not a socket, for once!) <em>fd</em> that is available for
 reading.  It adds <em>length</em> bytes from the file, starting at position
 <em>offset</em>, to the end of <em>output</em>.  It returns 0 on success, or -1 on
-failure.</p></div>
+failure.</p><p class="translate">`evbuffer_add_file()` 函数假定它有一个可用于读取的打开的fd（这次不是socket！）。它将文件中从偏移量`offset`开始的`length`字节添加到输出的末尾。成功时返回0，失败时返回-1。</p></div>
 <div class="paragraph"><div class="title">WARNING</div><p>In Libevent 2.0.x, the only reliable thing to do with data
 added this way was to send it to the network with evbuffer_write*(),
 drain it with evbuffer_drain(), or move it to another evbuffer with
-evbuffer_*_buffer().  You couldn&#8217;t reliably extract it from the buffer
+evbuffer_*_buffer().  You couldn’t reliably extract it from the buffer
 with evbuffer_remove(), linearize it with evbuffer_pullup(), and so
-on.  Libevent 2.1.x tries to fix this limitation.</p></div>
+on.  Libevent 2.1.x tries to fix this limitation.</p><p class="translate">在Libevent 2.0.x中，唯一可靠的使用这种方式添加数据的方法是使用`evbuffer_write*()`将其发送到网络，使用`evbuffer_drain()`排空它，或者使用`evbuffer_*_buffer()`将其移动到另一个evbuffer中。您不能可靠地使用`evbuffer_remove()`从缓冲区中提取它，使用`evbuffer_pullup()`线性化它等等。Libevent 2.1.x尝试解决这个限制。</p></div>
 <div class="paragraph"><p>If your operating system supports splice() or sendfile(), Libevent
 will use it to send data from <em>fd</em> to the network directly when call
 evbuffer_write(), without copying the data to user RAM at all.  If
-splice/sendfile don&#8217;t exist, but you have mmap(), Libevent will mmap
+splice/sendfile don’t exist, but you have mmap(), Libevent will mmap
 the file, and your kernel can hopefully figure out that it never needs
 to copy the data to userspace.  Otherwise, Libevent will just read the
-data from disk into RAM.</p></div>
+data from disk into RAM.</p><p class="translate">如果您的操作系统支持`splice()`或`sendfile()`，当调用`evbuffer_write()`时，Libevent将使用它直接从fd将数据发送到网络，完全不需要将数据复制到用户RAM中。如果不存在`splice/sendfile`，但您有`mmap()`，Libevent将`mmap`文件，您的内核可以识别它（希望能识别）不需要将数据复制到用户空间。否则，Libevent将从磁盘读取数据到RAM中。</p></div>
 <div class="paragraph"><p>The file descriptor will be closed after the data is flushed from the
-evbuffer, or when the evbuffer is freed.  If that&#8217;s not what you want, or if
+evbuffer, or when the evbuffer is freed.  If that’s not what you want, or if
 you want finer-grained control over the file, see the file_segment
-functionality below.</p></div>
-<div class="paragraph"><p>This function was introduced in Libevent 2.0.1-alpha.</p></div>
+functionality below.</p><p class="translate">fd将在数据从evbuffer中刷新或evbuffer被释放后关闭。如果这不是您想要的，或者如果您希望对文件有更细粒度的控制，请参阅下面的`file_segment`功能。</p></div>
+<div class="paragraph"><p>This function was introduced in Libevent 2.0.1-alpha.</p><p class="translate">这个函数在Libevent 2.0.1-alpha中引入。</p></div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_fine_grained_control_with_file_segments">Fine-grained control with file segments</h2>
 <div class="sectionbody">
 <div class="paragraph"><p>The evbuffer_add_file() interface is inefficient for adding the same file
-more than once, since it takes ownership of the file.</p></div>
+more than once, since it takes ownership of the file.</p><p class="translate">`evbuffer_add_file()` 接口在多次添加同一个文件时效率低下，因为它获取了文件的所有权。</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
@@ -1830,9 +1838,9 @@ more than once, since it takes ownership of the file.</p></div>
 <div class="paragraph"><p>The evbuffer_file_segment_new() function creates and returns a new
 evbuffer_file_segment object to represent a piece of the underlying file
 stored in <em>fd</em> that begins at <em>offset</em> and contains <em>length</em> bytes.  On
-error, it return NULL.</p></div>
+error, it return NULL.</p><p class="translate">`evbuffer_file_segment_new()` 函数创建并返回一个新的evbuffer_file_segment对象，以表示存储在`fd`中的底层文件的一部分，该文件从`offset`开始并包含`length`字节。错误时，它返回NULL。</p></div>
 <div class="paragraph"><p>File segments are implemented with sendfile, splice, mmap, CreateFileMapping,
-or malloc()-and-read(), as appropriate.  They&#8217;re created using the most
+or malloc()-and-read(), as appropriate.  They’re created using the most
 lightweight supported mechanism, and transition to a heavier-weight mechanism
 as needed.  (For example, if your OS supports sendfile and mmap, then a file
 segment can be implemented using only sendfile, until you try to actually
@@ -1874,18 +1882,18 @@ EVBUF_FS_DISABLE_LOCKING
 <dd>
 <p>
     If this flag is set, no locks are allocated for the file segment: it
-    won&#8217;t be safe to use it in any way where it can be seen by multiple
+    won’t be safe to use it in any way where it can be seen by multiple
     threads.
-</p>
+</p><p class="translate">文件段是使用sendfile、splice、mmap、CreateFileMapping或malloc()-and-read()实现的，具体取决于适用情况。它们使用支持的最轻量级机制创建，并根据需要过渡到更重的机制。（例如，如果您的操作系统支持sendfile和mmap，那么文件段可以仅使用sendfile实现，直到您尝试实际检查其内容。那时，它需要被mmap()。）您可以使用这些标志控制文件段的细粒度行为：<br>EVBUF_FS_CLOSE_ON_FREE<br>  如果设置了此标志，使用`evbuffer_file_segment_free()`释放文件段将关闭底层文件。<br>EVBUF_FS_DISABLE_MMAP<br>  如果设置了此标志，即使这是适当的，文件段也永远不会使用映射内存风格的后端（CreateFileMapping、mmap）。<br>EVBUF_FS_DISABLE_SENDFILE<br>  如果设置了此标志，即使这是适当的，文件段也永远不会使用sendfile风格的后端（sendfile、splice）。<br>EVBUF_FS_DISABLE_LOCKING<br>  如果设置了此标志，将不会为文件段分配锁：在任何多线程可能会看到文件段的方式中，使用它都将不安全。</p>
 </dd>
 </dl></div>
 <div class="paragraph"><p>Once you have an evbuffer_file_segment, you can add some or all of it to an
 evbuffer using evbuffer_add_file_segment().  The <em>offset</em>
 argument here refers to an offset within the file segment, not to an offset
-within the file itself.</p></div>
+within the file itself.</p><p class="translate">一旦您有了一个evbuffer_file_segment，您可以使用`evbuffer_add_file_segment()`将它的全部或部分添加到一个evbuffer中。这里的`offset`参数指的是文件段内的偏移量，而不是文件本身内的偏移量。</p></div>
 <div class="paragraph"><p>When you no longer want to use a file segment, you can free it with
-evbuffer_file_segment_free().  The actual storage won&#8217;t be released until no
-evbuffer any longer holds a reference to a piece of the file segment.</p></div>
+evbuffer_file_segment_free().  The actual storage won’t be released until no
+evbuffer any longer holds a reference to a piece of the file segment.</p><p class="translate">当您不再想使用文件段时，您可以使用`evbuffer_file_segment_free()`将其释放。实际的存储不会被释放，直到没有任何evbuffer再持有对文件段的一部分的引用。</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
@@ -1898,18 +1906,18 @@ evbuffer any longer holds a reference to a piece of the file segment.</p></div>
 <div class="paragraph"><p>You can add a callback function to a file segment that will be invoked when
 the final reference to the file segment has been released and the file
 segment is about to get freed.  This callback <strong>must not</strong> attempt to revivify
-the file segment, add it to any buffers, or so on.</p></div>
+the file segment, add it to any buffers, or so on.</p><p class="translate">您可以向文件段添加一个回调函数，当对文件段的最后一个引用被释放并且文件段即将被释放时，将调用此回调函数。此回调不能尝试复活文件段，不能将其添加到任何缓冲区，等等。</p></div>
 <div class="paragraph"><p>These file-segment functions first appeared in Libevent 2.1.1-alpha;
-evbuffer_file_segment_add_cleanup_cb() was added in 2.1.2-alpha.</p></div>
+evbuffer_file_segment_add_cleanup_cb() was added in 2.1.2-alpha.</p><p class="translate">这些文件段函数首次出现在Libevent 2.1.1-alpha中；`evbuffer_file_segment_add_cleanup_cb()` 在2.1.2-alpha中添加。</p></div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_adding_an_evbuffer_to_another_by_reference">Adding an evbuffer to another by reference</h2>
 <div class="sectionbody">
-<div class="paragraph"><p>You can also add one evbuffer&#8217;s to another by reference: rather than removing
+<div class="paragraph"><p>You can also add one evbuffer’s to another by reference: rather than removing
 the contents of one buffer and adding them to another, you give one evbuffer
 a reference to another, and it behaves as though you had copied all the
-bytes in.</p></div>
+bytes in.</p><p class="translate">您还可以通过引用将一个evbuffer的内容添加到另一个evbuffer中：与其移除一个缓冲区的内容并将它们添加到另一个缓冲区中，不如给一个evbuffer提供对另一个的引用，它的行为就好像您已经复制了所有字节一样。</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
@@ -1918,14 +1926,14 @@ bytes in.</p></div>
 </div></div>
 <div class="paragraph"><p>The evbuffer_add_buffer_reference() function behaves as though you had copied
 all the data from <em>outbuf</em> to <em>inbuf</em>, but does not perform any unnecessary
-copies.  It returns 0 if successful and -1 on failure.</p></div>
+copies.  It returns 0 if successful and -1 on failure.</p><p class="translate">`evbuffer_add_buffer_reference()` 函数的行为就好像您已经将所有数据从outbuf复制到inbuf，但不执行任何不必要的复制。成功时返回0，失败时返回-1。</p></div>
 <div class="paragraph"><p>Note that subsequent changes to the contents of <em>inbuf</em> are not reflected in
 <em>outbuf</em>: this function adds the current contents of the evbuffer by
-reference, not the evbuffer itself.</p></div>
+reference, not the evbuffer itself.</p><p class="translate">请注意，对inbuf内容的后续更改不会反映在outbuf中：此函数按引用添加evbuffer的当前内容，而不是evbuffer本身。</p></div>
 <div class="paragraph"><p>Note also that you cannot nest buffer references: a buffer that has already
 been the <em>outbuf</em> of one evbuffer_add_buffer_reference call cannot be the
-<em>inbuf</em> of another.</p></div>
-<div class="paragraph"><p>This function was introduced in Libevent 2.1.1-alpha.</p></div>
+<em>inbuf</em> of another.</p><p class="translate">还请注意，您不能嵌套buffer引用：已经作为一个`evbuffer_add_buffer_reference`调用的outbuf不能成为另一个调用的inbuf。</p></div>
+<div class="paragraph"><p>This function was introduced in Libevent 2.1.1-alpha.</p><p class="translate">这个函数在Libevent 2.1.1-alpha中引入。</p></div>
 </div>
 </div>
 <div class="sect1">
@@ -1940,9 +1948,9 @@ been the <em>outbuf</em> of one evbuffer_add_buffer_reference call cannot be the
 <div class="paragraph"><p>You can use these functions to temporarily disable changes to the
 front or end of an evbuffer.  The bufferevent code uses them
 internally to prevent accidental modifications to the front of an
-output buffer, or the end of an input buffer.</p></div>
+output buffer, or the end of an input buffer.</p><p class="translate">您可以使用这些函数来临时禁止对evbuffer的前端或后端进行更改。bufferevent代码在内部使用它们，以防止意外修改输出缓冲区的前端或输入缓冲区的后端。</p></div>
 <div class="paragraph"><p>The evbuffer_freeze() functions were introduced in Libevent
-2.0.1-alpha.</p></div>
+2.0.1-alpha.</p><p class="translate">`evbuffer_freeze()` 函数在Libevent 2.0.1-alpha中引入。</p></div>
 </div>
 </div>
 <div class="sect1">
@@ -1950,16 +1958,16 @@ output buffer, or the end of an input buffer.</p></div>
 <div class="sectionbody">
 <div class="paragraph"><p>The evbuffer interface changed a lot in Libevent 2.0.  Before then,
 every evbuffers was implemented as a contiguous chunk of RAM, which
-made access very inefficient.</p></div>
+made access very inefficient.</p><p class="translate">在Libevent 2.0中，evbuffer接口发生了很多变化。在此之前，每个evbuffer都是作为一段连续的RAM实现的，这使得访问非常低效。</p></div>
 <div class="paragraph"><p>The event.h header used to expose the internals of struct evbuffer.
 These are no longer available; they changed too much between 1.4 and
-2.0 for any code that relied on them to work.</p></div>
+2.0 for any code that relied on them to work.</p><p class="translate">event.h头文件过去曾公开暴露struct evbuffer的内部结构。这些现在不再可用；它们在1.4和2.0之间变化太大，依赖它们的任何代码都无法工作。</p></div>
 <div class="paragraph"><p>To access the number of bytes in an evbuffer, there was an
 EVBUFFER_LENGTH() macro.  The actual data was available with
 EVBUFFER_DATA().  These are both available in event2/buffer_compat.h.
 Watch out, though: EVBUFFER_DATA(b) is an alias for evbuffer_pullup(b,
--1), which can be very expensive.</p></div>
-<div class="paragraph"><p>Some other deprecated interfaces are:</p></div>
+-1), which can be very expensive.</p><p class="translate">为了访问evbuffer中的字节数，曾经有一个`EVBUFFER_LENGTH()`宏。实际数据可以通过`EVBUFFER_DATA()`获得。这两个都在event2/buffer_compat.h中可用。不过要注意：`EVBUFFER_DATA(b)`是`evbuffer_pullup(b, -1)`的别名，这可能非常耗费资源。</p></div>
+<div class="paragraph"><p>Some other deprecated interfaces are:</p><p class="translate">一些其他已弃用的接口是：</p></div>
 <div class="listingblock">
 <div class="title">Deprecated Interface</div>
 <div class="content">
@@ -1968,13 +1976,13 @@ Watch out, though: EVBUFFER_DATA(b) is an alias for evbuffer_pullup(b,
     <strong>const</strong> <strong>unsigned</strong> <strong>char</strong> *what, size_t len);</code></pre>
 </div></div>
 <div class="paragraph"><p>The evbuffer_readline() function worked like the current
-evbuffer_readln(buffer, NULL, EVBUFFER_EOL_ANY).</p></div>
+evbuffer_readln(buffer, NULL, EVBUFFER_EOL_ANY).</p><p class="translate">`evbuffer_readline()`函数的工作方式类似于当前的`evbuffer_readln(buffer, NULL, EVBUFFER_EOL_ANY)`。</p></div>
 <div class="paragraph"><p>The evbuffer_find() function would search for the first occurrence of
 a string in a buffer, and return a pointer to it.  Unlike
 evbuffer_search(), it could only find the first string.  To stay
 compatible with old code that uses this function, it now linearizes
-the entire buffer up to the end of the located string.</p></div>
-<div class="paragraph"><p>The callback interface was different too:</p></div>
+the entire buffer up to the end of the located string.</p><p class="translate">`evbuffer_find()`函数会在缓冲区中搜索字符串的第一次出现，并返回一个指向它的指针。与`evbuffer_search()`不同的是，它只能找到第一个字符串。为了保持与使用此函数的旧代码的兼容性，它现在将整个缓冲区进行线性化。</p></div>
+<div class="paragraph"><p>The callback interface was different too:</p><p class="translate">回调接口也不同：</p></div>
 <div class="listingblock">
 <div class="title">Deprecated Interface</div>
 <div class="content">
@@ -1984,23 +1992,24 @@ the entire buffer up to the end of the located string.</p></div>
 </div></div>
 <div class="paragraph"><p>An evbuffer could only have one callback set at a time, so setting a
 new callback would disable the previous callback, and setting a
-callback of NULL was the preferred way to disable a callbacks.</p></div>
+callback of NULL was the preferred way to disable a callbacks.</p><p class="translate">一个evbuffer一次只能设置一个回调，因此设置新的回调会禁用之前的回调，并且设置NULL回调是禁用回调的首选方法。</p></div>
 <div class="paragraph"><p>Instead of getting an evbuffer_cb_info_structure, the function was
 called with the old and new lengths of the evbuffer.  Thus, if old_len
 was greater than new_len, data was drained.  If new_len was greater
 than old_len, data was added.  It was not possible to defer callbacks,
 and so adds and deletes were never batched into a single callback
-invocation.</p></div>
-<div class="paragraph"><p>The obsolete functions here are still available in event2/buffer_compat.h.</p></div>
+invocation.</p><p class="translate">回调函数不是接收一个evbuffer_cb_info结构，而是接收evbuffer的旧长度和新长度。因此，如果old_len大于new_len，则数据被取出。如果new_len大于old_len，则添加了数据。不能推迟回调，因此添加和删除永远不会批量到单个回调调用中。</p></div>
+<div class="paragraph"><p>The obsolete functions here are still available in event2/buffer_compat.h.</p><p class="translate">这里的过时函数仍然可以在event2/buffer_compat.h中找到。</p></div>
 </div>
 </div>
 </div>
-<div id="footnotes"><hr /></div>
+<div id="footnotes"><hr></div>
 <div id="footer">
 <div id="footer-text">
 Last updated
  2024-02-18 20:10:44 UTC
 </div>
 </div>
-</body>
-</html>
+
+
+</body></html>

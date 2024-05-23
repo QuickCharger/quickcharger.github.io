@@ -1,10 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
-    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
-<head>
-<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
-<meta name="generator" content="AsciiDoc 10.1.2" />
+<!--?xml version="1.0" encoding="UTF-8"?--><!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8">
+<meta name="generator" content="AsciiDoc 10.1.2">
 <title>Setting up the Libevent library</title>
 <style type="text/css">
 /* Shared CSS for AsciiDoc xhtml11 and html5 backends */
@@ -732,7 +728,7 @@ asciidoc.install();
 /*]]>*/
 </script>
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-M3CEY418LQ"></script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-M3CEY418LQ"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -740,7 +736,13 @@ asciidoc.install();
 
   gtag('config', 'G-M3CEY418LQ');
 </script>
-</head>
+<style id="translation-style">
+      .translate {
+        background-color: #f0f0f0; /* 浅灰色背景 */
+        color: black;             /* 黑色文本 */
+        font-weight: bold;        /* 加粗字体 */
+      }
+    </style></head>
 <body class="article">
 <div id="header">
 <h1>Setting up the Libevent library</h1>
@@ -764,10 +766,10 @@ and run "git clone git://github.com/libevent/libevent-book.git"</p></div>
 <div class="attribution">
 </div></div>
 <div class="paragraph"><p>Libevent has a few global settings that are shared across the entire
-process.  These affect the entire library.</p></div>
+process.  These affect the entire library.</p><p class="translate">Libevent有少量全局设置，这些设置在整个进程中是共享的。它们会影响整个库。</p></div>
 <div class="paragraph"><p>You <strong>must</strong> make any changes to these settings before you call any
-other part of the Libevent library.  If you don&#8217;t, Libevent could wind
-up in an inconsistent state.</p></div>
+other part of the Libevent library.  If you don’t, Libevent could wind
+up in an inconsistent state.</p><p class="translate">在调用Libevent库之前，您必须对这些设置进行更改。如果你不这样做，Libevent可能结束时会处于不一致的状态。</p></div>
 </div>
 </div>
 <div class="sect1">
@@ -776,7 +778,7 @@ up in an inconsistent state.</p></div>
 <div class="paragraph"><p>Libevent can log internal errors and warnings.  It also logs debugging
 messages if it was compiled with logging support.  By default, these
 messages are written to stderr.  You can override this behavior by
-providing your own logging function.</p></div>
+providing your own logging function.</p><p class="translate">Libevent可以记录内部错误和警告。如果它是在编译时包含了日志支持，它还会记录debug信息。默认情况下，这些消息会被写入到stderr。你可以通过提供你自己的日志函数来覆盖这种行为。</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
@@ -795,12 +797,12 @@ providing your own logging function.</p></div>
 
 <strong>void</strong> event_set_log_callback(event_log_cb cb);</code></pre>
 </div></div>
-<div class="paragraph"><p>To override Libevent&#8217;s logging behavior, write your own function
+<div class="paragraph"><p>To override Libevent’s logging behavior, write your own function
 matching the signature of event_log_cb, and pass it as an argument to
 event_set_log_callback().  Whenever Libevent wants to log a message, it
 will pass it to the function you provided.  You can have Libevent return
 to its default behavior by calling event_set_log_callback() again with
-NULL as an argument.</p></div>
+NULL as an argument.</p><p class="translate">要覆盖Libevent的日志记录行为，编写一个符合event_log_cb签名的函数，并将其作为参数传递给event_set_log_callback。每当Libevent想要记录一条消息时，它将调用你提供的函数。你可以通过再次调用event_set_log_callback并将NULL作为参数传递，让Libevent返回到其默认行为。</p></div>
 <div class="listingblock">
 <div class="title">Examples</div>
 <div class="content">
@@ -845,10 +847,10 @@ NULL as an argument.</p></div>
 event_log_cb callback!  For instance, if you try to write a log callback that
 uses bufferevents to send warning messages to a network socket, you are
 likely to run into strange and hard-to-diagnose bugs.  This restriction may
-be removed for some functions in a future version of Libevent.</p></div>
+be removed for some functions in a future version of Libevent.</p><p class="translate">在用户提供的event_log_cb()回调函数中调用Libevent函数是不安全的！例如，如果你尝试编写一个日志回调，使用bufferevents将警告消息发送到网络socket，你很可能遇到奇怪且难以诊断的错误。在未来版本的Libevent中，对于某些函数可能会移除这一限制。</p></div>
 <div class="paragraph"><p>Ordinarily, debug logs are not enabled, and are not sent to the logging
 callback.  You can turn them on manually, if Libevent was built to support
-them.</p></div>
+them.</p><p class="translate">通常，debug日志不启用，并且不会发送到日志回调。当编译Libevent时，你可以手动开启它们。</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
@@ -861,15 +863,15 @@ them.</p></div>
 circumstances.  Calling event_enable_debug_logging() with EVENT_DBG_NONE gets
 default behavior; calling it with EVENT_DBG_ALL turns on all the supported
 debugging logs.  More fine-grained options may be supported in future
-versions.</p></div>
+versions.</p><p class="translate">调试日志非常详细，并且在大多数情况下可能并不有用。使用EVENT_DBG_NONE作为参数调用event_enable_debug_logging()会得到默认行为；使用EVENT_DBG_ALL作为参数调用它会打开所有支持的调试日志。未来版本可能会支持更细粒度的选项。</p></div>
 <div class="paragraph"><p>These functions are declared in &lt;event2/event.h&gt;.  They first appeared in
 Libevent 1.0c, except for event_enable_debug_logging(), which first appeared
-in Libevent 2.1.1-alpha.</p></div>
+in Libevent 2.1.1-alpha.</p><p class="translate">这些函数在<event2 event.h="">中声明。它们最早出现在Libevent 1.0c中，除了event_enable_debug_logging()，最早出现在Libevent 2.1.1-alpha中。</event2></p></div>
 <div class="paragraph"><div class="title">COMPATIBILITY NOTE</div><p>Before Libevent 2.0.19-stable, the EVENT_LOG_* macros had names that began
 with an underscore: _EVENT_LOG_DEBUG, _EVENT_LOG_MSG, _EVENT_LOG_WARN, and
 _EVENT_LOG_ERR.  These older names are deprecated, and should only be used
 for backward compatibility with Libevent 2.0.18-stable and earlier.  They may
-be removed in a future version of Libevent.</p></div>
+be removed in a future version of Libevent.</p><p class="translate">在Libevent 2.0.19-stable之前，EVENT_LOG_*宏的名称以下划线开头：_EVENT_LOG_DEBUG、_EVENT_LOG_MSG、_EVENT_LOG_WARN和_EVENT_LOG_ERR。这些较旧的名称已被弃用，仅应用于与Libevent 2.0.18-stable及更早版本的向后兼容。它们可能会在未来版本的Libevent中被移除。</p></div>
 </div>
 </div>
 <div class="sect1">
@@ -878,10 +880,10 @@ be removed in a future version of Libevent.</p></div>
 <div class="paragraph"><p>When Libevent detects a non-recoverable internal error (such as a corrupted
 data structure), its default behavior is to call exit() or abort() to leave the
 currently running process.  These errors almost always mean that there is a
-bug somewhere: either in your code, or in Libevent itself.</p></div>
-<div class="paragraph"><p>You can override Libevent&#8217;s behavior if you want your application to handle
+bug somewhere: either in your code, or in Libevent itself.</p><p class="translate">当Libevent检测到不可恢复的内部错误（如数据结构损坏）时，其默认行为是调用`exit()`或`abort()`来终止当前正在运行的进程。这些错误几乎总是意味着某处存在错误：要么是在你的代码中，要么是在Libevent本身中。</p></div>
+<div class="paragraph"><p>You can override Libevent’s behavior if you want your application to handle
 fatal errors more gracefully, by providing a function that Libevent should
-call in lieu of exiting.</p></div>
+call in lieu of exiting.</p><p class="translate">如果你希望你的应用程序能够更优雅地处理致命错误，你可以给Libevent提供回调而不是退出。</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
@@ -891,24 +893,24 @@ call in lieu of exiting.</p></div>
 <div class="paragraph"><p>To use these functions, you first define a new function that Libevent should
 call upon encountering a fatal error, then you pass it to
 event_set_fatal_callback().  Later, if Libevent encounters a fatal error, it
-will call the function you provided.</p></div>
+will call the function you provided.</p><p class="translate">你首先需要定义一个新的函数，将其传递给`event_set_fatal_callback()`。之后，如果Libevent遇到致命错误，它将调用你提供的函数。</p></div>
 <div class="paragraph"><p>Your function <strong>should not</strong> return control to Libevent; doing so may cause
 undefined behavior, and Libevent might exit anyway to avoid crashing.  Once
 your function has been called, you should not call any other Libevent
-function.</p></div>
+function.</p><p class="translate">你的函数不应该将控制权返回给Libevent；这样做可能会导致未定义的行为，并且Libevent可能仍会选择退出以避免崩溃。一旦你的函数被调用，你就不应该调用任何其他Libevent函数。</p></div>
 <div class="paragraph"><p>These functions are declared in &lt;event2/event.h&gt;.  They first appeared
-in Libevent 2.0.3-alpha.</p></div>
+in Libevent 2.0.3-alpha.</p><p class="translate">这些函数在`<event2 event.h="">中声明，最早出现在Libevent 2.0.3-alpha中。</event2></p></div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_memory_management">Memory management</h2>
 <div class="sectionbody">
-<div class="paragraph"><p>By default, Libevent uses the C library&#8217;s memory management functions to
+<div class="paragraph"><p>By default, Libevent uses the C library’s memory management functions to
 allocate memory from the heap.  You can have Libevent use another memory
 manager by providing your own replacements for malloc, realloc, and
 free.  You might want to do this if you have a more efficient allocator
 that you want Libevent to use, or if you have an instrumented allocator
-that you want Libevent to use in order to look for memory leaks.</p></div>
+that you want Libevent to use in order to look for memory leaks.</p><p class="translate">默认情况下，Libevent使用C函数从堆上分配内存。你可以让Libevent使用你提供的malloc、realloc和free的替代函数。如果你有一个更高效的分配器希望Libevent使用，或者如果你有一个带有检测工具的分配器，希望Libevent使用它来寻找内存泄漏，你可能会想这样做。</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
@@ -916,10 +918,10 @@ that you want Libevent to use in order to look for memory leaks.</p></div>
                              <strong>void</strong> *(*realloc_fn)(<strong>void</strong> *ptr, size_t sz),
                              <strong>void</strong> (*free_fn)(<strong>void</strong> *ptr));</code></pre>
 </div></div>
-<div class="paragraph"><p>Here&#8217;s a simple example that replaces Libevent&#8217;s allocation functions
+<div class="paragraph"><p>Here’s a simple example that replaces Libevent’s allocation functions
 with variants that count the total number of bytes that are allocated.
-In reality, you&#8217;d probably want to add locking here to prevent errors
-when Libevent is running in multiple threads.</p></div>
+In reality, you’d probably want to add locking here to prevent errors
+when Libevent is running in multiple threads.</p><p class="translate">这里有一个简单的例子，它用来替换Libevent的分配函数，这些函数能够计算分配的总字节数。实际上，如果Libevent在多线程中运行，你可能还会希望增加锁定机制来防止错误。</p></div>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
@@ -986,7 +988,7 @@ Replacing the memory management functions affects all future calls to
   allocate, resize, or free memory from Libevent.  Therefore, you
   need to make sure that you replace the functions <em>before</em> you call any
   other Libevent functions.  Otherwise, Libevent will use your version
-  of free to deallocate memory returned from the C library&#8217;s version of
+  of free to deallocate memory returned from the C library’s version of
   malloc.
 </p>
 </li>
@@ -1031,24 +1033,24 @@ Libevent will use these functions to allocate memory that it returns to
   Libevent function, and you have replaced the malloc and realloc functions,
   then you will probably have to use your replacement free function to free
   it.
-</p>
+</p><p class="translate">注意事项<br>1.替换内存管理函数会影响所有未来的Libevent内存分配、调整大小或释放操作。因此，你需要确保在调用任何Libevent函数之前调用这些函数。否则，Libevent将使用你版本的free函数来释放从C库的malloc版本返回的内存。<br>2.你的malloc和realloc函数需要返回与C库相同对齐的内存块。<br>3.你的realloc函数需要正确处理realloc(NULL, sz)（即，把它当作malloc(sz)来处理）。<br>4.你的realloc函数需要正确处理realloc(ptr, 0)（即，把它当作free(ptr)来处理）。<br>5.你的free函数不需要处理free(NULL)。<br>6.你的malloc函数不需要处理malloc(0)。<br>7.如果你在多个线程中使用Libevent，替换后的内存管理函数需要是线程安全的。<br>8.Libevent将使用这些函数来分配它返回给你的内存。因此，如果你想要释放由Libevent函数分配并返回的内存，并且你已经替换了malloc和realloc函数，那么你可能必须使用你的替换free函数来释放它。</p>
 </li>
 </ul></div>
 <div class="paragraph"><p>The event_set_mem_functions() function is declared in &lt;event2/event.h&gt;.
-It first appeared in Libevent 2.0.1-alpha.</p></div>
+It first appeared in Libevent 2.0.1-alpha.</p><p class="translate">event_set_mem_functions()函数在<event2 event.h="">中声明,最初出现在Libevent 2.0.1-alpha中。</event2></p></div>
 <div class="paragraph"><p>Libevent can be built with event_set_mem_functions() disabled.  If it
 is, then programs using event_set_mem_functions will not compile or link.
 In Libevent 2.0.2-alpha and later, you can detect the presence of
 event_set_mem_functions() by checking whether the
-EVENT_SET_MEM_FUNCTIONS_IMPLEMENTED macro is defined.</p></div>
+EVENT_SET_MEM_FUNCTIONS_IMPLEMENTED macro is defined.</p><p class="translate">Libevent可以构建时禁用event_set_mem_functions()。如果是这样的话，使用event_set_mem_functions的程序将无法编译或链接。在Libevent 2.0.2-alpha及更高版本中，你可以通过检查EVENT_SET_MEM_FUNCTIONS_IMPLEMENTED宏是否已定义来检测event_set_mem_functions()是否存在。</p></div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_locks_and_threading">Locks and threading</h2>
 <div class="sectionbody">
-<div class="paragraph"><p>As you probably know if you&#8217;re writing multithreaded programs, it isn&#8217;t
+<div class="paragraph"><p>As you probably know if you’re writing multithreaded programs, it isn’t
 always safe to access the same data from multiple threads at the same
-time.</p></div>
+time.</p><p class="translate">如果你正在编写多线程程序，你可能知道，从多个线程同时访问同一数据并不总是安全的。</p></div>
 <div class="paragraph"><p>Libevent structures can generally work three ways with multithreading.</p></div>
 <div class="ulist"><ul>
 <li>
@@ -1068,16 +1070,16 @@ Some structures are optionally locked: you can tell Libevent for each
 Some structures are always locked: if Libevent is running with lock
   support, then they are always safe to use from multiple threads at
   once.
-</p>
+</p><p class="translate">Libevent结构在多线程中通常有三种工作方式。<br>1.一些结构本质上是单线程的：从多个线程同时使用它们永远不是安全的。<br>2.一些结构是可锁的：你可以告诉Libevent，对于每个对象，你是否需要同时从多个线程中使用它。<br>3.一些结构总是被锁定的：如果Libevent在支持锁定的情况下运行，那么它们总是可以安全地同时从多个线程中使用。</p>
 </li>
 </ul></div>
 <div class="paragraph"><p>To get locking in Libevent, you must tell Libevent which locking
 functions to use.  You need to do this before you call any Libevent
 function that allocates a structure that needs to be shared between
-threads.</p></div>
+threads.</p><p class="translate">要在Libevent中获得锁定，你必须告知Libevent要使用的锁定函数。你需要在调用使用了共享内存的libevent函数前做这件事。</p></div>
 <div class="paragraph"><p>If you are using the pthreads library, or the native Windows threading
-code, you&#8217;re in luck.  There are pre-defined functions that will set Libevent
-up to use the right pthreads or Windows functions for you.</p></div>
+code, you’re in luck.  There are pre-defined functions that will set Libevent
+up to use the right pthreads or Windows functions for you.</p><p class="translate">如果你正在使用pthreads库，或者是原生Windows线程代码，那么你很幸运。有预定义的函数能够设置Libevent，让其为你正确地使用pthreads或Windows函数。</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
@@ -1090,10 +1092,10 @@ up to use the right pthreads or Windows functions for you.</p></div>
 #define EVTHREAD_USE_PTHREADS_IMPLEMENTED
 #endif</code></pre>
 </div></div>
-<div class="paragraph"><p>Both functions return 0 on success, and -1 on failure.</p></div>
+<div class="paragraph"><p>Both functions return 0 on success, and -1 on failure.</p><p class="translate">这两个函数在成功时返回0，在失败时返回-1。</p></div>
 <div class="paragraph"><p>If you need to use a different threading library, then you have a little
 more work ahead of you.  You need to define functions that use your
-library to implement:</p></div>
+library to implement:</p><p class="translate">如果你需要使用不同的线程库，那么你要额外做些工作。你需要函数实现以下功能：</p></div>
 <div class="ulist"><ul>
 <li>
 <p>
@@ -1157,7 +1159,7 @@ thread ID detection
 </li>
 </ul></div>
 <div class="paragraph"><p>Then you tell Libevent about these functions, using the
-evthread_set_lock_callbacks and evthread_set_id_callback interfaces.</p></div>
+evthread_set_lock_callbacks and evthread_set_id_callback interfaces.</p><p class="translate">然后你使用evthread_set_lock_callbacks和evthread_set_id_callback接口告诉Libevent这些函数。</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
@@ -1207,7 +1209,7 @@ The <em>alloc</em> function must return a new lock of the specified type.  The
 specified type.  The <em>lock</em> function must try to acquire the lock in the
 specified mode, returning 0 on success and nonzero on failure.  The
 <em>unlock</em> function must try to unlock the lock, returning 0 on success
-and nonzero on failure.</p></div>
+and nonzero on failure.</p><p class="translate">evthread_lock_callbacks结构描述了你的锁回调函数及其能力。对于上文的描述，lock_api_version字段必须设置为EVTHREAD_LOCK_API_VERSION。 supported_locktypes字段必须设置为EVTHREAD_LOCKTYPE_*的位掩码，以描述你可以支持哪些类型的锁。（截至2.0.4-alpha版本，EVTHREAD_LOCK_RECURSIVE是强制性的，而EVTHREAD_LOCK_READWRITE未使用。）alloc函数必须返回指定类型的新锁。free函数必须释放由指定类型的锁持有的所有资源。lock函数必须尝试以指定模式获取锁，成功时返回0，失败时返回非零值。unlock函数必须尝试解锁，成功时返回0，失败时返回非零值。</p></div>
 <div class="paragraph"><p>Recognized lock types are:</p></div>
 <div class="dlist"><dl>
 <dt class="hdlist1">
@@ -1267,14 +1269,14 @@ EVTHREAD_TRY
 <p>
         For locking only: acquire the lock only if the lock can be
         acquired immediately.
-</p>
+</p><p class="translate">被识别的锁类型包括：<br>0<br>常规的，不必是递归锁。<br>EVTHREAD_LOCKTYPE_RECURSIVE<br>对于已经持有该锁的线程，不会阻止它再次请求该锁。（同递归锁）<br>EVTHREAD_LOCKTYPE_READWRITE<br>允许多个线程同时为了读取持有它的锁，但一次只允许一个线程为了写入而持有它。写操作会排除所有读操作。<br>被识别的锁模式包括：<br>EVTHREAD_READ<br>仅限于READWRITE锁：为了读取而获取或释放锁。<br>EVTHREAD_WRITE<br>仅限于READWRITE锁：为了写入而获取或释放锁。<br>EVTHREAD_TRY<br>仅限于锁定：仅在锁可以立即获取时才获取锁。</p>
 </dd>
 </dl></div>
 <div class="paragraph"><p>The id_fn argument must be a function returning an unsigned long
 identifying what thread is calling the function.  It must always return
 the same number for the same thread, and must not ever return the same
 number for two different threads if they are both executing at the same
-time.</p></div>
+time.</p><p class="translate">id_fn函数必须返回unsigned long，用于识别哪个线程正在调用该函数。相同的线程总是返回相同的数字，并且如果两个线程同时执行，则决不能为两个不同的线程返回相同的数字。</p></div>
 <div class="paragraph"><p>The evthread_condition_callbacks structure describes callbacks related to
 condition variables.  For the version described above, the condition_api_version
 field must be set to EVTHREAD_CONDITION_API_VERSION.  The alloc_condition
@@ -1291,10 +1293,10 @@ returns, it should make sure it holds the lock again.  Finally, the
 signal_condition function should cause <em>one</em> thread waiting on the condition
 to wake up (if its broadcast argument is false) and <em>all</em> threads currently
 waiting on the condition to wake up (if its broadcast argument is true).  It
-will only be held while holding the lock associated with the condition.</p></div>
+will only be held while holding the lock associated with the condition.</p><p class="translate">evthread_condition_callbacks结构描述了与条件变量相关的回调函数。对于上文描述，condition_api_version字段必须设置为EVTHREAD_CONDITION_API_VERSION。alloc_condition函数必须返回一个指针指向新条件变量。它接收0作为参数。free_condition函数必须释放由条件变量持有的存储和资源。wait_condition函数接受三个参数：由alloc_condition分配的条件、由你提供的evthread_lock_callbacks.alloc函数分配的锁，以及一个可选的超时时间。每当调用该函数时，锁将被持有；该函数必须释放锁，并等待直到条件变量发出信号或者（可选的）超时时间已过。wait_condition函数在错误时应返回-1，在条件发出信号时返回0，在超时时返回1。在返回之前，它应确保再次持有锁。最后，signal_condition函数应使得等待条件的一个线程醒来（如果它的broadcast参数为假）并使得所有当前等待条件的线程醒来（如果它的broadcast参数为真）。只有在持有与条件相关联的锁时才能持有。</p></div>
 <div class="paragraph"><p>For more information on condition variables, look at the documentation for
-pthreads&#8217;s pthread_cond_* functions, or Windows&#8217;s CONDITION_VARIABLE
-functions.</p></div>
+pthreads’s pthread_cond_* functions, or Windows’s CONDITION_VARIABLE
+functions.</p><p class="translate">要获取更多有关条件变量的信息，请查看pthreads的pthread_cond_*函数或Windows的CONDITION_VARIABLE函数的文档。</p></div>
 <div class="listingblock">
 <div class="title">Examples</div>
 <div class="content">
@@ -1306,12 +1308,12 @@ them first
 appeared in Libevent 2.0.4-alpha.  Libevent versions from 2.0.1-alpha through
 2.0.3-alpha used an older interface to set locking functions.  The
 event_use_pthreads() function requires you to link your program against the
-event_pthreads library.</p></div>
+event_pthreads library.</p><p class="translate">本节中的函数在 <event2 thread.h=""> 中声明。它们中的大多数首次出现于Libevent 2.0.4-alpha版本。Libevent从2.0.1-alpha到2.0.3-alpha版本使用的是旧的接口来设置锁定函数。event_use_pthreads()函数要求您在编译程序时链接event_pthreads库。</event2></p></div>
 <div class="paragraph"><p>The condition-variable functions were new in Libevent 2.0.7-rc; they were
-added to solve some otherwise intractable deadlock problems.</p></div>
+added to solve some otherwise intractable deadlock problems.</p><p class="translate">条件变量函数是在Libevent 2.0.7-rc中新增的；它们被添加进来是为了解决一些其他方式难以克服的死锁问题。</p></div>
 <div class="paragraph"><p>Libevent can be built with locking support disabled.  If it is, then
 programs built to use the above thread-related functions will not
-run.</p></div>
+run.</p><p class="translate">Libevent可以构建时禁用锁支持。如果这样做了，那么上述线程相关函数将无法运行。</p></div>
 </div>
 </div>
 <div class="sect1">
@@ -1323,7 +1325,7 @@ errors, including:</p></div>
 <div class="ulist"><ul>
 <li>
 <p>
-unlocking a lock that we don&#8217;t actually hold
+unlocking a lock that we don’t actually hold
 </p>
 </li>
 <li>
@@ -1332,7 +1334,7 @@ re-locking a non-recursive lock
 </p>
 </li>
 </ul></div>
-<div class="paragraph"><p>If one of these lock errors occurs, Libevent exits with an assertion failure.</p></div>
+<div class="paragraph"><p>If one of these lock errors occurs, Libevent exits with an assertion failure.</p><p class="translate">为了帮助调试锁的使用情况，Libevent有一个可选的“锁调试”功能，它封装了它的锁调用以捕获典型的锁错误，包括：<br>- 解锁一个实际上我们并未持有的锁<br>- 重新锁定一个非递归锁<br>如果出现这些锁错误之一，Libevent将会因断言失败而退出。</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
@@ -1340,18 +1342,18 @@ re-locking a non-recursive lock
 #define evthread_enable_lock_debuging() evthread_enable_lock_debugging()</code></pre>
 </div></div>
 <div class="admonitionblock">
-<table><tr>
+<table><tbody><tr>
 <td class="icon">
 <div class="title">Note</div>
 </td>
 <td class="content">This function MUST be called before any locks are created or used.  To
 be safe, call it just after you set your threading functions.</td>
-</tr></table>
+</tr></tbody></table>
 </div>
 <div class="paragraph"><p>This function was new in Libevent 2.0.4-alpha with the misspelled name
 "evthread_enable_lock_debuging()."  The spelling was fixed to
 evthread_enable_lock_debugging() in 2.1.2-alpha; both names are currently
-supported.</p></div>
+supported.</p><p class="translate">这个函数引入于Libevent 2.0.4-alpha，最初拼写错误为 evthread_enable_lock_debuging()。在2.1.2-alpha版本中修正为正确的拼写 evthread_enable_lock_debugging()；目前两个名称都得到支持。</p></div>
 </div>
 </div>
 <div class="sect1">
@@ -1373,26 +1375,26 @@ Try to reinitialize a pending struct event.
 </ul></div>
 <div class="paragraph"><p>Tracking which events are initialized requires that Libevent use extra memory
 and CPU, so you should only enable debug mode when actually debugging your
-program.</p></div>
+program.</p><p class="translate">在使用事件时存在一些常见错误，Libevent可以为您检测并报告这些错误。它们包括：<br>- 将一个未初始化的 struct event 当作已经初始化的来处理。<br>- 尝试重新初始化一个正在等待的 struct event。<br>追踪哪些事件已经初始化需要Libevent使用额外的内存和CPU，因此您应当只在调试程序时才启用调试模式。</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
 <pre><code><strong>void</strong> event_enable_debug_mode(<strong>void</strong>);</code></pre>
 </div></div>
-<div class="paragraph"><p>This function must only be called before any event_base is created.</p></div>
+<div class="paragraph"><p>This function must only be called before any event_base is created.</p><p class="translate">这个函数必须在创建任何 event_base 之前调用。</p></div>
 <div class="paragraph"><p>When using debug mode, you might run out of memory if your program uses a
 large number of events created with event_assign() [not event_new()].  This
 happens because Libevent has no way of telling when an event created with
 event_assign() will no longer be used.  (It can tell that an event_new()
 event has become invalid when you call event_free() on it.)  If you want to
 avoid running out of memory while debugging, you can explicitly tell Libevent
-that such events are no longer to be treated as assigned:</p></div>
+that such events are no longer to be treated as assigned:</p><p class="translate">在使用调试模式时，如果你的程序使用了大量通过 event_assign() 创建的event（而不是 event_new()），你可能会耗尽内存。这是因为 Libevent 无法知道何时不再使用通过 event_assign() 创建的event。（当你对 event_new() 创建的event调用 event_free() 时，它能知道该事件已经无效了。）如果你想在调试时避免内存耗尽，你可以明确告诉 Libevent 这些事件不再被当作已分配处理：</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
 <pre><code><strong>void</strong> event_debug_unassign(<strong>struct</strong> event *ev);</code></pre>
 </div></div>
-<div class="paragraph"><p>Calling event_debug_unassign() has no effect when debugging is not enabled.</p></div>
+<div class="paragraph"><p>Calling event_debug_unassign() has no effect when debugging is not enabled.</p><p class="translate">当未启用调试时，调用 event_debug_unassign() 不会有任何效果。</p></div>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
@@ -1458,15 +1460,15 @@ platform specific event notification information
 </li>
 </ul></div>
 <div class="paragraph"><p>This feature cannot be enabled or disabled via an API call so it must only be
-used in developer builds.</p></div>
-<div class="paragraph"><p>These debugging functions were added in Libevent 2.0.4-alpha.</p></div>
+used in developer builds.</p><p class="translate">详细的event调试是一个特性，它只能在编译时通过使用 CFLAGS 环境变量“-DUSE_DEBUG”来启用。启用此标志后，任何针对 Libevent 编译的程序都会输出一个非常详细的日志，详细记录后端的low-level活动。这些日志包括但不限于以下内容：<br>- 事件添加<br>- 事件删除<br>- 平台特定的事件通知信息<br>这个特性不能通过 API 调用来启用或禁用，因此它只能在开发者构建中使用。</p></div>
+<div class="paragraph"><p>These debugging functions were added in Libevent 2.0.4-alpha.</p><p class="translate">这些调试函数引入于 Libevent 2.0.4-alpha。</p></div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_detecting_the_version_of_libevent">Detecting the version of Libevent</h2>
 <div class="sectionbody">
 <div class="paragraph"><p>New versions of Libevent can add features and remove bugs.  Sometimes
-you&#8217;ll want to detect the Libevent version, so that you can:</p></div>
+you’ll want to detect the Libevent version, so that you can:</p></div>
 <div class="ulist"><ul>
 <li>
 <p>
@@ -1483,7 +1485,7 @@ Display the Libevent version for debugging.
 <p>
 Detect the version of Libevent so that you can warn the user about
   bugs, or work around them.
-</p>
+</p><p class="translate">Libevent 的新版本增加功能和修复错误。有时候你会想要检测 Libevent 的版本，这样你可以：<br>- 检测安装的 Libevent 版本是否足够好，以构建你的程序。<br>- 显示 Libevent 版本以便调试。<br>- 检测 Libevent 的版本，以便你可以警告用户关于错误，或者绕过它们。</p>
 </li>
 </ul></div>
 <div class="listingblock">
@@ -1497,16 +1499,16 @@ ev_uint32_t event_get_version_number(<strong>void</strong>);</code></pre>
 <div class="paragraph"><p>The macros make available the compile-time version of the Libevent
 library; the functions return the run-time version.  Note that if you
 have dynamically linked your program against Libevent, these versions
-may be different.</p></div>
+may be different.</p><p class="translate">宏提供了 Libevent 库的编译时版本；函数返回运行时版本。请注意，如果你的程序是与 Libevent 动态链接的，这些版本可能会有所不同。</p></div>
 <div class="paragraph"><p>You can get a Libevent version in two formats: as a string suitable for
 displaying to users, or as a 4-byte integer suitable for numerical
 comparison.  The integer format uses the high byte for the major version,
 the second byte for the minor version, the third byte for the patch version, and
 the low byte to indicate release status (0 for release, nonzero for a
-development series after a given release).</p></div>
+development series after a given release).</p><p class="translate">你可以以两种格式获取 Libevent 的版本：一种是适合向用户显示的字符串，另一种是适合进行数值比较的4字节整数。整数格式使用高字节表示主版本号，第二个字节表示次版本号，第三个字节表示修补版本号，低字节表示发布状态（0 表示正式发布，非零表示在给定发布版本之后的开发系列）。</p></div>
 <div class="paragraph"><p>Thus, the released Libevent 2.0.1-alpha has the version number of [02 00
 01 00], or 0x02000100.  A development versions between 2.0.1-alpha and
-2.0.2-alpha might have a version number of [02 00 01 08], or 0x02000108.</p></div>
+2.0.2-alpha might have a version number of [02 00 01 08], or 0x02000108.</p><p class="translate">因此，发布的 Libevent 2.0.1-alpha 的版本号为 [02 00 01 00]，或 0x02000100。在 2.0.1-alpha 和 2.0.2-alpha 之间的开发版本可能有一个版本号为 [02 00 01 08]，或 0x02000108。</p></div>
 <div class="listingblock">
 <div class="title">Example: Compile-time checks</div>
 <div class="content">
@@ -1572,42 +1574,43 @@ check_version_match(<strong>void</strong>)
 </div></div>
 <div class="paragraph"><p>The macros and functions in this section are defined in
 &lt;event2/event.h&gt;.  The event_get_version() function first appeared in
-Libevent 1.0c; the others first appeared in Libevent 2.0.1-alpha.</p></div>
+Libevent 1.0c; the others first appeared in Libevent 2.0.1-alpha.</p><p class="translate">本节中的宏和函数定义在 <event2 event.h=""> 中。`event_get_version()` 函数最初出现在 Libevent 1.0c 中；其他的则首次出现在 Libevent 2.0.1-alpha 中。</event2></p></div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_freeing_global_libevent_structures">Freeing global Libevent structures</h2>
 <div class="sectionbody">
-<div class="paragraph"><p>Even when you&#8217;ve freed all the objects that you allocated with Libevent,
-there will be a few globally allocated structures left over.  This isn&#8217;t
+<div class="paragraph"><p>Even when you’ve freed all the objects that you allocated with Libevent,
+there will be a few globally allocated structures left over.  This isn’t
 usually a problem: once the process exits, they will all get cleaned up
 anyway.  But having these structures can confuse some debugging tools into
 thinking that Libevent is leaking resources.  If you need to make sure that
 Libevent has released all internal library-global data structures, you can
-call:</p></div>
+call:</p><p class="translate">即使你已经释放了所有使用 Libevent 分配的对象，仍然会有一些全局分配的结构剩余。这通常不是问题：一旦进程退出，这些结构最终都会被清理掉。但是这些结构可能会让一些调试工具误以为 Libevent 正在泄漏资源。如果你需要确保 Libevent 已经释放了所有全局数据，你可以调用：</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
 <pre><code><strong>void</strong> libevent_global_shutdown(<strong>void</strong>);</code></pre>
 </div></div>
-<div class="paragraph"><p>This function doesn&#8217;t free any structures that were returned to you by a
-Libevent function.  If you want to free everything before exiting, you&#8217;ll
-need to free all events, event_bases, bufferevents, and so on yourself.</p></div>
+<div class="paragraph"><p>This function doesn’t free any structures that were returned to you by a
+Libevent function.  If you want to free everything before exiting, you’ll
+need to free all events, event_bases, bufferevents, and so on yourself.</p><p class="translate">这个函数不会释放任何由 Libevent 函数返回给你的结构。如果你想在退出前释放所有内容，你需要自己释放所有事件、event_bases、bufferevents 等。</p></div>
 <div class="paragraph"><p>Calling libevent_global_shutdown() will make other Libevent functions behave
-unpredictably; don&#8217;t call it except as the last Libevent function your
+unpredictably; don’t call it except as the last Libevent function your
 program invokes.  One exception is that libevent_global_shutdown() is
-idempotent: it is okay to call it even if it has already been called.</p></div>
+idempotent: it is okay to call it even if it has already been called.</p><p class="translate">调用 libevent_global_shutdown() 将使其他 Libevent 函数的行为变得不可预测；除非作为程序调用的最后一个 Libevent 函数，否则不要调用它。一个例外是 libevent_global_shutdown() 是幂等的：即使它已经被调用过，再次调用它也是可以的。</p></div>
 <div class="paragraph"><p>This function is declared in &lt;event2/event.h&gt;. It was introduced in Libevent
-2.1.1-alpha.</p></div>
+2.1.1-alpha.</p><p class="translate">这个函数在 <event2 event.h=""> 中声明。它在 Libevent 2.1.1-alpha 中引入。</event2></p></div>
 </div>
 </div>
 </div>
-<div id="footnotes"><hr /></div>
+<div id="footnotes"><hr></div>
 <div id="footer">
 <div id="footer-text">
 Last updated
  2024-02-18 20:10:44 UTC
 </div>
 </div>
-</body>
-</html>
+
+
+</body></html>

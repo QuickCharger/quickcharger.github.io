@@ -1,10 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
-    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
-<head>
-<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
-<meta name="generator" content="AsciiDoc 10.1.2" />
+<!--?xml version="1.0" encoding="UTF-8"?--><!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8">
+<meta name="generator" content="AsciiDoc 10.1.2">
 <title>Bufferevents: concepts and basics</title>
 <style type="text/css">
 /* Shared CSS for AsciiDoc xhtml11 and html5 backends */
@@ -732,7 +728,7 @@ asciidoc.install();
 /*]]>*/
 </script>
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-M3CEY418LQ"></script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-M3CEY418LQ"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -740,7 +736,13 @@ asciidoc.install();
 
   gtag('config', 'G-M3CEY418LQ');
 </script>
-</head>
+<style id="translation-style">
+      .translate {
+        background-color: #f0f0f0; /* 浅灰色背景 */
+        color: black;             /* 黑色文本 */
+        font-weight: bold;        /* 加粗字体 */
+      }
+    </style></head>
 <body class="article">
 <div id="header">
 <h1>Bufferevents: concepts and basics</h1>
@@ -787,7 +789,7 @@ Write as much of the data as we can
 <p>
 Remember how much we wrote, and if we still have more data to write,
   wait for the connection to become writable again.
-</p>
+</p><p class="translate">大部分时间，应用程序除了简单地响应event外，还希望进行一定量的数据缓冲。例如，当我们想要写入数据时，通常的模式是这样的：<br>- 我们想要向一个连接写入一些数据；将那些数据放入一个缓冲区（buffer）中。<br>- 等待连接变得可写入。<br>- 写入尽可能多的数据。<br>- 记住我们写入了多少，并且如果我们还有更多数据要写入，等待连接再次变得可写入。</p>
 </li>
 </ul></div>
 <div class="paragraph"><p>This buffered IO pattern is common enough that Libevent provides a
@@ -796,7 +798,7 @@ underlying transport (like a socket), a read buffer, and a write
 buffer.  Instead of regular events, which give callbacks when the
 underlying transport is ready to be read or written, a bufferevent
 invokes its user-supplied callbacks when it has read or written enough
-data.</p></div>
+data.</p><p class="translate">这种缓冲式 IO 模式足够常见，以至于 Libevent 提供了一个通用机制。一个 "bufferevent" 包含了一个底层传输（比如一个socket）、一个读buffer和一个写buffer。与普通event不同，普通event在底层传输准备好读取或写入时给出回调，bufferevent 在它读取或写入足够数据时调用用户提供的回调函数。</p></div>
 <div class="paragraph"><p>There are multiple types of bufferevent that all share a common
 interface.  As of this writing, the following types exist:</p></div>
 <div class="dlist"><dl>
@@ -825,7 +827,7 @@ filtering bufferevents
 <dd>
 <p>
     A bufferevent that processes incoming and outgoing data before
-    passing it to an underlying bufferevent object&#8212;for example, to
+    passing it to an underlying bufferevent object—for example, to
     compress or translate data.
 </p>
 </dd>
@@ -835,19 +837,19 @@ paired bufferevents
 <dd>
 <p>
     Two bufferevents that transmit data to one another.
-</p>
+</p><p class="translate">bufferevent 有多种类型，它们共享一个通用接口。在本文撰写之时，以下类型存在：<br>基于socket的 bufferevents<br>  一个从底层流socket发送和接收数据的 bufferevent，使用 event_* 接口作为它的后端。<br>异步 IO bufferevents<br>  使用 Windows IOCP 接口向底层流socket发送和接收数据的 bufferevent。（仅限 Windows；实验性的。）<br>过滤 bufferevents<br>  在将数据传递给底层 bufferevent 对象之前处理传入和传出数据的 bufferevent——例如，压缩或转换数据。<br>配对的 bufferevents<br>  两个互相传输数据的 bufferevent。</p>
 </dd>
 </dl></div>
 <div class="paragraph"><div class="title">NOTE</div><p>As of Libevent 2.0.2-alpha, the bufferevents interfaces here are still
 not fully orthogonal across all bufferevent types.  In other words,
 not every interface described below will work on all bufferevent types.
-The Libevent developers intend to correct this in future versions.</p></div>
+The Libevent developers intend to correct this in future versions.</p><p class="translate">截至 Libevent 2.0.2-alpha 版本，这里的 bufferevents 接口在所有 bufferevent 类型之间仍然不是完全正交的。换句话说，并非下面描述的每个接口都适用于所有类型的 bufferevent。Libevent 的开发者计划在未来的版本中纠正这一点。</p></div>
 <div class="paragraph"><div class="title">NOTE ALSO</div><p>Bufferevents currently only work for stream-oriented protocols like TCP.
-There may in the future be support for datagram-oriented protocols like UDP.</p></div>
+There may in the future be support for datagram-oriented protocols like UDP.</p><p class="translate">Bufferevents 当前只适用于像 TCP 这样的流式协议。将来可能会支持UDP 这样的数据报协议。</p></div>
 <div class="paragraph"><p>All of the functions and types in this section are declared in
 event2/bufferevent.h.  Functions specifically related to evbuffers are
 declared in event2/buffer.h; see the next chapter for information on
-those.</p></div>
+those.</p><p class="translate">这一部分中的所有函数和类型都声明在 event2/bufferevent.h 中。特别与 evbuffers 相关的函数在 event2/buffer.h 中声明；有关这些内容的信息请参阅下一章。</p></div>
 </div>
 </div>
 <div class="sect1">
@@ -856,9 +858,9 @@ those.</p></div>
 <div class="paragraph"><p>Every bufferevent has an input buffer and an output buffer.  These are
 of type "struct evbuffer".  When you have data to write on a
 bufferevent, you add it to the output buffer; when a bufferevent has
-data for you to read, you drain it from the input buffer.</p></div>
+data for you to read, you drain it from the input buffer.</p><p class="translate">每个bufferevent都有一个输入buffer和一个输出buffer。它们都是"struct evbuffer"类型的。当你有数据需要通过bufferevent写入时，你将它添加到输出buffer；当一个bufferevent有数据供你读取时，你需要从输入buffer中将它取出。</p></div>
 <div class="paragraph"><p>The evbuffer interface supports many operations; we discuss them in a
-later section.</p></div>
+later section.</p><p class="translate">evbuffer接口支持许多操作；我们将在后面的章节中讨论这些操作。</p></div>
 </div>
 </div>
 <div class="sect1">
@@ -869,7 +871,7 @@ and a write callback.  By default, the read callback is called
 whenever any data is read from the underlying transport, and the write
 callback is called whenever enough data from the output buffer is emptied to
 the underlying transport.  You can override the behavior of these functions
-by adjusting the read and write "watermarks" of the bufferevent.</p></div>
+by adjusting the read and write "watermarks" of the bufferevent.</p><p class="translate">每个bufferevent都有两个与数据相关的回调函数：一个读回调和一个写回调。默认情况下，只要从底层传输读取到任何数据，读回调函数就会被调用；只要从输出buffer向底层传输并清空了足够的空间，写回调函数就被调用。你可以通过调整bufferevent的读写“水位标记”（水位标记）来改变这些函数的行为。</p></div>
 <div class="paragraph"><p>Every bufferevent has four watermarks:</p></div>
 <div class="dlist"><dl>
 <dt class="hdlist1">
@@ -877,8 +879,8 @@ Read low-water mark
 </dt>
 <dd>
 <p>
-   Whenever a read occurs that leaves the bufferevent&#8217;s input buffer
-   at this level or higher, the bufferevent&#8217;s read callback is invoked.
+   Whenever a read occurs that leaves the bufferevent’s input buffer
+   at this level or higher, the bufferevent’s read callback is invoked.
    Defaults to 0, so that every read results in the read callback
    being invoked.
 </p>
@@ -888,7 +890,7 @@ Read high-water mark
 </dt>
 <dd>
 <p>
-   If the bufferevent&#8217;s input buffer ever gets to this level, the
+   If the bufferevent’s input buffer ever gets to this level, the
    bufferevent stops reading until enough data is drained from the
    input buffer to take us below it again.  Defaults to unlimited, so
    that we never stop reading because of the size of the input buffer.
@@ -912,7 +914,7 @@ Write high-water mark
    Not used by a bufferevent directly, this watermark can have special
    meaning when a bufferevent is used as the underlying transport of
    another bufferevent.  See notes on filtering bufferevents below.
-</p>
+</p><p class="translate">每个bufferevent都有四个watermark：<br>Read low-water mark<br>  每当发生一次读取，使bufferevent的输入buffer达到或超过阈值，就会调用bufferevent的读取回调函数。默认值阈值为0，这样每次读取都会触发读取回调。<br>Read high-water mark<br>  如果bufferevent的输入buffer的数据量达到阈值，bufferevent就会停止读取，直到在输入buffer中清空足够的空间，使我们再次低于阈值。默认值阈值为无限制，因此我们不会因为输入buffer的大小而停止读取。<br>Write low-water mark<br>  每当发生一次写入操作，使空间达到或低于阈值，就会调用写回调函数。默认值为0，因此只有在输出buffer被清空时才会调用写回调函数。<br>Write high-water mark<br>  直接由bufferevent使用的写入高水位标记，当bufferevent被用作另一个bufferevent的底层传输时，这个水位标记可能有特殊的含义。请参阅下面关于过滤bufferevent的注释。</p>
 </dd>
 </dl></div>
 <div class="paragraph"><p>A bufferevent also has an "error" or "event" callback that gets
@@ -972,7 +974,7 @@ BEV_EVENT_CONNECTED
 </p>
 </dd>
 </dl></div>
-<div class="paragraph"><p>(The above event names are new in Libevent 2.0.2-alpha.)</p></div>
+<div class="paragraph"><p>(The above event names are new in Libevent 2.0.2-alpha.)</p><p class="translate">bufferevent还有一个“错误”或“事件”回调函数，当发生非数据导向事件时会被调用，比如当连接关闭或发生错误时。以下事件标志被定义：<br>BEV_EVENT_READING<br>  在bufferevent的读操作期间发生了事件。看其他标志以确定是哪个事件。<br>BEV_EVENT_WRITING<br>  在bufferevent的写操作期间发生了事件。看其他标志以确定是哪个事件。<br>BEV_EVENT_ERROR<br>  在bufferevent操作期间发生错误。要获取更多错误信息，请调用EVUTIL_SOCKET_ERROR()。<br>BEV_EVENT_TIMEOUT<br>  bufferevent超时。<br>BEV_EVENT_EOF<br>  我们在bufferevent上得到了EOF。<br>BEV_EVENT_CONNECTED<br>  我们完成了在bufferevent上请求的连接。<br>（以上事件名称在Libevent 2.0.2-alpha中是新的。）</p></div>
 </div>
 </div>
 <div class="sect1">
@@ -980,18 +982,18 @@ BEV_EVENT_CONNECTED
 <div class="sectionbody">
 <div class="paragraph"><p>By default, a bufferevent callbacks are executed <em>immediately</em> when
 the corresponding condition happens.  (This is true of evbuffer
-callbacks too; we&#8217;ll get to those later.)  This immediate invocation
+callbacks too; we’ll get to those later.)  This immediate invocation
 can make trouble when dependencies get complex.  For example, suppose
 that there is a callback that moves data into evbuffer A when it grows
 empty, and another callback that processes data out of evbuffer A when
 it grows full.  Since these calls are all happening on the stack, you
-might risk a stack overflow if the dependency grows nasty enough.</p></div>
+might risk a stack overflow if the dependency grows nasty enough.</p><p class="translate">默认情况下，bufferevent的回调会立即执行。（evbuffer的回调也是如此；我们稍后再讨论这些。）当依赖关系变得复杂时，这种立即调用可能会引起麻烦。例如，假设有一个回调函数在evbuffer A变空时将数据移入，另一个回调函数在evbuffer A变满时处理数据。由于这些调用都是在栈上进行的，如果依赖关系变得足够复杂，你可能会冒着栈溢出的风险。</p></div>
 <div class="paragraph"><p>To solve this, you can tell a bufferevent (or an evbuffer) that its
 callbacks should be <em>deferred</em>.  When the conditions are met for a
 deferred callback, rather than invoking it immediately, it is queued
 as part of the event_loop() call, and invoked after  the regular events'
-callbacks.</p></div>
-<div class="paragraph"><p>(Deferred callbacks were introduced in Libevent 2.0.1-alpha.)</p></div>
+callbacks.</p><p class="translate">为了解决这个问题，你可以告诉bufferevent（或evbuffer），其回调应该被延迟。当满足延迟回调的条件时，不会立即调用它，而是将其在event_loop()排队，并在常规event回调之后调用。</p></div>
+<div class="paragraph"><p>(Deferred callbacks were introduced in Libevent 2.0.1-alpha.)</p><p class="translate">（延迟回调功能在Libevent 2.0.1-alpha中引入。）</p></div>
 </div>
 </div>
 <div class="sect1">
@@ -1015,7 +1017,7 @@ BEV_OPT_THREADSAFE
 </dt>
 <dd>
 <p>
-    Automatically allocate locks for the bufferevent, so that it&#8217;s
+    Automatically allocate locks for the bufferevent, so that it’s
     safe to use from multiple threads.
 </p>
 </dd>
@@ -1034,28 +1036,28 @@ BEV_OPT_UNLOCK_CALLBACKS
 <dd>
 <p>
     By default, when the bufferevent is set up to be threadsafe, the
-    bufferevent&#8217;s locks are held whenever the any user-provided
+    bufferevent’s locks are held whenever the any user-provided
     callback is invoked.  Setting this option makes Libevent release
-    the bufferevent&#8217;s lock when it&#8217;s invoking your callbacks.
-</p>
+    the bufferevent’s lock when it’s invoking your callbacks.
+</p><p class="translate">在创建bufferevent时，你可以使用一个或多个标志来改变其行为。被识别的标志包括：<br>BEV_OPT_CLOSE_ON_FREE<br>  当bufferevent被释放时，关闭底层传输。这将关闭底层socket，释放底层bufferevent等。<br>BEV_OPT_THREADSAFE<br>  为bufferevent自动分配锁，这样它就可以安全地在多个线程中使用。<br>BEV_OPT_DEFER_CALLBACKS<br>  设置此标志后，bufferevent会延迟其所有回调，如上所述。<br>BEV_OPT_UNLOCK_CALLBACKS<br>  默认情况下，当bufferevent设置为线程安全时，调用用户提供的回调时，bufferevent都会被上锁。设置这个选项会使Libevent在调用用户回调时释放bufferevent的锁。</p>
 </dd>
 </dl></div>
 <div class="paragraph"><p>(Libevent 2.0.5-beta introduced BEV_OPT_UNLOCK_CALLBACKS.  The other options
-above were new in Libevent 2.0.1-alpha.)</p></div>
+above were new in Libevent 2.0.1-alpha.)</p><p class="translate">（Libevent 2.0.5-beta引入了BEV_OPT_UNLOCK_CALLBACKS。上面的其他选项在Libevent 2.0.1-alpha中是新的。）</p></div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_working_with_socket_based_bufferevents">Working with socket-based bufferevents</h2>
 <div class="sectionbody">
 <div class="paragraph"><p>The simplest bufferevents to work with is the socket-based type.  A
-socket-based bufferevent uses Libevent&#8217;s underlying event mechanism to
+socket-based bufferevent uses Libevent’s underlying event mechanism to
 detect when an underlying network socket is ready for read and/or write
 operations, and uses underlying network calls (like readv, writev,
-WSASend, or WSARecv) to transmit and receive data.</p></div>
+WSASend, or WSARecv) to transmit and receive data.</p><p class="translate">bufferevent中最简单的是基于socket的操作。基于socket的bufferevent使用Libevent的底层事件机制来检测底层网络socket何时准备好进行读取和/或写入操作，并使用底层网络调用（如readv、writev、WSASend或WSARecv）来传输和接收数据。</p></div>
 <div class="sect2">
 <h3 id="_creating_a_socket_based_bufferevent">Creating a socket-based bufferevent</h3>
 <div class="paragraph"><p>You can create a socket-based bufferevent using
-bufferevent_socket_new():</p></div>
+bufferevent_socket_new():</p><p class="translate">你可以使用bufferevent_socket_new()创建一个基于socket的bufferevent：</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
@@ -1067,24 +1069,24 @@ bufferevent_socket_new():</p></div>
 <div class="paragraph"><p>The <em>base</em> is an event_base, and <em>options</em> is a bitmask of bufferevent
 options (BEV_OPT_CLOSE_ON_FREE, etc).  The <em>fd</em> argument is an
 optional file descriptor for a socket.  You can set fd to -1 if
-you want to set the file descriptor later.</p></div>
+you want to set the file descriptor later.</p><p class="translate">参数base是event_base，options是bufferevent的位掩码（BEV_OPT_CLOSE_ON_FREE等）。fd是可选的socket。如果你想稍后设置fd，可以将fd设置为-1。</p></div>
 <div class="admonitionblock">
-<table><tr>
+<table><tbody><tr>
 <td class="icon">
 <div class="title">Tip</div>
 </td>
 <td class="content">[Make sure that the socket you provide to bufferevent_socket_new is
 in non-blocking mode. Libevent provides the convenience method
 evutil_make_socket_nonblocking for this.]</td>
-</tr></table>
+</tr></tbody></table>
 </div>
-<div class="paragraph"><p>This function returns a bufferevent on success, and NULL on failure.</p></div>
-<div class="paragraph"><p>The bufferevent_socket_new() function was introduced in Libevent 2.0.1-alpha.</p></div>
+<div class="paragraph"><p>This function returns a bufferevent on success, and NULL on failure.</p><p class="translate">此函数在成功时返回bufferevent，在失败时返回NULL。</p></div>
+<div class="paragraph"><p>The bufferevent_socket_new() function was introduced in Libevent 2.0.1-alpha.</p><p class="translate">bufferevent_socket_new()函数在Libevent 2.0.1-alpha中引入。</p></div>
 </div>
 <div class="sect2">
 <h3 id="_launching_connections_on_socket_based_bufferevents">Launching connections on socket-based bufferevents</h3>
-<div class="paragraph"><p>If the bufferevent&#8217;s socket is not yet connected, you can launch a new
-connection.</p></div>
+<div class="paragraph"><p>If the bufferevent’s socket is not yet connected, you can launch a new
+connection.</p><p class="translate">如果bufferevent的socket尚未连接，你可以启动新的连接。</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
@@ -1094,15 +1096,15 @@ connection.</p></div>
 <div class="paragraph"><p>The address and addrlen arguments are as for the standard call
 connect().  If the bufferevent does not already have a socket set,
 calling this function allocates a new stream socket for it, and makes
-it nonblocking.</p></div>
+it nonblocking.</p><p class="translate">address和addrlen参数与标准调用connect()的参数相同。如果bufferevent尚未设置socket，调用此函数会为其分配一个新的tcp socket，并使其非阻塞。</p></div>
 <div class="paragraph"><p>If the bufferevent <strong>does</strong> have a socket already, calling
 bufferevent_socket_connect() tells Libevent that the socket is not
 connected, and no reads or writes should be done on the socket until
-the connect operation has succeeded.</p></div>
+the connect operation has succeeded.</p><p class="translate">如果bufferevent已经有socket，调用bufferevent_socket_connect()会告诉Libevent socket未连接，在连接操作成功之前不应在socket上进行读取或写入操作。</p></div>
 <div class="paragraph"><p>It is okay to add data to the output buffer before the connect is
-done.</p></div>
+done.</p><p class="translate">在连接完成之前向输出buffer添加数据是可以的 ！！！</p></div>
 <div class="paragraph"><p>This function returns 0 if the connect was successfully launched, and
--1 if an error occurred.</p></div>
+-1 if an error occurred.</p><p class="translate">如果连接成功启动，此函数返回0；如果发生错误，返回-1。</p></div>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
@@ -1152,20 +1154,20 @@ done.</p></div>
 <div class="paragraph"><p>The bufferevent_socket_connect() function was introduced in
 Libevent-2.0.2-alpha.  Before then, you had to manually call
 connect() on your socket yourself, and when the connection was
-complete, the bufferevent would report it as a write.</p></div>
+complete, the bufferevent would report it as a write.</p><p class="translate">bufferevent_socket_connect()函数在Libevent-2.0.2-alpha中引入。在此之前，你必须手动在你的socket上调用connect()，当连接完成时，bufferevent会将其报告为一个写入操作。</p></div>
 <div class="paragraph"><p>Note that you only get a BEV_EVENT_CONNECTED event if you launch the
 connect() attempt using bufferevent_socket_connect().  If you call
-connect() on your own, the connection gets reported as a write.</p></div>
+connect() on your own, the connection gets reported as a write.</p><p class="translate">请注意，只有在使用bufferevent_socket_connect()尝试connect()时，你才会收到BEV_EVENT_CONNECTED事件。如果你自己调用connect()，连接会被报告为一个写入操作。</p></div>
 <div class="paragraph"><p>If you want to call connect() yourself, but still get receive a
 BEV_EVENT_CONNECTED event when the connection succeeds, call
 bufferevent_socket_connect(bev, NULL, 0) after connect() returns -1 with
-errno equal to EAGAIN or EINPROGRESS.</p></div>
-<div class="paragraph"><p>This function was introduced in Libevent 2.0.2-alpha.</p></div>
+errno equal to EAGAIN or EINPROGRESS.</p><p class="translate">如果你想自己调用connect()，但仍然希望在连接成功时收到BEV_EVENT_CONNECTED事件，请在connect()返回-1且errno等于EAGAIN或EINPROGRESS之后调用bufferevent_socket_connect(bev, NULL, 0)。</p></div>
+<div class="paragraph"><p>This function was introduced in Libevent 2.0.2-alpha.</p><p class="translate">这个函数在 Libevent 2.0.2-alpha 中引入。</p></div>
 </div>
 <div class="sect2">
 <h3 id="_launching_connections_by_hostname">Launching connections by hostname</h3>
-<div class="paragraph"><p>Quite often, you&#8217;d like to combine resolving a hostname and connecting to it
-into a single operation.  There&#8217;s an interface for that:</p></div>
+<div class="paragraph"><p>Quite often, you’d like to combine resolving a hostname and connecting to it
+into a single operation.  There’s an interface for that:</p><p class="translate">很多时候，你可能希望将解析主机名和连接到它合并为单个操作。有一个接口可以做到这一点：</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
@@ -1178,19 +1180,19 @@ into a single operation.  There&#8217;s an interface for that:</p></div>
 <em>family</em>.  (Allowable family types are AF_INET, AF_INET6, and AF_UNSPEC.)  If
 the name resolution fails, it invokes the event callback with an error event.
 If it succeeds, it launches a connection attempt just as bufferevent_connect
-would.</p></div>
+would.</p><p class="translate">这个函数解析DNS名称hostname，寻找类型为family的地址。（允许的family类型有AF_INET、AF_INET6和AF_UNSPEC。）如果解析失败，它会使用错误事件调用事件回调。如果成功，它会启动一个连接尝试，就像bufferevent_connect一样。</p></div>
 <div class="paragraph"><p>The dns_base argument is optional.  If it is NULL, then Libevent blocks while
-waiting for the name lookup to finish, which usually isn&#8217;t what you want.  If
+waiting for the name lookup to finish, which usually isn’t what you want.  If
 it is provided, then Libevent uses it to look up the hostname asynchronously.
-See <a href="Ref9_dns.html">chapter R9</a> for more info on DNS.</p></div>
+See <a href="Ref9_dns.html">chapter R9</a> for more info on DNS.</p><p class="translate">dns_base参数是可选的。如果它为NULL，那么Libevent在等待名称查找完成时会阻塞，这通常不是你想要的。如果提供了dns_base，则Libevent使用它来异步查找主机名。更多关于DNS的信息，请参见第R9章。</p></div>
 <div class="paragraph"><p>As with bufferevent_socket_connect(), this function tells Libevent that any
 existing socket on the bufferevent is not connected, and no reads or writes
 should be done on the socket until the resolve is finished and the connect
-operation has succeeded.</p></div>
+operation has succeeded.</p><p class="translate">与bufferevent_socket_connect()一样，这个函数告诉Libevent，bufferevent上的任何现有socket都未连接，在解析完成和连接操作成功之前不应在socket上进行读取或写入操作。</p></div>
 <div class="paragraph"><p>If an error occurs, it might be a DNS hostname lookup error.  You can find
 out what the most recent error was by calling
 bufferevent_socket_get_dns_error().  If the returned error code is 0, no DNS
-error was detected.</p></div>
+error was detected.</p><p class="translate">如果发生错误，它可能是DNS主机名查找错误。你可以通过调用bufferevent_socket_get_dns_error()来查明错误。如果返回的错误代码是0，表示没有检测到DNS错误。</p></div>
 <div class="listingblock">
 <div class="title">Example: Trivial HTTP v0 client.</div>
 <div class="content">
@@ -1259,7 +1261,7 @@ error was detected.</p></div>
 }</code></pre>
 </div></div>
 <div class="paragraph"><p>The bufferevent_socket_connect_hostname() function was new in Libevent
-2.0.3-alpha; bufferevent_socket_get_dns_error() was new in 2.0.5-beta.</p></div>
+2.0.3-alpha; bufferevent_socket_get_dns_error() was new in 2.0.5-beta.</p><p class="translate">bufferevent_socket_connect_hostname() 函数在 Libevent 2.0.3-alpha 版本中首次引入；bufferevent_socket_get_dns_error() 函数在 2.0.5-beta 版本中新增。</p></div>
 </div>
 </div>
 </div>
@@ -1267,7 +1269,7 @@ error was detected.</p></div>
 <h2 id="_generic_bufferevent_operations">Generic bufferevent operations</h2>
 <div class="sectionbody">
 <div class="paragraph"><p>The functions in this section work with multiple bufferevent
-implementations.</p></div>
+implementations.</p><p class="translate">本节中的函数适用于多种bufferevent实现。</p></div>
 <div class="sect2">
 <h3 id="_freeing_a_bufferevent">Freeing a bufferevent</h3>
 <div class="listingblock">
@@ -1277,16 +1279,16 @@ implementations.</p></div>
 </div></div>
 <div class="paragraph"><p>This function frees a bufferevent.  Bufferevents are internally
 reference-counted, so if the bufferevent has pending deferred
-callbacks when you free it, it won&#8217;t be deleted until the callbacks
-are done.</p></div>
+callbacks when you free it, it won’t be deleted until the callbacks
+are done.</p><p class="translate">这个函数释放bufferevent。Bufferevent在内部是通过引用计数的方式管理的，所以，如果在你释放它的时候bufferevent还有待处理的延迟回调，它不会被立即删除，直到这些回调处理完成。</p></div>
 <div class="paragraph"><p>The bufferevent_free() function does, however, try to free the
 bufferevent as soon as possible.  If there is pending data to write on
-the bufferevent, it probably won&#8217;t be flushed before the bufferevent is
-freed.</p></div>
+the bufferevent, it probably won’t be flushed before the bufferevent is
+freed.</p><p class="translate">然而，bufferevent_free()函数确实尝试尽快释放bufferevent。如果bufferevent上还有待发送的数据，这些数据可能发不出去。</p></div>
 <div class="paragraph"><p>If the BEV_OPT_CLOSE_ON_FREE flag was set, and this bufferevent has a
 socket or underlying bufferevent associated with it as its transport,
-that transport is closed when you free the bufferevent.</p></div>
-<div class="paragraph"><p>This function was introduced in Libevent 0.8.</p></div>
+that transport is closed when you free the bufferevent.</p><p class="translate">如果设置了BEV_OPT_CLOSE_ON_FREE标志，并且这个bufferevent拥有socket，释放bufferevent时，该传输方式将被关闭。</p></div>
+<div class="paragraph"><p>This function was introduced in Libevent 0.8.</p><p class="translate">这个函数在Libevent 0.8版本中引入。</p></div>
 </div>
 <div class="sect2">
 <h3 id="_manipulating_callbacks_watermarks_and_enabled_operations">Manipulating callbacks, watermarks, and enabled operations</h3>
@@ -1315,18 +1317,18 @@ bufferevent that has had the event happen.  The last argument is the
 value provided by the user in the <em>cbarg</em> parameter of
 bufferevent_callcb(): You can use this to pass data to your
 callbacks.  The <em>events</em> argument of the event callback is a bitmask
-of event flags: see "callbacks and watermarks" above.</p></div>
+of event flags: see "callbacks and watermarks" above.</p><p class="translate">bufferevent_setcb()函数更改一个或多个bufferevent的回调。当读取到足够的数据、写入足够的数据，或发生某个事件时，分别调用readcb、writecb和eventcb函数。每个函数的第一个参数是发生事件的bufferevent。最后一个参数是用户在bufferevent_callcb()的cbarg参数中提供的值：你可以使用这个参数向回调传递数据。events参数是事件标志的位掩码：参见上文的“回调和水位”。</p></div>
 <div class="paragraph"><p>You can disable a callback by passing NULL instead of the callback
 function.  Note all the callback functions on a bufferevent share a
-single <em>cbarg</em> value, so changing it will affect all of them.</p></div>
+single <em>cbarg</em> value, so changing it will affect all of them.</p><p class="translate">你可以通过传递NULL来禁用回调，而不是传递回调函数。注意，bufferevent上的所有回调函数共享cbarg值，所以更改它会影响所有回调。</p></div>
 <div class="paragraph"><p>You can retrieve the currently set callbacks for a bufferevent by passing
 pointers to bufferevent_getcb(), which sets *readcb_ptr to the current read
 callback, *writecb_ptr to the current write callback, *eventcb_ptr to the
 current event callback, and *cbarg_ptr to the current callback argument
-field.  Any of these pointers set to NULL will be ignored.</p></div>
+field.  Any of these pointers set to NULL will be ignored.</p><p class="translate">你可以通过向bufferevent_getcb()传递指针来检索bufferevent的当前设置的回调，该函数会设置*readcb_ptr为当前的读取回调，*writecb_ptr为当前的写入回调，*eventcb_ptr为当前的事件回调，*cbarg_ptr为当前的回调参数字段。任何设置为NULL的指针都将被忽略。</p></div>
 <div class="paragraph"><p>The bufferevent_setcb() function was introduced in Libevent 1.4.4.  The type
 names "bufferevent_data_cb" and "bufferevent_event_cb" were new in Libevent
-2.0.2-alpha.  The bufferevent_getcb() function was added in 2.1.1-alpha.</p></div>
+2.0.2-alpha.  The bufferevent_getcb() function was added in 2.1.1-alpha.</p><p class="translate">bufferevent_setcb()函数在Libevent 1.4.4版本中引入。类型名“bufferevent_data_cb”和“bufferevent_event_cb”在Libevent 2.0.2-alpha版本中新增。bufferevent_getcb()函数在2.1.1-alpha中添加。</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
@@ -1337,19 +1339,19 @@ names "bufferevent_data_cb" and "bufferevent_event_cb" were new in Libevent
 </div></div>
 <div class="paragraph"><p>You can enable or disable the events EV_READ, EV_WRITE, or
 EV_READ|EV_WRITE on a bufferevent.  When reading or writing is not
-enabled, the bufferevent will not try to read or write data.</p></div>
+enabled, the bufferevent will not try to read or write data.</p><p class="translate">你可以在bufferevent上启用或禁用EV_READ、EV_WRITE或EV_READ|EV_WRITE事件。当未启用读取或写入时，bufferevent不会尝试读取或写入数据。</p></div>
 <div class="paragraph"><p>There is no need to disable writing when the output buffer is empty:
 the bufferevent automatically stops writing, and restarts again
-when there is data to write.</p></div>
+when there is data to write.</p><p class="translate">当输出buffer为空时，无需禁用写入：bufferevent会自动停止写入，并在有数据要写入时再次开始。</p></div>
 <div class="paragraph"><p>Similarly, there is no need to disable reading when the input buffer
 is up to its high-water mark: the bufferevent automatically stops
-reading, and restarts again when there is space to read.</p></div>
+reading, and restarts again when there is space to read.</p><p class="translate">同样，当输入缓冲区达到high-water mark，无需禁用读取：bufferevent会自动停止读取，并在有空间可读时再次开始。</p></div>
 <div class="paragraph"><p>By default, a newly created bufferevent has writing enabled, but not
-reading.</p></div>
+reading.</p><p class="translate">默认情况下，新创建的bufferevent启用了写入，但未启用读取。</p></div>
 <div class="paragraph"><p>You can call bufferevent_get_enabled() to see which events are currently
-enabled on the bufferevent.</p></div>
+enabled on the bufferevent.</p><p class="translate">你可以调用bufferevent_get_enabled()来查看bufferevent上当前启用了哪些事件。</p></div>
 <div class="paragraph"><p>These functions were introduced in Libevent 0.8, except for
-bufferevent_get_enabled(), which was introduced in version 2.0.3-alpha.</p></div>
+bufferevent_get_enabled(), which was introduced in version 2.0.3-alpha.</p><p class="translate">这些函数在Libevent 0.8版本中引入，除了bufferevent_get_enabled()，它在2.0.3-alpha版本中引入。</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
@@ -1359,9 +1361,9 @@ bufferevent_get_enabled(), which was introduced in version 2.0.3-alpha.</p></div
 <div class="paragraph"><p>The bufferevent_setwatermark() function adjusts the read watermarks,
 the write watermarks, or both, of a single bufferevent.  (If EV_READ
 is set in the events field, the read watermarks are adjusted.  If
-EV_WRITE is set in the events field, the write watermarks are adjusted.)</p></div>
-<div class="paragraph"><p>A high-water mark of 0 is equivalent to "unlimited".</p></div>
-<div class="paragraph"><p>This function was first exposed in Libevent 1.4.4.</p></div>
+EV_WRITE is set in the events field, the write watermarks are adjusted.)</p><p class="translate">bufferevent_setwatermark()函数调整单个bufferevent的读水位、写水位或两者。如果在events字段中设置了EV_READ，就调整读水位。如果设置了EV_WRITE，就调整写水位。</p></div>
+<div class="paragraph"><p>A high-water mark of 0 is equivalent to "unlimited".</p><p class="translate">高水位设置为0等同于“无限制”。</p></div>
+<div class="paragraph"><p>This function was first exposed in Libevent 1.4.4.</p><p class="translate">这个函数最初在Libevent 1.4.4版本中公开。</p></div>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
@@ -1442,8 +1444,8 @@ EV_WRITE is set in the events field, the write watermarks are adjusted.)</p></di
 <div class="sect2">
 <h3 id="_manipulating_data_in_a_bufferevent">Manipulating data in a bufferevent</h3>
 <div class="paragraph"><p>Reading and writing data from the network does you no good if you
-can&#8217;t look at it.  Bufferevents give you these methods to give them
-data to write, and to get the data to read:</p></div>
+can’t look at it.  Bufferevents give you these methods to give them
+data to write, and to get the data to read:</p><p class="translate">如果你无法查看网络中的数据，那么读取和写入数据就没有任何好处。缓冲事件为你提供了以下方法，用来传输要写入的数据，并获取要读取的数据：</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
@@ -1453,14 +1455,14 @@ data to write, and to get the data to read:</p></div>
 <div class="paragraph"><p>These two functions are very powerful fundamental: they return the
 input and output buffers respectively.  For full information on all
 the operations you can perform on an evbuffer type, see the next
-chapter.</p></div>
+chapter.</p><p class="translate">这两个函数非常强大且基础：它们分别返回输入和输出buffer。要了解可以在evbuffer类型上执行的所有操作的完整信息，请参阅下一章。</p></div>
 <div class="paragraph"><p>Note that the application may only remove (not add) data from the input
-buffer, and may only add (not remove) data to the output buffer.</p></div>
+buffer, and may only add (not remove) data to the output buffer.</p><p class="translate">请注意，应用程序只能从输入buffer删除（而不是添加）数据，且只能向输出buffer添加（而不是删除）数据。</p></div>
 <div class="paragraph"><p>If writing on the bufferevent was stalled because of too little data
 (or if reading was stalled because of too much), then adding data to
 the output buffer (or removing data from the input buffer) will
-automatically restart it.</p></div>
-<div class="paragraph"><p>These functions were introduced in Libevent 2.0.1-alpha.</p></div>
+automatically restart it.</p><p class="translate">如果因为数据太少（或因为数据太多）而导致缓冲事件的写入被阻塞，那么向输出buffer添加数据（或从输入buffer移除数据）将自动重启它。</p></div>
+<div class="paragraph"><p>These functions were introduced in Libevent 2.0.1-alpha.</p><p class="translate">这些功能在Libevent 2.0.1-alpha中引入。</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
@@ -1469,12 +1471,12 @@ automatically restart it.</p></div>
 <strong>int</strong> bufferevent_write_buffer(<strong>struct</strong> bufferevent *bufev,
     <strong>struct</strong> evbuffer *buf);</code></pre>
 </div></div>
-<div class="paragraph"><p>These functions add data to a bufferevent&#8217;s output buffer.  Calling
+<div class="paragraph"><p>These functions add data to a bufferevent’s output buffer.  Calling
 bufferevent_write() adds <em>size</em> bytes from the memory at <em>data</em> to the
 end of the output buffer.  Calling bufferevent_write_buffer() removes
 the entire contents of <em>buf</em> and puts them at the end of the output
-buffer.   Both return 0 if successful, or -1 if an error occurred.</p></div>
-<div class="paragraph"><p>These functions have existed since Libevent 0.8.</p></div>
+buffer.   Both return 0 if successful, or -1 if an error occurred.</p><p class="translate">这些功能向bufferevent的输出缓冲区添加数据。调用bufferevent_write()会将数据内存中的size字节添加到输出buffer的末尾。调用bufferevent_write_buffer()会移除buf的全部内容，并将它们放在输出缓冲区的末尾。如果成功，两者都返回0，如果发生错误，则返回-1。</p></div>
+<div class="paragraph"><p>These functions have existed since Libevent 0.8.</p><p class="translate">这些功能自Libevent 0.8以来就存在。</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
@@ -1482,16 +1484,16 @@ buffer.   Both return 0 if successful, or -1 if an error occurred.</p></div>
 <strong>int</strong> bufferevent_read_buffer(<strong>struct</strong> bufferevent *bufev,
     <strong>struct</strong> evbuffer *buf);</code></pre>
 </div></div>
-<div class="paragraph"><p>These functions remove data from a bufferevent&#8217;s input buffer.  The
+<div class="paragraph"><p>These functions remove data from a bufferevent’s input buffer.  The
 bufferevent_read() function removes up to <em>size</em> bytes from the input
 buffer, storing them into the memory at <em>data</em>.  It returns the number
 of bytes actually removed.  The bufferevent_read_buffer() function
 drains the entire contents of the input buffer and places them into
-<em>buf</em>; it returns 0 on success and -1 on failure.</p></div>
+<em>buf</em>; it returns 0 on success and -1 on failure.</p><p class="translate">这些函数从bufferevent的输入buffer中移除数据。bufferevent_read()函数最多从输入buffer移除size字节，将它们存储到data中。它返回实际移除的字节数。bufferevent_read_buffer()函数排空输入buffer的全部内容，并将它们放入buf中；成功返回0，失败返回-1。</p></div>
 <div class="paragraph"><p>Note that with bufferevent_read(), the memory chunk at <em>data</em> must
-actually have enough space to hold <em>size</em> bytes of data.</p></div>
+actually have enough space to hold <em>size</em> bytes of data.</p><p class="translate">请注意，使用bufferevent_read()时，data必须有足够的空间来存储size字节的数据。</p></div>
 <div class="paragraph"><p>The bufferevent_read() function has existed since Libevent 0.8;
-bufferevent_read_buffer() was introduced in Libevent 2.0.1-alpha.</p></div>
+bufferevent_read_buffer() was introduced in Libevent 2.0.1-alpha.</p><p class="translate">bufferevent_read()函数自Libevent 0.8以来就存在；bufferevent_read_buffer()是在Libevent 2.0.1-alpha中引入的。</p></div>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
@@ -1574,7 +1576,7 @@ write_callback_fibonacci(<strong>struct</strong> bufferevent *bev, <strong>void<
 <h3 id="_read_and_write_timeouts">Read- and write timeouts</h3>
 <div class="paragraph"><p>As with other events, you can have a timeout get invoked if a certain
 amount of time passes without any data having been successfully
-written or read by a bufferevent.</p></div>
+written or read by a bufferevent.</p><p class="translate">与其他event一样，如果bufferevent在一定时间内没有成功写入或读取任何数据，你可以设置一个超时来触发。</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
@@ -1582,25 +1584,25 @@ written or read by a bufferevent.</p></div>
     <strong>const</strong> <strong>struct</strong> timeval *timeout_read, <strong>const</strong> <strong>struct</strong> timeval *timeout_write);</code></pre>
 </div></div>
 <div class="paragraph"><p>Setting a timeout to NULL is supposed to remove it; however before Libevent
-2.1.2-alpha this wouldn&#8217;t work with all event types.  (As a workaround for
+2.1.2-alpha this wouldn’t work with all event types.  (As a workaround for
 older versions, you can try setting the timeout to a multi-day interval
-and/or having your eventcb function ignore BEV_TIMEOUT events when you don&#8217;t
-want them.)</p></div>
+and/or having your eventcb function ignore BEV_TIMEOUT events when you don’t
+want them.)</p><p class="translate">设置超时为NULL应该是为了移除它；然而，在Libevent 2.1.2-alpha之前，这并不适用于所有事件类型。（作为旧版本的一种解决方法，你可以尝试将超时设置为多日间隔和/或让你的eventcb函数忽略你不想要的BEV_TIMEOUT事件。）</p></div>
 <div class="paragraph"><p>The read timeout will trigger if the bufferevent waits at least
 <em>timeout_read</em> seconds while trying to read data.  The write
 timeout will trigger if the bufferevent waits at least <em>timeout_write</em>
-seconds while trying to write data.</p></div>
+seconds while trying to write data.</p><p class="translate">如果bufferevent尝试读取数据时至少等待了timeout_read秒，则会触发读取超时。如果bufferevent尝试写入数据时至少等待了timeout_write秒，则会触发写入超时。</p></div>
 <div class="paragraph"><p>Note that the timeouts only count when the bufferevent would like to
 read or write.  In other words, the read timeout is not enabled if
 reading is disabled on the bufferevent, or if the input buffer is full
 (at its high-water mark).  Similarly, the write timeout is not enabled
-if writing is disabled, or if there is no data to write.</p></div>
+if writing is disabled, or if there is no data to write.</p><p class="translate">注意，只有当bufferevent想要读取或写入时，超时才会计算。换句话说，如果在bufferevent上禁用了读取，或者输入buffer已满（达到其高水位线），则不启用读取超时。同样，如果禁用了写入，或者没有数据可以写入，则不启用写入超时。</p></div>
 <div class="paragraph"><p>When a read or write timeout occurs, the corresponding read or write
 operation becomes disabled on the bufferevent.  The event callback is then
 invoked with either BEV_EVENT_TIMEOUT|BEV_EVENT_READING or
-BEV_EVENT_TIMEOUT|BEV_EVENT_WRITING.</p></div>
-<div class="paragraph"><p>This functions has existed since Libevent 2.0.1-alpha.  It didn&#8217;t behave
-consistently across bufferevent types until Libevent 2.0.4-alpha.</p></div>
+BEV_EVENT_TIMEOUT|BEV_EVENT_WRITING.</p><p class="translate">当发生读取或写入超时时，对应的读取或写入操作在bufferevent上被禁用。然后将调用回调函数，参数为BEV_EVENT_TIMEOUT|BEV_EVENT_READING或BEV_EVENT_TIMEOUT|BEV_EVENT_WRITING。</p></div>
+<div class="paragraph"><p>This functions has existed since Libevent 2.0.1-alpha.  It didn’t behave
+consistently across bufferevent types until Libevent 2.0.4-alpha.</p><p class="translate">该功能自Libevent 2.0.1-alpha以来就存在。直到Libevent 2.0.4-alpha，它才在不同的缓冲事件类型之间表现一致。</p></div>
 </div>
 <div class="sect2">
 <h3 id="_initiating_a_flush_on_a_bufferevent">Initiating a flush on a bufferevent</h3>
@@ -1614,19 +1616,19 @@ consistently across bufferevent types until Libevent 2.0.4-alpha.</p></div>
 as possible to be read to or written from the underlying transport,
 ignoring other restrictions that might otherwise keep them from
 being written.  Its detailed function depends on the type of the
-bufferevent.</p></div>
+bufferevent.</p><p class="translate">刷新bufferevent将强制尽可能多的字节被读取到或从底层传输中写入，忽略其他可能会阻止它们被写入的限制。其详细功能取决于缓冲事件的类型。</p></div>
 <div class="paragraph"><p>The iotype argument should be EV_READ, EV_WRITE, or EV_READ|EV_WRITE to
 indicate whether bytes being read, written, or both should be
 processed.  The state argument may be one of BEV_NORMAL,
 BEV_FLUSH, or BEV_FINISHED.  BEV_FINISHED indicates that the other
 side should be told that no more data will be sent; the distinction
 between BEV_NORMAL and BEV_FLUSH depends on the type of the
-bufferevent.</p></div>
+bufferevent.</p><p class="translate">iotype参数应该是EV_READ、EV_WRITE或EV_READ|EV_WRITE，以指示是要处理正在读取、正在写入还是同时进行的字节。state参数可以是BEV_NORMAL、BEV_FLUSH或BEV_FINISHED之一。BEV_FINISHED指的是应该告诉对方不会再发送更多的数据；BEV_NORMAL与BEV_FLUSH之间的区别取决于bufferevent的类型。</p></div>
 <div class="paragraph"><p>The bufferevent_flush() function returns -1 on failure, 0 if no data
-was flushed, or 1 if some data was flushed.</p></div>
+was flushed, or 1 if some data was flushed.</p><p class="translate">bufferevent_flush()函数在失败时返回-1，在没有数据被刷新时返回0，如果有一些数据被刷新，则返回1。</p></div>
 <div class="paragraph"><p>Currently (as of Libevent 2.0.5-beta), bufferevent_flush() is only
 implemented for some bufferevent types.  In particular, socket-based
-bufferevents don&#8217;t have it.</p></div>
+bufferevents don’t have it.</p><p class="translate">目前（截至Libevent 2.0.5-beta），bufferevent_flush()只针对某些类型的bufferevent实现。特别是，基于socket的bufferevent没有这个功能。</p></div>
 </div>
 </div>
 </div>
@@ -1634,7 +1636,7 @@ bufferevents don&#8217;t have it.</p></div>
 <h2 id="_type_specific_bufferevent_functions">Type-specific bufferevent functions</h2>
 <div class="sectionbody">
 <div class="paragraph"><p>These bufferevent functions are not supported on all bufferevent
-types.</p></div>
+types.</p><p class="translate">这些函数并不支持所有类型的 bufferevent。</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
@@ -1643,11 +1645,11 @@ types.</p></div>
 </div></div>
 <div class="paragraph"><p>This function adjusts the priority of the events used to implement
 <em>bufev</em> to <em>pri</em>.  See event_priority_set() for more information on
-priorities.</p></div>
+priorities.</p><p class="translate">这个函数调整 bufev 的优先级为 pri。关于优先级的更多信息，请参阅 event_priority_set()。</p></div>
 <div class="paragraph"><p>This function returns 0 on success, and -1 on failure.  It works on
-socket-based bufferevents only.</p></div>
+socket-based bufferevents only.</p><p class="translate">这个函数成功时返回 0，在失败时返回 -1。它仅适用于基于socket的 bufferevents。</p></div>
 <div class="paragraph"><p>The bufferevent_priority_set() function was introduced in Libevent 1.0;
-bufferevent_get_priority() didn&#8217;t appear until Libevent 2.1.2-alpha.</p></div>
+bufferevent_get_priority() didn’t appear until Libevent 2.1.2-alpha.</p><p class="translate">bufferevent_priority_set() 函数在 Libevent 1.0 中引入；bufferevent_get_priority() 直到 Libevent 2.1.2-alpha 才出现。</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
@@ -1656,16 +1658,16 @@ evutil_socket_t bufferevent_getfd(<strong>struct</strong> bufferevent *bufev);</
 </div></div>
 <div class="paragraph"><p>These functions set or return the file descriptor for a fd-based
 event.  Only socket-based bufferevents support setfd().  Both return
--1 on failure; setfd() returns 0 on success.</p></div>
+-1 on failure; setfd() returns 0 on success.</p><p class="translate">这些函数为基于 fd 的事件设置或返回fd。只有基于socket的 bufferevents 支持 setfd()。两者在失败时都返回 -1；setfd() 在成功时返回 0。</p></div>
 <div class="paragraph"><p>The bufferevent_setfd() function was introduced in Libevent 1.4.4;
-the bufferevent_getfd() function was introduced in Libevent 2.0.2-alpha.</p></div>
+the bufferevent_getfd() function was introduced in Libevent 2.0.2-alpha.</p><p class="translate">bufferevent_setfd() 函数在 Libevent 1.4.4 中引入；bufferevent_getfd() 函数在 Libevent 2.0.2-alpha 中引入。</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
 <pre><code><strong>struct</strong> event_base *bufferevent_get_base(<strong>struct</strong> bufferevent *bev);</code></pre>
 </div></div>
 <div class="paragraph"><p>This function returns the event_base of a bufferevent.  It was introduced in
-2.0.9-rc.</p></div>
+2.0.9-rc.</p><p class="translate">此函数返回 bufferevent 的 event_base。它在 2.0.9-rc 中引入。</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
@@ -1673,8 +1675,8 @@ the bufferevent_getfd() function was introduced in Libevent 2.0.2-alpha.</p></di
 </div></div>
 <div class="paragraph"><p>This function returns the bufferevent that another bufferevent is
 using as a transport, if any.  For information on when this situation
-would occur, see notes on filtering bufferevents.</p></div>
-<div class="paragraph"><p>This function was introduced in Libevent 2.0.2-alpha.</p></div>
+would occur, see notes on filtering bufferevents.</p><p class="translate">此函数返回另一个 bufferevent 正在用作传输的 bufferevent（如果有的话）。关于何时会发生这种情况的信息，请参见"filtering bufferevent"的注释。</p></div>
+<div class="paragraph"><p>This function was introduced in Libevent 2.0.2-alpha.</p><p class="translate">这个函数在 Libevent 2.0.2-alpha 中引入。</p></div>
 </div>
 </div>
 <div class="sect1">
@@ -1682,7 +1684,7 @@ would occur, see notes on filtering bufferevents.</p></div>
 <div class="sectionbody">
 <div class="paragraph"><p>As with evbuffers, sometimes you want to ensure that a number of operations
 on a bufferevent are all performed atomically.  Libevent exposes functions
-that you can use to manually lock and unlock a bufferevent.</p></div>
+that you can use to manually lock and unlock a bufferevent.</p><p class="translate">就像对 evbuffers 一样，有时您希望确保对 bufferevent 的一系列操作都能原子性地执行。Libevent 提供了一些函数，您可以使用它们来手动锁定和解锁  bufferevent。</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
@@ -1690,13 +1692,13 @@ that you can use to manually lock and unlock a bufferevent.</p></div>
 <strong>void</strong> bufferevent_unlock(<strong>struct</strong> bufferevent *bufev);</code></pre>
 </div></div>
 <div class="paragraph"><p>Note that locking a bufferevent has no effect if the bufferevent was not
-given the BEV_OPT_THREADSAFE thread on creation, or if Libevent&#8217;s threading
-support wasn&#8217;t activated.</p></div>
+given the BEV_OPT_THREADSAFE thread on creation, or if Libevent’s threading
+support wasn’t activated.</p><p class="translate">请注意，如果创建 bufferevent 时没有给予 BEV_OPT_THREADSAFE，或者如果没有激活 Libevent 的线程支持，锁定 bufferevent 是没有效果的。</p></div>
 <div class="paragraph"><p>Locking the bufferevent with this function will lock its associated evbuffers
 as well.  These functions are recursive: it is safe to lock a bufferevent for
 which you already hold the lock.  You must, of course, call unlock once for
-every time that you locked the bufferevent.</p></div>
-<div class="paragraph"><p>These functions were introduced in Libevent 2.0.6-rc.</p></div>
+every time that you locked the bufferevent.</p><p class="translate">使用这个函数锁定 bufferevent 也会锁定其关联的 evbuffers。这些函数是递归的：对于已经持有锁再次对bufferevent上锁是安全的。当然，您必须为每次锁定 bufferevent 调用一次解锁。</p></div>
+<div class="paragraph"><p>These functions were introduced in Libevent 2.0.6-rc.</p><p class="translate">这些函数在 Libevent 2.0.6-rc 中引入。</p></div>
 </div>
 </div>
 <div class="sect1">
@@ -1705,19 +1707,16 @@ every time that you locked the bufferevent.</p></div>
 <div class="paragraph"><p>The bufferevent backend code underwent substantial revision between
 Libevent 1.4 and Libevent 2.0.  In the old interface, it was sometimes
 normal to build with access to the internals of the struct
-bufferevent, and to use macros that relied on this access.</p></div>
+bufferevent, and to use macros that relied on this access.</p><p class="translate">在 Libevent 1.4 到 Libevent 2.0 之间，bufferevent 后端代码经过了实质性的修订。在旧接口中，有时会正常构建对 struct bufferevent 内部的访问，并使用依赖此访问的宏。</p></div>
 <div class="paragraph"><p>To make matters confusing, the old code sometimes used names for
-bufferevent functionality that were prefixed with "evbuffer".</p></div>
-<div class="paragraph"><p>Here&#8217;s a brief guideline of what things used to be called before
-Libevent 2.0:</p></div>
+bufferevent functionality that were prefixed with "evbuffer".</p><p class="translate">为了使问题变得复杂，旧代码有时会使用以 "evbuffer" 为前缀的 bufferevent 功能的名称。</p></div>
+<div class="paragraph"><p>Here’s a brief guideline of what things used to be called before
+Libevent 2.0:</p><p class="translate">以下是 Libevent 2.0 之前的简要指南：</p></div>
 <div class="tableblock">
-<table rules="all"
-width="90%"
-frame="border"
-cellspacing="0" cellpadding="4">
-<col width="50%" />
-<col width="50%" />
-<thead>
+<table rules="all" width="90%" frame="border" cellspacing="0" cellpadding="4">
+<colgroup><col width="50%">
+<col width="50%">
+</colgroup><thead>
 <tr>
 <th align="left" valign="top"> Current name               </th>
 <th align="left" valign="top"> Old name</th>
@@ -1763,13 +1762,13 @@ cellspacing="0" cellpadding="4">
 </tbody>
 </table>
 </div>
-<div class="paragraph"><p>The old functions were defined in event.h, not in event2/bufferevent.h.</p></div>
+<div class="paragraph"><p>The old functions were defined in event.h, not in event2/bufferevent.h.</p><p class="translate">旧函数是在 event.h 中定义的，而不是在 event2/bufferevent.h 中。</p></div>
 <div class="paragraph"><p>If you still need access to the internals of the common parts of the
 bufferevent struct, you can include event2/bufferevent_struct.h.  We
 recommend against it: the contents of struct bufferevent WILL change between
 versions of Libevent.  The macros and names in this section are available if
-you include event2/bufferevent_compat.h.</p></div>
-<div class="paragraph"><p>The interface to set up a bufferevent differed in older versions:</p></div>
+you include event2/bufferevent_compat.h.</p><p class="translate">如果您仍然需要访问 bufferevent struct 的公共部分的内部，您可以包含 event2/bufferevent_struct.h。我们不推荐这样做：struct bufferevent 的内容将在 Libevent 的不同版本之间改变。如果您包含了 event2/bufferevent_compat.h，本节中的宏和名称将可用。</p></div>
+<div class="paragraph"><p>The interface to set up a bufferevent differed in older versions:</p><p class="translate">设置 bufferevent 在旧版本中有所不同：</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
@@ -1779,9 +1778,9 @@ you include event2/bufferevent_compat.h.</p></div>
 </div></div>
 <div class="paragraph"><p>The bufferevent_new() function creates a socket bufferevent only, and does so
 on the deprecated "default" event_base.  Calling bufferevent_base_set adjusts
-the event_base of a socket bufferevent only.</p></div>
+the event_base of a socket bufferevent only.</p><p class="translate">bufferevent_new() 函数仅创建一个基于socket的 bufferevent，并且是基于不赞成使用的 event_base。调用 bufferevent_base_set 仅调整bufferevent 的 event_base。</p></div>
 <div class="paragraph"><p>Instead of setting timeouts as struct timeval, they were set as
-numbers of seconds:</p></div>
+numbers of seconds:</p><p class="translate">超时设置为秒数而不是struct timeval：</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
@@ -1790,16 +1789,17 @@ numbers of seconds:</p></div>
 </div></div>
 <div class="paragraph"><p>Finally, note that the underlying evbuffer implementation for Libevent
 versions before 2.0 was pretty inefficient, to the point where using
-bufferevents for high-performance apps was kind of questionable.</p></div>
+bufferevents for high-performance apps was kind of questionable.</p><p class="translate">最后，请注意，Libevent 2.0 之前版本的底层 evbuffer 实现效率非常低下，以至于对于高性能应用程序使用 bufferevents 有点令人质疑。</p></div>
 </div>
 </div>
 </div>
-<div id="footnotes"><hr /></div>
+<div id="footnotes"><hr></div>
 <div id="footer">
 <div id="footer-text">
 Last updated
  2024-02-18 20:10:44 UTC
 </div>
 </div>
-</body>
-</html>
+
+
+</body></html>

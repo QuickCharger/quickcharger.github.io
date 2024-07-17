@@ -1,10 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
-    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
-<head>
-<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
-<meta name="generator" content="AsciiDoc 10.1.2" />
+<!--?xml version="1.0" encoding="UTF-8"?--><!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8">
+<meta name="generator" content="AsciiDoc 10.1.2">
 <title>The Libevent Reference Manual: Preliminaries</title>
 <style type="text/css">
 /* Shared CSS for AsciiDoc xhtml11 and html5 backends */
@@ -732,7 +728,7 @@ asciidoc.install();
 /*]]>*/
 </script>
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-M3CEY418LQ"></script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-M3CEY418LQ"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -740,7 +736,13 @@ asciidoc.install();
 
   gtag('config', 'G-M3CEY418LQ');
 </script>
-</head>
+<style id="translation-style">
+      .translate {
+        background-color: #f0f0f0; /* 浅灰色背景 */
+        color: black;             /* 黑色文本 */
+        font-weight: bold;        /* 加粗字体 */
+      }
+    </style></head>
 <body class="article">
 <div id="header">
 <h1>The Libevent Reference Manual: Preliminaries</h1>
@@ -808,7 +810,7 @@ Convenience
 <p>
     Whenever possible, the most natural way to write a program with
     Libevent should be the stable, portable way.
-</p>
+</p><p class="translate">Libevent是一个用于编写快速、可移植的非阻塞IO的库。其设计目标包括：<br>Portability<br>  使用Libevent编写的程序应该在Libevent支持的所有平台上运行。即使没有真正好的方法进行非阻塞IO，Libevent也应该支持一般的方法，以便您的程序可以在受限制的环境中运行。<br>Speed<br>  Libevent尽量在每个平台上使用最快的可用非阻塞IO实现，并且在这样做时不引入太多开销。<br>Scalability<br>  Libevent设计成即使是需要拥有数万个活跃套接字的程序也能良好运行。<br>Convenience<br>  在可能的情况下，使用Libevent编写程序的最自然方式应该是稳定、可移植的方式。</p>
 </dd>
 </dl></div>
 <div class="paragraph"><p>Libevent is divided into the following components:</p></div>
@@ -839,7 +841,7 @@ bufferevent
 <dd>
 <p>
     These functions provide a more convenient wrapper around
-    Libevent&#8217;s event-based core.  They let your application request
+    Libevent’s event-based core.  They let your application request
     buffered reads and writes, and rather than informing you when
     sockets are ready to do, they let you know when IO has actually
     occurred.
@@ -882,7 +884,7 @@ evrpc
 <dd>
 <p>
     A simple RPC implementation.
-</p>
+</p><p class="translate">Libevent分为以下几个组件：<br>evutil<br>  用于抽象不同平台间网络实现差异的通用功能。<br>event and event_base<br>  这是Libevent的核心。它提供了对各种平台特定、基于事件的非阻塞IO后端的抽象API。它可以让您知道套接字何时准备好读取或写入，执行基本的超时功能，并检测操作系统信号。<br>bufferevent<br>  这些函数提供了对Libevent基于事件的核心的更方便的封装。它们允许您的应用程序请求缓冲读取和写入，而不是在套接字准备好时通知您，而是在IO实际发生时通知您。<br>  bufferevent接口还具有多个后端，因此可以利用提供更快的非阻塞IO方式的系统，例如Windows IOCP API。<br>evbuffer<br>  该模块实现了bufferevents的底层缓冲区，并提供了用于高效和/或方便访问的函数。<br>evhttp<br>  一个简单的HTTP客户端/服务器实现。<br>evdns<br>  一个简单的DNS客户端/服务器实现。<br>evrpc<br>  一个简单的RPC实现。</p>
 </dd>
 </dl></div>
 </div>
@@ -919,9 +921,9 @@ libevent
 <dd>
 <p>
     This library exists for historical reasons; it contains the
-    contents of both libevent_core and libevent_extra.  You shouldn&#8217;t
+    contents of both libevent_core and libevent_extra.  You shouldn’t
     use it; it may go away in a future version of Libevent.
-</p>
+</p><p class="translate">当构建Libevent时，默认情况下会安装以下库：<br>libevent_core<br>  所有核心事件和缓冲功能。该库包含所有的event_base、evbuffer、bufferevent和实用函数。<br>libevent_extra<br>  该库定义了特定协议的功能，这些功能可能与您的应用程序有关或无关，包括HTTP、DNS和RPC。<br>libevent<br>  由于历史原因存在这个库；它包含了libevent_core和libevent_extra的内容。您不应该使用它；在未来的Libevent版本中可能会被移除。</p>
 </dd>
 </dl></div>
 <div class="paragraph"><p>The following libraries are installed only on some platforms:</p></div>
@@ -933,7 +935,7 @@ libevent_pthreads
 <p>
     This library adds threading and locking implementations based on
     the pthreads portable threading library.  It is separated from
-    libevent_core so that you don&#8217;t need to link against pthreads
+    libevent_core so that you don’t need to link against pthreads
     to use Libevent unless you are <em>actually</em> using Libevent in a
     multithreaded way.
 </p>
@@ -945,10 +947,10 @@ libevent_openssl
 <p>
     This library provides support for encrypted communications using
     bufferevents and the OpenSSL library.  It is separated from
-    libevent_core so that you don&#8217;t need to link against OpenSSL
+    libevent_core so that you don’t need to link against OpenSSL
     to use Libevent unless you are <em>actually</em> using encrypted
     connections.
-</p>
+</p><p class="translate">以下库仅在某些平台上安装：<br>libevent_pthreads<br>  该库基于可移植的pthread线程库添加了线程和锁定实现。它与libevent_core分开，这样您就不需要链接pthread来使用Libevent，除非您实际上是以多线程方式使用Libevent。<br>libevent_openssl<br>  该库提供了使用bufferevents和OpenSSL库进行加密通信的支持。它与libevent_core分开，这样您就不需要链接OpenSSL来使用Libevent，除非您实际上是在使用加密连接。</p>
 </dd>
 </dl></div>
 </div>
@@ -974,7 +976,7 @@ Compatibility headers
 <dd>
 <p>
     A compatibility header includes definitions for deprecated
-    functions.  You shouldn&#8217;t include it unless you&#8217;re porting a
+    functions.  You shouldn’t include it unless you’re porting a
     program from an older version of Libevent.
 </p>
 </dd>
@@ -987,7 +989,7 @@ Structure headers
     Some of these are exposed in case you need fast access to
     structure component; some are exposed for historical reasons.
     Relying on any of the structures in headers directly can break
-    your program&#8217;s binary compatibility with other versions of
+    your program’s binary compatibility with other versions of
     Libevent, sometimes in hard-to-debug ways.  These headers have the
     suffix "_struct.h"
 </p>
@@ -995,31 +997,28 @@ Structure headers
 </dl></div>
 <div class="paragraph"><p>(There are also older versions of the Libevent headers without the
 <em>event2</em> directory.  See "If you have to work with an old version of
-Libevent" below.)</p></div>
+Libevent" below.)</p><p class="translate">所有当前的公共Libevent头文件都安装在event2目录下。头文件可以分为三个广义的类别：<br>API headers<br>  API头文件定义了对Libevent的当前公共接口。这些头文件没有特殊的后缀。<br>Compatibility headers<br>  兼容性头文件包含了被弃用的函数的定义。除非你正在将程序从较旧的Libevent版本移植过来，否则不应该包含这些头文件。<br>Structure headers<br>  这些头文件定义了具有相对不稳定布局的结构。其中一些是为了在需要快速访问结构组件时提供的；一些则是出于历史原因而公开的。直接依赖头文件中的任何结构可能会破坏您的程序与其他版本的Libevent的二进制兼容性，有时很难调试。这些头文件的后缀是"_struct.h"。<br>  （还有一些没有event2目录的Libevent旧版本头文件。请参阅下面的"如果你必须使用旧版本的Libevent"。）</p></div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_if_you_have_to_work_with_an_old_version_of_libevent">If you have to work with an old version of Libevent</h2>
 <div class="sectionbody">
 <div class="paragraph"><p>Libevent 2.0 has revised its APIs to be generally more rational and
-less error-prone.  If it&#8217;s possible, you should write new programs to
+less error-prone.  If it’s possible, you should write new programs to
 use the Libevent 2.0 APIs.  But sometimes you might need to work with
 the older APIs, either to update an existing application, or to
-support an environment where for some reason you can&#8217;t install
-Libevent 2.0 or later.</p></div>
+support an environment where for some reason you can’t install
+Libevent 2.0 or later.</p><p class="translate">Libevent 2.0已经修订了其API，以更加合理和减少错误。如果可能的话，您应该编写新程序来使用Libevent 2.0的API。但是有时您可能需要使用较旧的API，无论是为了更新现有应用程序，还是为了支持某些原因无法安装Libevent 2.0或更高版本的环境。</p></div>
 <div class="paragraph"><p>Older versions of Libevent had fewer headers, and did not install them
-under "event2":</p></div>
+under "event2":</p><p class="translate">旧版本的Libevent拥有较少的头文件，并且没有将它们安装在"event2"目录下：</p></div>
 <div class="tableblock">
-<table rules="all"
-width="80%"
-frame="border"
-cellspacing="0" cellpadding="4">
-<col width="30%" />
-<col width="70%" />
-<thead>
+<table rules="all" width="80%" frame="border" cellspacing="0" cellpadding="4">
+<colgroup><col width="30%">
+<col width="70%">
+</colgroup><thead>
 <tr>
-<th align="left" valign="top"> OLD HEADER&#8230; </th>
-<th align="left" valign="top"> &#8230;REPLACED BY CURRENT HEADERS</th>
+<th align="left" valign="top"> OLD HEADER… </th>
+<th align="left" valign="top"> …REPLACED BY CURRENT HEADERS</th>
 </tr>
 </thead>
 <tbody>
@@ -1048,7 +1047,7 @@ event2/tag*.h</p></td>
 </table>
 </div>
 <div class="paragraph"><p>In Libevent 2.0 and later, the old headers still exist as wrappers for
-the new headers.</p></div>
+the new headers.</p><p class="translate">在Libevent 2.0及更高版本中，旧的头文件仍然存在，作为新头文件的包装器。</p></div>
 <div class="paragraph"><p>Some other notes on working with older versions:</p></div>
 <div class="ulist"><ul>
 <li>
@@ -1063,31 +1062,32 @@ Before 1.4, there was only one library, "libevent", that contained
 Before 2.0, there was no support for locking; Libevent could be
   thread-safe, but only if you made sure to never use the same
   structure from two threads at the same time.
-</p>
+</p><p class="translate">关于使用旧版本的其他注意事项：<br>  在1.4版本之前，只有一个名为"libevent"的库，其中包含目前分为libevent_core和libevent_extra的功能。<br>  在2.0版本之前，不支持锁定；Libevent可以是线程安全的，但前提是确保不同时从两个线程中使用相同的结构。</p>
 </li>
 </ul></div>
 <div class="paragraph"><p>Individual sections below will discuss the obsolete APIs that you
-might encounter for specific areas of the codebase.</p></div>
+might encounter for specific areas of the codebase.</p><p class="translate">下面的各个部分将讨论您可能在代码库的特定区域中遇到的已废弃的API。</p></div>
 <div class="sect2">
 <h3 id="_notes_on_version_status">Notes on version status</h3>
 <div class="paragraph"><p>Versions of Libevent before 1.4.7 or so should be considered totally
 obsolete.  Versions of Libevent before 1.3e or so should be considered
-hopelessly bug-ridden.</p></div>
-<div class="paragraph"><p>(Also, please don&#8217;t send the Libevent maintainers any new features for
-1.4.x or earlier---it&#8217;s supposed to stay as a stable release.  And
+hopelessly bug-ridden.</p><p class="translate">在1.4.7之前的Libevent版本应被视为完全过时。在1.3e之前的Libevent版本应被视为充满了严重错误。</p></div>
+<div class="paragraph"><p>(Also, please don’t send the Libevent maintainers any new features for
+1.4.x or earlier---it’s supposed to stay as a stable release.  And
 if you encounter a bug in 1.3x or earlier, please make sure that it
 still exists in the latest stable version before you report it:
-subsequent releases have happened for a reason.)</p></div>
+subsequent releases have happened for a reason.)</p><p class="translate">（此外，请不要为1.4.x或更早的版本向Libevent维护人员发送任何新功能---它应该保持作为一个稳定版本。如果您在1.3x或更早的版本中遇到了错误，请确保在报告之前确认它是否仍存在于最新的稳定版本中：后续的发布是有原因的。）</p></div>
 </div>
 </div>
 </div>
 </div>
-<div id="footnotes"><hr /></div>
+<div id="footnotes"><hr></div>
 <div id="footer">
 <div id="footer-text">
 Last updated
  2024-02-18 20:10:44 UTC
 </div>
 </div>
-</body>
-</html>
+
+
+</body></html>

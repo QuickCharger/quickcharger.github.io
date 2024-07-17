@@ -1,5 +1,5 @@
 // import { lazy, Suspense } from 'react'
-import { BrowserRouter, useRoutes } from 'react-router-dom'
+import { BrowserRouter, HashRouter, useRoutes } from 'react-router-dom'
 import { configure } from 'mobx'
 
 // const Home = lazy(() => import('@/pages/Home/home'))
@@ -23,8 +23,8 @@ function Routes () {
 
 export default function App () {
   return (
-    <BrowserRouter>
+    <HashRouter >
       <Routes />
-    </BrowserRouter >
+    </HashRouter >
   )
 }

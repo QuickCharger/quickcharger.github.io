@@ -1,10 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
-    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
-<head>
-<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
-<meta name="generator" content="AsciiDoc 10.1.2" />
+<!--?xml version="1.0" encoding="UTF-8"?--><!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8">
+<meta name="generator" content="AsciiDoc 10.1.2">
 <title>Working with an event loop</title>
 <style type="text/css">
 /* Shared CSS for AsciiDoc xhtml11 and html5 backends */
@@ -732,7 +728,7 @@ asciidoc.install();
 /*]]>*/
 </script>
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-M3CEY418LQ"></script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-M3CEY418LQ"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -740,7 +736,13 @@ asciidoc.install();
 
   gtag('config', 'G-M3CEY418LQ');
 </script>
-</head>
+<style id="translation-style">
+      .translate {
+        background-color: #f0f0f0; /* 浅灰色背景 */
+        color: black;             /* 黑色文本 */
+        font-weight: bold;        /* 加粗字体 */
+      }
+    </style></head>
 <body class="article">
 <div id="header">
 <h1>Working with an event loop</h1>
@@ -770,7 +772,7 @@ and run "git clone git://github.com/libevent/libevent-book.git"</p></div>
 <div class="sectionbody">
 <div class="paragraph"><p>Once you have an event_base with some events registered (see the next section
 about how to create and register events), you will want Libevent to wait for
-events and alert you about them.</p></div>
+events and alert you about them.</p><p class="translate">一旦你拥有了一个event_base并注册了一些event（关于如何创建和注册事件，请参阅下一节），你会希望Libevent能够等待并提醒你这些event。</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
@@ -784,27 +786,27 @@ events and alert you about them.</p></div>
 <div class="paragraph"><p>By default, the event_base_loop() function <em>runs</em> an event_base until there
 are no more events registered in it.  To run the loop, it repeatedly checks
 whether any of the registered events has triggered (for example, if a read
-event&#8217;s file descriptor is ready to read, or if a timeout event&#8217;s timeout is
+event’s file descriptor is ready to read, or if a timeout event’s timeout is
 ready to expire).  Once this happens, it marks all triggered events as
-"active", and starts to run them.</p></div>
+"active", and starts to run them.</p><p class="translate">默认情况下，event_base_loop()函数会运行一个event_base，直到其中没有event注册。为了运行循环，它会重复检查是否有任何注册的event已经触发（例如，一个文件描述符准备好读取了，或者一个超时到期了）。一旦这种情况发生，它会将所有触发的event标记为“活动的”，并开始运行这些事件。</p></div>
 <div class="paragraph"><p>You can change the behavior of event_base_loop() by setting one or more flags
 in its <em>flags</em> argument.  If EVLOOP_ONCE is set, then the loop will wait
 until some events become active, then run active events until there are no
 more to run, then return.  If EVLOOP_NONBLOCK is set, then
 the loop will not wait for events to trigger: it will only check whether
-any events are ready to trigger immediately, and run their callbacks if so.</p></div>
+any events are ready to trigger immediately, and run their callbacks if so.</p><p class="translate">你可以改变event_base_loop()的行为通过一些flags参数。如果设置了EVLOOP_ONCE，则循环会等待一些event变为活动状态，然后运行它们直到没有可运行的event，然后返回。如果设置了EVLOOP_NONBLOCK，则循环不会等待event触发：它只会检查是否有任何event准备好立即触发，并在是这种情况下运行它们的回调。</p></div>
 <div class="paragraph"><p>Ordinarily, the loop will exit as soon as it has no pending or active events.
 You can
 override this behavior by passing the EVLOOP_NO_EXIT_ON_EMPTY flag---for
-example, if you&#8217;re going to be adding events from some other thread.  If you
+example, if you’re going to be adding events from some other thread.  If you
 do set EVLOOP_NO_EXIT_ON_EMPTY, the loop will keep running until somebody
 calls event_base_loopbreak(), or calls event_base_loopexit(), or an error
-occurs.</p></div>
+occurs.</p><p class="translate">通常，只要循环没有待处理的或活动的event，它就会退出。你可以通过传递EVLOOP_NO_EXIT_ON_EMPTY标志来覆盖这一行为——例如，如果你打算从其他线程添加事件。如果你设置了EVLOOP_NO_EXIT_ON_EMPTY，循环将持续运行，直到有人调用event_base_loopbreak()，或者调用event_base_loopexit()，或者发生错误。</p></div>
 <div class="paragraph"><p>When it is done, event_base_loop() returns 0 if it exited normally, -1 if
 it exited because of some unhandled error in the backend, and 1 if it exited
-because there were no more pending or active events.</p></div>
-<div class="paragraph"><p>To aid in understanding, here&#8217;s an approximate summary of the event_base_loop
-algorithm:</p></div>
+because there were no more pending or active events.</p><p class="translate">当它完成时，如果event_base_loop()正常退出，返回0；如果因为后端某些未处理的错误而退出，会返回-1；如果因为没有更多待处理或活动的event而退出，会返回1。</p></div>
+<div class="paragraph"><p>To aid in understanding, here’s an approximate summary of the event_base_loop
+algorithm:</p><p class="translate">为了便于理解，这里是event_base_loop算法的大致总结：</p></div>
 <div class="listingblock">
 <div class="title">Pseudocode</div>
 <div class="content">
@@ -827,7 +829,7 @@ algorithm:</p></div>
        <strong>break</strong>;
 }</code></pre>
 </div></div>
-<div class="paragraph"><p>As a convenience, you can also call:</p></div>
+<div class="paragraph"><p>As a convenience, you can also call:</p><p class="translate">为了方便起见，您还可以调用：</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
@@ -835,16 +837,16 @@ algorithm:</p></div>
 </div></div>
 <div class="paragraph"><p>The event_base_dispatch() call is the same as event_base_loop(), with no
 flags set.  Thus, it keeps running until there are no more registered events
-or until event_base_loopbreak() or event_base_loopexit() is called.</p></div>
+or until event_base_loopbreak() or event_base_loopexit() is called.</p><p class="translate">event_base_dispatch()与event_base_loop()相同，不设置任何标志。因此，它会一直运行，直到没有更多注册的event，或者直到调用了event_base_loopbreak()或event_base_loopexit()。</p></div>
 <div class="paragraph"><p>These functions are defined in &lt;event2/event.h&gt;.  They have existed since
-Libevent 1.0.</p></div>
+Libevent 1.0.</p><p class="translate">这些函数定义在`<event2 event.h="">`中。它们自Libevent 1.0以来就存在了。</event2></p></div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_stopping_the_loop">Stopping the loop</h2>
 <div class="sectionbody">
 <div class="paragraph"><p>If you want an active event loop to stop running before all events are
-removed from it, you have two slightly different functions you can call.</p></div>
+removed from it, you have two slightly different functions you can call.</p><p class="translate">如果你希望一个活动的event循环在所有event被移除之前停止运行，你有两个略有不同的函数可以调用。</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
@@ -857,19 +859,19 @@ a given time has elapsed.  If the <em>tv</em> argument is NULL, the event_base s
 looping without a delay.  If the event_base is currently running callbacks
 for any active
 events, it will continue running them, and not exit until they have all been
-run.</p></div>
+run.</p><p class="translate">event_base_loopexit()函数指示一个event_base在给定时间过后停止循环。如果tv参数为NULL，那么event_base将会立即停止循环。如果event_base当前正在为任何活动的event运行回调，它将继续运行它们，并且直到所有的都运行完毕之后才退出。</p></div>
 <div class="paragraph"><p>The event_base_loopbreak() function tells the event_base to exit its loop
 immediately.  It differs from event_base_loopexit(base, NULL) in that if
 the event_base is currently running callbacks for any active events, it will
 exit
-immediately after finishing the one it&#8217;s currently processing.</p></div>
+immediately after finishing the one it’s currently processing.</p><p class="translate">event_base_loopbreak()函数告诉event_base立即退出循环。它与event_base_loopexit(base, NULL)的不同之处在于，如果event_base当前正在为活动的event运行回调，它将在完成当前event之后立即退出。</p></div>
 <div class="paragraph"><p>Note also that event_base_loopexit(base,NULL) and event_base_loopbreak(base)
 act differently when no event loop is running: loopexit schedules the next
 instance of the event loop to stop right after the next round of callbacks
 are run (as if it had been invoked with EVLOOP_ONCE) whereas loopbreak only
-stops a currently running loop, and has no effect if the event loop isn&#8217;t
-running.</p></div>
-<div class="paragraph"><p>Both of these methods return 0 on success and -1 on failure.</p></div>
+stops a currently running loop, and has no effect if the event loop isn’t
+running.</p><p class="translate">还要注意，当没有event正在运行时，event_base_loopexit(base,NULL)和event_base_loopbreak(base)的行为不同：`loopexit`安排下一个event循环实例在运行下一轮回调后立即停止（就像使用`EVLOOP_ONCE`标志一样），而`loopbreak`只会停止当前正在运行的循环，如果没有event运行，则不起作用。</p></div>
+<div class="paragraph"><p>Both of these methods return 0 on success and -1 on failure.</p><p class="translate">这两种方法在成功时返回0，在失败时返回-1。</p></div>
 <div class="listingblock">
 <div class="title">Example: Shut down immediately</div>
 <div class="content">
@@ -925,7 +927,7 @@ running.</p></div>
 <div class="paragraph"><p>Sometimes you may want to tell whether your call to event_base_dispatch() or
 event_base_loop() exited normally, or because of a call to
 event_base_loopexit() or event_base_break().  You can use these functions to
-tell whether loopexit or break was called:</p></div>
+tell whether loopexit or break was called:</p><p class="translate">有时候你可能想知道event_base_dispatch()或event_base_loop()是否正常退出，或者是因为调用了event_base_loopexit()或event_base_break()。你可以使用以下函数来判断是否调用了loopexit或break：</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
@@ -935,10 +937,10 @@ tell whether loopexit or break was called:</p></div>
 <div class="paragraph"><p>These two functions will return true if the loop was stopped with
 event_base_loopexit() or event_base_break() respectively, and false
 otherwise.  Their values will be reset the next time you start the event
-loop.</p></div>
+loop.</p><p class="translate">如果循环是因为分别调用了event_base_loopexit()或event_base_break()而停止的，这两个函数将返回true，否则返回false。他们的值将在你下次启动事件循环时被重置。</p></div>
 <div class="paragraph"><p>These functions are declared in &lt;event2/event.h&gt;.  The event_break_loopexit()
 function was first implemented in Libevent 1.0c; event_break_loopbreak() was
-first implemented in Libevent 1.4.3.</p></div>
+first implemented in Libevent 1.4.3.</p><p class="translate">这些函数在`<event2 event.h="">`中声明。event_base_got_exit()函数最早在Libevent 1.0c中实现；event_base_got_break()函数最早在Libevent 1.4.3中实现。</event2></p></div>
 </div>
 </div>
 <div class="sect1">
@@ -949,15 +951,15 @@ with the highest priority, then checks for events again, and so on.  But
 sometimes you might want to stop Libevent right after the current
 callback has been run, and tell it to scan again.  By analogy to
 event_base_loopbreak(), you can do this with the function
-event_base_loopcontinue().</p></div>
+event_base_loopcontinue().</p><p class="translate">通常情况下，Libevent会检查event，然后在所有活动的event中运行优先级最高的，如此循环。但有时你可能想在当前回调运行完毕后立即停止Libevent，并告诉它再次扫描。通过类比event_base_loopbreak()，你可以使用event_base_loopcontinue()函数来实现这一点。</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
 <pre><code><strong>int</strong> event_base_loopcontinue(<strong>struct</strong> event_base *);</code></pre>
 </div></div>
-<div class="paragraph"><p>Calling event_base_loopcontinue() has no effect if we aren&#8217;t currently
-running event callbacks.</p></div>
-<div class="paragraph"><p>This function was introduced in Libevent 2.1.2-alpha.</p></div>
+<div class="paragraph"><p>Calling event_base_loopcontinue() has no effect if we aren’t currently
+running event callbacks.</p><p class="translate">如果我们当前没有运行事件回调，调用event_base_loopcontinue()将没有效果。</p></div>
+<div class="paragraph"><p>This function was introduced in Libevent 2.1.2-alpha.</p><p class="translate">这个函数在Libevent 2.1.2-alpha中被引入。</p></div>
 </div>
 </div>
 <div class="sect1">
@@ -966,9 +968,9 @@ running event callbacks.</p></div>
 <div class="paragraph"><p>Sometimes you want to get an approximate view of the current time inside
 an event callback, and you want to get it without calling gettimeofday()
 yourself (presumably because your OS implements gettimeofday() as a
-syscall, and you&#8217;re trying to avoid syscall overhead).</p></div>
+syscall, and you’re trying to avoid syscall overhead).</p><p class="translate">有时你可能想在事件回调中获取当前时间的大致情况，而且不希望调用gettimeofday()（gettimeofday()为系统调用，应避免系统调用的开销）。</p></div>
 <div class="paragraph"><p>From within a callback, you can ask Libevent for its view of the current
-time when it began executing this round of callbacks:</p></div>
+time when it began executing this round of callbacks:</p><p class="translate">在回调函数内部，你可以询问Libevent当前时间：</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
@@ -978,20 +980,20 @@ time when it began executing this round of callbacks:</p></div>
 <div class="paragraph"><p>The event_base_gettimeofday_cached() function sets the value of its
 <em>tv_out</em> argument to the cached time if the event_base is currently
 executing callbacks.  Otherwise, it calls evutil_gettimeofday() for the
-actual current time.  It returns 0 on success, and negative on failure.</p></div>
+actual current time.  It returns 0 on success, and negative on failure.</p><p class="translate">如果event_base当前正在执行回调，event_base_gettimeofday_cached()函数会将其tv_out参数的值设置为缓存时间。否则，它会调用evutil_gettimeofday()来获取实际的当前时间。它在成功时返回0，在失败时返回负值。</p></div>
 <div class="paragraph"><p>Note that since the timeval is cached when Libevent starts running
 callbacks, it will be at least a little inaccurate. If your callbacks
 take a long time to run, it may be <strong>very</strong> inaccurate.  To force an immediate
-cache update, you can call this function:</p></div>
+cache update, you can call this function:</p><p class="translate">请注意，由于时间值是在Libevent开始运行回调时缓存的，它有一点不准确。如果你的回调运行需要很长时间，它可能会非常不准确。要强制立即更新缓存，你可以调用这个函数：</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
 <pre><code><strong>int</strong> event_base_update_cache_time(<strong>struct</strong> event_base *base);</code></pre>
 </div></div>
 <div class="paragraph"><p>It returns 0 on success and -1 on failure, and has no effect if the base was
-not running its event loop.</p></div>
+not running its event loop.</p><p class="translate">它在成功时返回0，在失败时返回-1，如果base没有运行其事件循环则没有效果。</p></div>
 <div class="paragraph"><p>The event_base_gettimeofday_cached() function was new in Libevent
-2.0.4-alpha.  Libevent 2.1.1-alpha added event_base_update_cache_time().</p></div>
+2.0.4-alpha.  Libevent 2.1.1-alpha added event_base_update_cache_time().</p><p class="translate">event_base_gettimeofday_cached()函数在Libevent 2.0.4-alpha中是新引入的。Libevent 2.1.1-alpha添加了event_base_update_cache_time()。</p></div>
 </div>
 </div>
 <div class="sect1">
@@ -1004,10 +1006,10 @@ not running its event loop.</p></div>
 </div></div>
 <div class="paragraph"><p>For help debugging your program (or debugging Libevent!) you might sometimes
 want a complete list of all events added in the event_base and their status.
-Calling event_base_dump_events() writes this list to the stdio file provided.</p></div>
+Calling event_base_dump_events() writes this list to the stdio file provided.</p><p class="translate">为了帮助调试程序（或调试Libevent!），你有时可能需要一个列表包含了event_base中所有的event及其状态。调用event_base_dump_events()会将此列表写入提供的stdio文件中。</p></div>
 <div class="paragraph"><p>The list is meant to be human-readable; its format <strong>will</strong> change in future
-versions of Libevent.</p></div>
-<div class="paragraph"><p>This function was introduced in Libevent 2.0.1-alpha.</p></div>
+versions of Libevent.</p><p class="translate">此列表旨在便于人读，其格式在Libevent的未来版本中将会改变。</p></div>
+<div class="paragraph"><p>This function was introduced in Libevent 2.0.1-alpha.</p><p class="translate">该函数在Libevent 2.0.1-alpha中引入。</p></div>
 </div>
 </div>
 <div class="sect1">
@@ -1027,37 +1029,34 @@ versions of Libevent.</p></div>
 active or pending event associated with an event_base().  The provided
 callback will be invoked exactly once per event, in an unspecified
 order.  The third argument of event_base_foreach_event() will be passed
-as the third argument to each invocation of the callback.</p></div>
+as the third argument to each invocation of the callback.</p><p class="translate">你可以使用event_base_foreach_event()来迭代与event_base()相关联的每个当前激活或待处理的event。提供的回调函数会按照未指定的顺序准确地对每个event调用一次。第三个参数将作为回调函数调用的第三个参数传递。</p></div>
 <div class="paragraph"><p>The callback function must return 0 to continue iteration, or some other
 integer to stop iterating. Whatever value the callback function finally
-returns will then be returned by event_base_foreach_function().</p></div>
+returns will then be returned by event_base_foreach_function().</p><p class="translate">回调函数必须返回0以继续迭代，或返回其他整数以停止迭代。回调函数最终返回的值将被event_base_foreach_function()返回。</p></div>
 <div class="paragraph"><p>Your callback function <strong>must not</strong> modify any of the events that it
 receives, or add or remove any events to the event base, or otherwise
 modify any event associated with the event base, or undefined behavior
-can occur, up to or including crashes and heap-smashing.</p></div>
+can occur, up to or including crashes and heap-smashing.</p><p class="translate">你的回调函数一定不能修改event，也不能添加或移除event base中的任何event，或以其他方式修改与event base相关的任何event，否则可能发生未定义的行为，包括崩溃和堆破坏。</p></div>
 <div class="paragraph"><p>The event_base lock will be held for the duration of the call to
-event_base_foreach_event()&#8201;&#8212;&#8201;this will block other threads from doing
+event_base_foreach_event() — this will block other threads from doing
 anything useful with the event_base, so make sure that your callback
-doesn&#8217;t take a long time.</p></div>
-<div class="paragraph"><p>This function was added in Libevent 2.1.2-alpha.</p></div>
+doesn’t take a long time.</p><p class="translate">在调用event_base_foreach_event()期间，将持有event_base锁——这将阻止其他线程对event_base进行任何操作，因此请确保你的回调不会花费太长时间。</p></div>
+<div class="paragraph"><p>This function was added in Libevent 2.1.2-alpha.</p><p class="translate">该函数在Libevent 2.1.2-alpha中添加。</p></div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_obsolete_event_loop_functions">Obsolete event loop functions</h2>
 <div class="sectionbody">
 <div class="paragraph"><p>As discussed above, older versions of Libevent APIs had a global
-notion of a "current" event_base.</p></div>
+notion of a "current" event_base.</p><p class="translate">如上所述，旧版的Libevent API对“当前”event_base有一个全局概念。</p></div>
 <div class="paragraph"><p>Some of the event loop functions in this section had variants that
 operated on the current base.  These functions behaved as the current
-functions, except that they took no base argument.</p></div>
+functions, except that they took no base argument.</p><p class="translate">本节中的一些事件循环函数有当前版本的变体。这些函数的行为与当前函数相同，除了它们不接受基础参数。</p></div>
 <div class="tableblock">
-<table rules="all"
-width="85%"
-frame="border"
-cellspacing="0" cellpadding="4">
-<col width="50%" />
-<col width="50%" />
-<thead>
+<table rules="all" width="85%" frame="border" cellspacing="0" cellpadding="4">
+<colgroup><col width="50%">
+<col width="50%">
+</colgroup><thead>
 <tr>
 <th align="left" valign="top"> Current function              </th>
 <th align="left" valign="top"> Obsolete current-base version</th>
@@ -1084,25 +1083,26 @@ cellspacing="0" cellpadding="4">
 </table>
 </div>
 <div class="admonitionblock">
-<table><tr>
+<table><tbody><tr>
 <td class="icon">
 <div class="title">Note</div>
 </td>
 <td class="content">Because event_base did not support locking before Libevent 2.0,
-these functions weren&#8217;t completely threadsafe: it was not permissible
+these functions weren’t completely threadsafe: it was not permissible
 to call the _loopbreak() or _loopexit() functions from a thread other
 than the one executing the event loop.</td>
-</tr></table>
+</tr></tbody></table>
 </div>
 </div>
 </div>
 </div>
-<div id="footnotes"><hr /></div>
+<div id="footnotes"><hr></div>
 <div id="footer">
 <div id="footer-text">
 Last updated
  2024-02-18 20:10:44 UTC
 </div>
 </div>
-</body>
-</html>
+
+
+</body></html>

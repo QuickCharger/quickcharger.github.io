@@ -1,10 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
-    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
-<head>
-<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
-<meta name="generator" content="AsciiDoc 10.1.2" />
+<!--?xml version="1.0" encoding="UTF-8"?--><!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8">
+<meta name="generator" content="AsciiDoc 10.1.2">
 <title>Connection listeners: accepting TCP connections</title>
 <style type="text/css">
 /* Shared CSS for AsciiDoc xhtml11 and html5 backends */
@@ -732,7 +728,7 @@ asciidoc.install();
 /*]]>*/
 </script>
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-M3CEY418LQ"></script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-M3CEY418LQ"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -740,7 +736,13 @@ asciidoc.install();
 
   gtag('config', 'G-M3CEY418LQ');
 </script>
-</head>
+<style id="translation-style">
+      .translate {
+        background-color: #f0f0f0; /* 浅灰色背景 */
+        color: black;             /* 黑色文本 */
+        font-weight: bold;        /* 加粗字体 */
+      }
+    </style></head>
 <body class="article">
 <div id="header">
 <h1>Connection listeners: accepting TCP connections</h1>
@@ -764,10 +766,10 @@ and run "git clone git://github.com/libevent/libevent-book.git"</p></div>
 <div class="attribution">
 </div></div>
 <div class="paragraph"><p>The evconnlistener mechanism gives you a way to listen for and accept
-incoming TCP connections.</p></div>
+incoming TCP connections.</p><p class="translate">evconnlistener机制为您提供了一种方法用于监听和接受传入TCP连接。</p></div>
 <div class="paragraph"><p>All the functions and types in this section are declared in
 event2/listener.h.  They first appeared in Libevent 2.0.2-alpha, unless
-otherwise noted.</p></div>
+otherwise noted.</p><p class="translate">本节中的所有函数和类型都在event2/listener.h中声明。它们首次出现在Libevent 2.0.2-alpha版本中，除非另有说明。</p></div>
 </div>
 </div>
 <div class="sect1">
@@ -787,25 +789,25 @@ otherwise noted.</p></div>
 <div class="paragraph"><p>The two evconnlistener_new*() functions both allocate and return a new
 connection listener object.  A connection listener uses an event_base to
 note when there is a new TCP connection on a given listener socket.
-When a new connection arrives, it invokes the callback function you give it.</p></div>
+When a new connection arrives, it invokes the callback function you give it.</p><p class="translate">两个`evconnlistener_new*()`函数都用于分配并返回一个新的连接监听器对象。一个连接监听器使用event_base来侦测在给定监听socket上是否有新的TCP连接。当有新连接到来时，它会调用你提供的回调函数。</p></div>
 <div class="paragraph"><p>In both functions, the <em>base</em> parameter is an event_base that the listener
 should use to listen for connections.  The <em>cb</em> function is a callback to
 invoke when a new connection is received; if <em>cb</em> is NULL, the listener is
 treated as disabled until a callback is set.  The <em>ptr</em> pointer will be passed
-to the callback.  The <em>flags</em> argument controls the behavior of the listener&#8201;&#8212;&#8201;more on this below.  The <em>backlog</em> parameter controls the maximum number
+to the callback.  The <em>flags</em> argument controls the behavior of the listener — more on this below.  The <em>backlog</em> parameter controls the maximum number
 of pending connections that the network stack should allow to wait in a
-not-yet-accepted state at any time; see documentation for your system&#8217;s
+not-yet-accepted state at any time; see documentation for your system’s
 listen() function for more details.  If <em>backlog</em> is negative, Libevent tries
 to pick a good value for the backlog; if it is zero, Libevent assumes that
-you have already called listen() on the socket you are providing it.</p></div>
+you have already called listen() on the socket you are providing it.</p><p class="translate">在这两个函数中，参数base是一个event_base，监听器将使用它来监听连接。回调函数cb在接收到新连接时被调用；如果cb为NULL，监听器被视为禁用，直到设置了回调。指针ptr将被传递给回调函数。参数flags控制监听器的行为——下文将进一步说明。参数backlog控制pending状态的的socket的最大数量；具体细节请查看你系统中listen()函数的文档。如果backlog是负数，Libevent会尝试为backlog选择一个合适的值；如果它是零，Libevent假定你已经在提供的socket上调用了listen()。</p></div>
 <div class="paragraph"><p>The functions differ in how they set up their listener socket.  The
 evconnlistener_new() function assumes that you have already bound a socket to
-the port you want to listen on, and that you&#8217;re passing the socket in as
+the port you want to listen on, and that you’re passing the socket in as
 <em>fd</em>.  If you want Libevent to allocate and bind to a socket on its own,
 call evconnlistener_new_bind(), and pass in the sockaddr you want to bind to,
-and its length.</p></div>
+and its length.</p><p class="translate">这些函数在设置监听socket上的区别是：`evconnlistener_new()`函数假定你已经绑定了一个socket到你想要监听的端口，并且你正通过fd作为参数传递这个socket。如果你想让Libevent自己分配并绑定到一个socket，请调用`evconnlistener_new_bind()`，并传入你想要绑定的sockaddr及其长度。</p></div>
 <div class="admonitionblock">
-<table><tr>
+<table><tbody><tr>
 <td class="icon">
 <div class="title">Tip</div>
 </td>
@@ -813,13 +815,13 @@ and its length.</p></div>
 non-blocking mode by using evutil_make_socket_nonblocking or by manually
 setting the correct socket option. When the listening socket is left in
 blocking mode, undefined behavior might occur.]</td>
-</tr></table>
+</tr></tbody></table>
 </div>
-<div class="paragraph"><p>To free a connection listener, pass it to evconnlistener_free().</p></div>
+<div class="paragraph"><p>To free a connection listener, pass it to evconnlistener_free().</p><p class="translate">要释放listener，请将其传递给`evconnlistener_free()`。</p></div>
 <div class="sect2">
 <h3 id="_recognized_flags">Recognized flags</h3>
 <div class="paragraph"><p>These are the flags you can pass to the <em>flags</em> argument of the
-evconnlistener_new() function.  You can give any number of these, OR&#8217;d
+evconnlistener_new() function.  You can give any number of these, OR’d
 together.</p></div>
 <div class="dlist"><dl>
 <dt class="hdlist1">
@@ -870,7 +872,7 @@ LEV_OPT_THREADSAFE
 </dt>
 <dd>
 <p>
-    Allocate locks for the listener, so that it&#8217;s safe to use it from
+    Allocate locks for the listener, so that it’s safe to use it from
     multiple threads.  New in Libevent 2.0.8-rc.
 </p>
 </dd>
@@ -892,11 +894,11 @@ LEV_OPT_DEFERRED_ACCEPT
     If possible, tell the kernel to not announce sockets as having been
     accepted until some data has been received on them, and they are ready
     for reading. Do not use this option if your protocol
-    <em>doesn&#8217;t</em> start out with the client transmitting data, since in that case
+    <em>doesn’t</em> start out with the client transmitting data, since in that case
     this option will sometimes cause the kernel to never tell you about the
     connection. Not all operating systems support this option: on ones that
-    don&#8217;t, this option has no effect.  New in Libevent 2.1.1-alpha.
-</p>
+    don’t, this option has no effect.  New in Libevent 2.1.1-alpha.
+</p><p class="translate">以下是你可以传递给`evconnlistener_new()`函数flags参数的标志。你可以传递任意数量的这些标志，将它们用OR逻辑运算符连接起来。<br>`LEV_OPT_LEAVE_SOCKETS_BLOCKING`<br>  默认情况下，当监听socket接受一个新的传入socket时，它会将它设置为非阻塞模式，以便你可以使用Libevent的其他功能。如果你不希望这样，请设置这个标志。<br>`LEV_OPT_CLOSE_ON_FREE`<br>  如果设置了这个选项，当你释放连接监听器时，它会关闭其底层socket。<br>`LEV_OPT_CLOSE_ON_EXEC`<br>  如果设置了这个选项，连接socket在底层监听socket上设置close-on-exec标志。更多信息请查看你的平台关于fcntl和FD_CLOEXEC的文档。<br>`LEV_OPT_REUSEABLE`<br>  默认情况下，在某些平台上，一旦监听socket关闭，直到一段时间过去后，其他socket才能绑定到同一个端口。设置这个选项可以使Libevent标记该socket为可重用，这样一旦它关闭，另一个socket就可以打开来监听同一个端口。<br>`LEV_OPT_THREADSAFE`<br>  为监听器分配锁，使得它可以安全地在多个线程中使用。在Libevent 2.0.8-rc中新增。<br>`LEV_OPT_DISABLED`<br>  初始化监听器为禁用状态，而不是启用状态。你可以通过`evconnlistener_enable()`手动开启它。在Libevent 2.1.1-alpha中新增。<br>`LEV_OPT_DEFERRED_ACCEPT`<br>  如果可能，告诉内核不要宣布socket已被接受，直到在它们上面接收到一些数据，并且它们准备好读取。如果你的协议不是从客户端开始传输数据，那么不要使用这个选项，因为在这种情况下，这个选项有时会导致内核永远不会告诉你有关连接的信息。并非所有操作系统都支持这个选项：在不支持的操作系统上，这个选项没有效果。在Libevent 2.1.1-alpha中新增。</p>
 </dd>
 </dl></div>
 </div>
@@ -914,7 +916,7 @@ received the connection.  The <em>sock</em> argument is the new socket
 itself.  The <em>addr</em> and <em>len</em> arguments are the address from which
 the connection was received and the length of that address
 respectively.  The <em>ptr</em> argument is the user-supplied pointer that
-was passed to evconnlistener_new().</p></div>
+was passed to evconnlistener_new().</p><p class="translate">当接收到新连接时，将调用提供的回调函数。参数listener是接收到连接的连接监听器。参数sock是新的socket。参数addr和len分别是连接接收到的地址及该地址的长度。参数ptr是传递给`evconnlistener_new()`的用户提供的指针。</p></div>
 </div>
 </div>
 </div>
@@ -927,11 +929,11 @@ was passed to evconnlistener_new().</p></div>
 <pre><code><strong>int</strong> evconnlistener_disable(<strong>struct</strong> evconnlistener *lev);
 <strong>int</strong> evconnlistener_enable(<strong>struct</strong> evconnlistener *lev);</code></pre>
 </div></div>
-<div class="paragraph"><p>These functions temporarily disable or reenable listening for new connections.</p></div>
+<div class="paragraph"><p>These functions temporarily disable or reenable listening for new connections.</p><p class="translate">这些函数临时禁止或重新启用监听新连接。</p></div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_adjusting_an_evconnlistener_8217_s_callback">Adjusting an evconnlistener&#8217;s callback</h2>
+<h2 id="_adjusting_an_evconnlistener_8217_s_callback">Adjusting an evconnlistener’s callback</h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="title">Interface</div>
@@ -940,7 +942,7 @@ was passed to evconnlistener_new().</p></div>
     evconnlistener_cb cb, <strong>void</strong> *arg);</code></pre>
 </div></div>
 <div class="paragraph"><p>This function adjusts the callback and callback argument of an existing
-evconnlistener.  It was introduced in 2.0.9-rc.</p></div>
+evconnlistener.  It was introduced in 2.0.9-rc.</p><p class="translate">这个函数调整现有evconnlistener的回调和回调参数。它在2.0.9-rc中引入。</p></div>
 </div>
 </div>
 <div class="sect1">
@@ -952,17 +954,17 @@ evconnlistener.  It was introduced in 2.0.9-rc.</p></div>
 <pre><code>evutil_socket_t evconnlistener_get_fd(<strong>struct</strong> evconnlistener *lev);
 <strong>struct</strong> event_base *evconnlistener_get_base(<strong>struct</strong> evconnlistener *lev);</code></pre>
 </div></div>
-<div class="paragraph"><p>These functions return a listener&#8217;s associated socket and event_base
-respectively.</p></div>
-<div class="paragraph"><p>The evconnlistener_get_fd() function first appeared in Libevent 2.0.3-alpha.</p></div>
+<div class="paragraph"><p>These functions return a listener’s associated socket and event_base
+respectively.</p><p class="translate">这些函数分别返回一个监听器关联的socket和event_base。</p></div>
+<div class="paragraph"><p>The evconnlistener_get_fd() function first appeared in Libevent 2.0.3-alpha.</p><p class="translate">evconnlistener_get_fd()函数首次出现在Libevent 2.0.3-alpha中。</p></div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_detecting_errors">Detecting errors</h2>
 <div class="sectionbody">
 <div class="paragraph"><p>You can set an error callback that gets informed whenever an accept() call
-fails on the listener.  This can be important to do if you&#8217;re facing an error
-condition that would lock the process unless you addressed it.</p></div>
+fails on the listener.  This can be important to do if you’re facing an error
+condition that would lock the process unless you addressed it.</p><p class="translate">你可以设置一个错误回调，每当监听器上的accept()调用失败时，它会被告知。如果你遇到一个错误条件，除非你处理它，否则可能会锁定进程，因此做这样的设置很重要。</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
@@ -973,8 +975,8 @@ condition that would lock the process unless you addressed it.</p></div>
 <div class="paragraph"><p>If you use evconnlistener_set_error_cb() to set an error callback on a
 listener, the callback will be invoked every time that an error occurs on the
 listener.  It will receive the listener as its first argument, and the
-argument passed as <em>ptr</em> to evconnlistener_new() as its second argument.</p></div>
-<div class="paragraph"><p>This function was introduced in Libevent 2.0.8-rc.</p></div>
+argument passed as <em>ptr</em> to evconnlistener_new() as its second argument.</p><p class="translate">如果你使用evconnlistener_set_error_cb()来设置监听器上的错误回调，那么每次监听器上发生错误时，都会调用该回调。它将接收监听器作为其第一个参数，以及传递给evconnlistener_new()的ptr作为其第二个参数。</p></div>
+<div class="paragraph"><p>This function was introduced in Libevent 2.0.8-rc.</p><p class="translate">这个函数在Libevent 2.0.8-rc中引入。</p></div>
 </div>
 </div>
 <div class="sect1">
@@ -1090,12 +1092,13 @@ main(<strong>int</strong> argc, <strong>char</strong> **argv)
 </div>
 </div>
 </div>
-<div id="footnotes"><hr /></div>
+<div id="footnotes"><hr></div>
 <div id="footer">
 <div id="footer-text">
 Last updated
  2024-02-18 20:10:44 UTC
 </div>
 </div>
-</body>
-</html>
+
+
+</body></html>

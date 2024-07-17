@@ -31,6 +31,7 @@ function Libevent () {
   ]
 
   let filename = location.pathname.split('/').pop()
+  console.log('libevent filename: ', filename)
   if (filename.length < 10) {
     filename = category[0].jumpTo.split('/').pop()
   }

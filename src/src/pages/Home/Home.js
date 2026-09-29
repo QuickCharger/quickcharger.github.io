@@ -56,7 +56,7 @@ function Home () {
           </Card>
         </Container>
       </>)}
-      footer={(<>©2024 footer</>)}
+      footer={(<>©2024 footer · 经 GitHub Actions 自动部署 · 2026-09-29</>)}
     />
   )
 }

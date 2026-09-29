@@ -45,7 +45,7 @@ function Libevent () {
             return <Link href={it.jumpTo} variant="body2" key={it.content}>{it.content}</Link>
           })}
         </S>
-        <iframe src={`/${filename}.html`} className="inlinePage" style={{ width: '100%', height: '85vh' }} />
+        <iframe src={`/${filename}.html`} title={`${filename} 内容页面`} className="inlinePage" style={{ width: '100%', height: '85vh' }} />
       </>)
       }
     />

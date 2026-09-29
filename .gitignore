@@ -1,8 +1,9 @@
 /src/build
 /src/node_modules
 /src/.vscode
-/src/package-lock.json
-/src/yarn.lock
+# lockfile 必须入库，保证 CI 构建可复现
+# /src/package-lock.json
+# /src/yarn.lock
 
 # Pages 改由 GitHub Actions 发布后，根目录不再存放构建产物
 /static

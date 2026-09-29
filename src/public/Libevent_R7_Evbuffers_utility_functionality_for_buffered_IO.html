@@ -1158,13 +1158,7 @@ EVBUFFER_EOL_NUL
 </dl></div>
 <div class="paragraph"><p>(Note that if you used event_set_mem_functions() to override the
 default malloc, the string returned by evbuffer_readln will be
-allocated by the malloc-replacement you specified.)</p><p class="translate">evbuffer_readln()函数理解4种行终止格式：<br>EVBUFFER_EOL_LF<br>  一行的结束是单个换行符。（这也被称为"
-"。它的ASCII值是0x0A。）<br>EVBUFFER_EOL_CRLF_STRICT<br>  一行的结束是一个回车符，后跟一个换行符。（这也被称为"
-"。ASCII值是0x0D 0x0A。）<br>EVBUFFER_EOL_CRLF<br>  行的结束是一个可选的回车符，后跟一个换行符。（换句话说，它可以是"
-"或"
-"）。这种格式在解析基于文本的互联网协议时非常有用，因为标准通常规定一个"
-"作为行终结符，但不符合标准的客户端有时只使用"
-"。<br>EVBUFFER_EOL_ANY<br>  行的结束是任意数量的回车符和换行符序列。这种格式不是很有用；它主要存在是为了向后兼容。<br>EVBUFFER_EOL_NUL<br>  行的结束是一个值为0的单字节 —— 也就是，一个ASCII NUL。<br>（请注意，如果你使用event_set_mem_functions()覆盖默认的malloc，那么由evbuffer_readln返回的字符串将由你指定的malloc替换函数分配。）</p></div>
+allocated by the malloc-replacement you specified.)</p><p class="translate">evbuffer_readln()函数理解 4 种行终止格式：<br>EVBUFFER_EOL_LF<br>  行的结束是单个换行符（也就是 "\n"，ASCII 值为 0x0A）。<br>EVBUFFER_EOL_CRLF_STRICT<br>  行的结束是一个回车符后跟一个换行符（也就是 "\r\n"，ASCII 值为 0x0D 0x0A）。<br>EVBUFFER_EOL_CRLF<br>  行的结束是一个可选的回车符后跟一个换行符（换句话说，它可以是 "\r\n"，也可以是 "\n"）。这种格式在解析基于文本的互联网协议时很有用，因为标准通常规定以 "\r\n" 作为行终止符，但不符合标准的客户端有时只使用 "\n"。<br>EVBUFFER_EOL_ANY<br>  行的结束是任意数量的回车符和换行符组成的序列。这种格式不太有用，它主要是为了向后兼容而存在。<br>EVBUFFER_EOL_NUL<br>  行的结束是一个值为 0 的单字节 —— 也就是 ASCII NUL。<br>（请注意：如果你用 event_set_mem_functions() 覆盖了默认的 malloc，那么 evbuffer_readln 返回的字符串将由你指定的 malloc 替换函数来分配。）</p></div>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
@@ -1222,7 +1216,7 @@ the position of the string, or -1 if the string was not found.  If the
 should begin; otherwise, the search is from the start of the string.</p><p class="translate">evbuffer_search()函数扫描缓冲区以寻找len字符长的字符串what。它返回一个包含字符串位置的evbuffer_ptr，如果找不到字符串则返回-1。如果提供了start参数，搜索应从该位置开始；否则，搜索从字符串的开头开始。</p></div>
 <div class="paragraph"><p>The evbuffer_search_range() function behaves as evbuffer_search, except that
 it only considers occurrences of <em>what</em> that occur before the evbuffer_ptr
-<em>end</em>.</p><p class="translate">evbuffer_search_range()函数的行为类似于evbuffer_search，不同之处在于它只只搜索到end位置。</p></div>
+<em>end</em>.</p><p class="translate">evbuffer_search_range()函数的行为类似于evbuffer_search，不同之处在于它只搜索到 end 位置为止。</p></div>
 <div class="paragraph"><p>The evbuffer_search_eol() function detects line-endings as evbuffer_readln(),
 but instead of copying out the line, returns an evbuffer_ptr to the
 start of the end-of-line characters(s).  If eol_len_out is non-NULL, it is
@@ -1693,7 +1687,7 @@ run immediately when the evbuffer is changed, but rather to be
 <em>deferred</em> and run as part of the event loop of a given event base.
 This can be helpful if you have multiple evbuffers whose callbacks
 potentially cause data to be added and removed from one another, and
-you want to avoid smashing the stack.</p><p class="translate">与bufferevent回调一样，你可以使evbuffer回调在evbuffer改变时不立即运行，而是延迟并作为base的event loop的一部分运行。这可能会有所帮助,如果你有多个evbuffers，其回调可能导致数据互相被添加和删除，而你希望避免堆栈被破坏时。</p></div>
+you want to avoid smashing the stack.</p><p class="translate">与bufferevent回调一样，你可以使evbuffer回调在evbuffer改变时不立即运行，而是延迟并作为base的event loop的一部分运行。如果你有多个 evbuffer，它们的回调可能导致数据在彼此之间被添加和删除，而你希望避免破坏栈时，这可能会有所帮助。</p></div>
 <div class="paragraph"><p>If an evbuffer’s callbacks are deferred, then when they are finally
 invoked, they may summarize the results for multiple operations.</p><p class="translate">如果一个evbuffer的回调被延迟，那么当它们最终被调用时，它们可能会总结多个操作的结果。</p></div>
 <div class="paragraph"><p>Like bufferevents, evbuffers are internally reference-counted, so that

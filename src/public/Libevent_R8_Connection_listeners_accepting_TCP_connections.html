@@ -799,7 +799,7 @@ of pending connections that the network stack should allow to wait in a
 not-yet-accepted state at any time; see documentation for your system’s
 listen() function for more details.  If <em>backlog</em> is negative, Libevent tries
 to pick a good value for the backlog; if it is zero, Libevent assumes that
-you have already called listen() on the socket you are providing it.</p><p class="translate">在这两个函数中，参数base是一个event_base，监听器将使用它来监听连接。回调函数cb在接收到新连接时被调用；如果cb为NULL，监听器被视为禁用，直到设置了回调。指针ptr将被传递给回调函数。参数flags控制监听器的行为——下文将进一步说明。参数backlog控制pending状态的的socket的最大数量；具体细节请查看你系统中listen()函数的文档。如果backlog是负数，Libevent会尝试为backlog选择一个合适的值；如果它是零，Libevent假定你已经在提供的socket上调用了listen()。</p></div>
+you have already called listen() on the socket you are providing it.</p><p class="translate">在这两个函数中，参数base是一个event_base，监听器将使用它来监听连接。回调函数cb在接收到新连接时被调用；如果cb为NULL，监听器被视为禁用，直到设置了回调。指针ptr将被传递给回调函数。参数flags控制监听器的行为——下文将进一步说明。参数backlog控制pending 状态的 socket的最大数量；具体细节请查看你系统中listen()函数的文档。如果backlog是负数，Libevent会尝试为backlog选择一个合适的值；如果它是零，Libevent假定你已经在提供的socket上调用了listen()。</p></div>
 <div class="paragraph"><p>The functions differ in how they set up their listener socket.  The
 evconnlistener_new() function assumes that you have already bound a socket to
 the port you want to listen on, and that you’re passing the socket in as
@@ -814,7 +814,7 @@ and its length.</p><p class="translate">这些函数在设置监听socket上的�
 <td class="content">[When using evconnlistener_new, make sure your listening socket is in
 non-blocking mode by using evutil_make_socket_nonblocking or by manually
 setting the correct socket option. When the listening socket is left in
-blocking mode, undefined behavior might occur.]</td>
+blocking mode, undefined behavior might occur.]<p class="translate">【使用 evconnlistener_new 时，请确保你的监听 socket 处于非阻塞模式：可以用 evutil_make_socket_nonblocking，也可以自己手动设置正确的 socket 选项。监听 socket 如果一直处于阻塞模式，可能会出现未定义的行为。】</p></td>
 </tr></tbody></table>
 </div>
 <div class="paragraph"><p>To free a connection listener, pass it to evconnlistener_free().</p><p class="translate">要释放listener，请将其传递给`evconnlistener_free()`。</p></div>

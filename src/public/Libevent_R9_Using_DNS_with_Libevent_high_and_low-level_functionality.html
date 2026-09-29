@@ -766,7 +766,7 @@ and run "git clone git://github.com/libevent/libevent-book.git"</p></div>
 <div class="attribution">
 </div></div>
 <div class="paragraph"><p>Libevent provides a few APIs to use for resolving DNS names, and a
-facility for implementing simple DNS servers.</p><p class="translate">Libevent 提供了一些用于解析 DNS 名称的 API，以及用于实现简单 DNS 服务器的实现。 设施 -&gt; 实现</p></div>
+facility for implementing simple DNS servers.</p><p class="translate">Libevent 提供了一些用于解析 DNS 名称的 API，以及一个用于实现简单 DNS 服务器的机制。</p></div>
 <div class="paragraph"><p>We’ll start by describing the higher-level facilities for name lookup,
 and then describe the low-level and server facilities.</p><p class="translate">我们将首先描述用于名称查找的高级实现，然后描述底层和服务器实现。</p></div>
 <div class="paragraph"><div class="title">Note</div><p>There are known limitations in Libevent’s current DNS client implementation.
@@ -829,7 +829,7 @@ set to zero.  If you do not specify <em>nodename</em>, then the addresses in
 *res will either be for localhost (by default), or for "any" (if
 EVUTIL_AI_PASSIVE is set.)</p><p class="translate">如果你没有指定 servname，那么 *res 中的端口值将被设置为零。如果你没有指定 nodename，那么 *res 中的地址要么是 localhost（默认情况下），要么是“any”（如果设置了 EVUTIL_AI_PASSIVE）。</p></div>
 <div class="paragraph"><p>The ai_flags field of <em>hints</em> tells evutil_getaddrinfo how to perform
-the lookup.  It can contain zero or more of the flags below, ORed together.</p></div>
+the lookup.  It can contain zero or more of the flags below, ORed together.</p><p class="translate">hints 中的 ai_flags 字段告诉 evutil_getaddrinfo() 如何执行查找。它可以包含下面列出的零个或多个标志，用 OR 组合在一起。<br>EVUTIL_AI_PASSIVE<br>  这个标志表明我们将把这些地址用于监听，而不是用于连接。通常这没有什么区别，除非 nodename 为 NULL：用于连接时，空的 nodename 表示 localhost（127.0.0.1 或 ::1）；而用于监听时，空的 nodename 表示 ANY（0.0.0.0 或 ::0）。<br>EVUTIL_AI_CANONNAME<br>  如果设置了这个标志，我们会尽量在 ai_canonname 字段中报告主机的规范名称。<br>EVUTIL_AI_NUMERICHOST<br>  设置这个标志时，我们只解析数字形式的 IPv4 和 IPv6 地址；如果 nodename 需要名称查找，我们会返回 EVUTIL_EAI_NONAME 错误。<br>EVUTIL_AI_NUMERICSERV<br>  设置这个标志时，我们只解析数字形式的服务名称。如果 servname 既不是 NULL 也不是十进制整数，就返回 EVUTIL_EAI_NONAME 错误。<br>EVUTIL_AI_V4MAPPED<br>  这个标志表示：如果 ai_family 是 AF_INET6 且没有找到 IPv6 地址，结果中的 IPv4 地址应该以 v4 映射的 IPv6 地址形式返回。除非操作系统支持，否则 evutil_getaddrinfo() 目前不支持它。<br>EVUTIL_AI_ALL<br>  如果同时设置了这个标志和 EVUTIL_AI_V4MAPPED，那么不管有没有 IPv6 地址，结果中的 IPv4 地址都会以 v4 映射的 IPv6 地址形式包含在结果中。除非操作系统支持，否则 evutil_getaddrinfo() 目前不支持它。<br>EVUTIL_AI_ADDRCONFIG<br>  如果设置了这个标志，那么只有当系统具有非本地 IPv4 地址时，结果中才包含 IPv4 地址；只有当系统具有非本地 IPv6 地址时，结果中才包含 IPv6 地址。</p></div>
 <div class="dlist"><dl>
 <dt class="hdlist1">
 EVUTIL_AI_PASSIVE
@@ -904,7 +904,7 @@ EVUTIL_AI_ADDRCONFIG
         the result if the system has a nonlocal IPv4 address, and IPv6
         addresses are only included in the result if the system has a
         nonlocal IPv6 address.
-</p><p class="translate">hints 中的 ai_flags 字段告诉 evutil_getaddrinfo 如何执行查找。它可以包含下面列出的一个或多个标志，通过 OR 运算组合在一起。</p><hr>EVUTIL_AI_PASSIVE<hr>  这个标志表明我们将使用地址进行监听，而不是用于连接。通常这没有什么区别，除非 nodename 为NULL：对于连接，空的 nodename 是 localhost（127.0.0.1 或 ::1），而监听时，空的 nodename 是 ANY（0.0.0.0 或 ::0）。<hr>EVUTIL_AI_CANONNAME<hr>  如果设置了这个标志，我们会尝试在 ai_canonname 字段中报告主机的规范名称。<hr>EVUTIL_AI_NUMERICHOST<hr>  设置这个标志时，我们只解析数字的 IPv4 和 IPv6 地址；如果 nodename 需要名称查找，我们会返回 EVUTIL_EAI_NONAME 错误。<hr>EVUTIL_AI_NUMERICSERV<hr>  设置这个标志时，我们只解析数字服务名称。如果 servname 既不是 NULL 也不是十进制整数，返回 EVUTIL_EAI_NONAME 错误。<hr>EVUTIL_AI_V4MAPPED<hr>  这个标志表示，如果 ai_family 是 AF_INET6 并且没有找到 IPv6 地址，结果中的任何 IPv4 地址应该作为 v4 映射的 IPv6 地址返回。除非操作系统支持，否则 evutil_getaddrinfo() 当前不支持它。<hr>EVUTIL_AI_ALL<hr>  如果同时设置了这个标志和 EVUTIL_AI_V4MAPPED，那么结果中的 IPv4 地址会作为 v4 映射的 IPv6 地址包含在结果中，不管是否有 IPv6 地址。除非操作系统支持，否则 evutil_getaddrinfo() 当前不支持它。<hr>EVUTIL_AI_ADDRCONFIG<hr>  如果设置了这个标志，那么只有当系统具有非本地 IPv4 地址时，结果中才包括 IPv4 地址，并且只有当系统具有非本地 IPv6 地址时，结果中才包括 IPv6 地址。<p></p>
+</p><p class="translate">hints 中的 ai_flags 字段告诉 evutil_getaddrinfo 如何执行查找。它可以包含下面列出的一个或多个标志，通过 OR 运算组合在一起。</p><p></p>
 </dd>
 </dl></div>
 <div class="paragraph"><p>The ai_family field of <em>hints</em> is used to tell evutil_getaddrinfo() which
@@ -1284,7 +1284,7 @@ options configured.</p><p class="translate">evdns_base_new()函数在成功时�
 <div class="paragraph"><p>When you no longer need an evdns_base, you can free it with
 evdns_base_free.  If its <em>fail_requests</em> argument is true, it will
 make all in-flight requests get their callbacks invoked with a
-<em>canceled</em> error code before it frees the base.</p><p class="translate">当你不再需要一个evdns_base时，你可以用evdns_base_free来释放它。如果其fail_requests参数为真，它将在释放base之前使所有执行中的请求调用其回调函数，并带有一个 canceled 的错误代码。</p></div>
+<em>canceled</em> error code before it frees the base.</p><p class="translate">当你不再需要一个evdns_base时，你可以用evdns_base_free来释放它。如果其fail_requests参数为真，它将在释放base之前使所有执行中的请求调用其回调函数，并带有一个“已取消”的错误码。</p></div>
 <div class="sect2">
 <h3 id="_initializing_evdns_from_the_system_configuration">Initializing evdns from the system configuration</h3>
 <div class="paragraph"><p>If you want a little more control over how the evdns_base is
@@ -1622,7 +1622,7 @@ is done, and a pointer to pass to the user-supplied callback.</p><p class="trans
 <div class="paragraph"><p>The <em>flags</em> argument is either 0 or DNS_QUERY_NO_SEARCH to explicitly
 suppress searching in the list of search if the original search fails.
 DNS_QUERY_NO_SEARCH has no effect for reverse lookups, since those never do
-searching.</p><p class="translate">flags参数是0或DNS_QUERY_NO_SEARCH，用于否定搜索列表如果原始搜索失败。DNS_QUERY_NO_SEARCH对于反向查找没有效果，因为反向查找从不进行搜索。</p></div>
+searching.</p><p class="translate">flags 参数是 0 或 DNS_QUERY_NO_SEARCH；后者用于在原始搜索失败时禁用搜索列表。DNS_QUERY_NO_SEARCH对于反向查找没有效果，因为反向查找从不进行搜索。</p></div>
 <div class="paragraph"><p>When the request is done---either successfully or not---the callback function
 will be invoked.  The callback takes a <em>result</em> that indicates success or an
 error code (see DNS Errors table below), a record type (one of DNS_IPv4_A,
@@ -1732,7 +1732,7 @@ affecting in-flight DNS request too much.</p><p class="translate">有时候，�
 all nameservers are removed, and pending requests are left in limbo until
 later you re-add nameservers and call evdns_base_resume().</p><p class="translate">如果您在一个evdns_base上调用evdns_base_clear_nameservers_and_suspend()，所有的域名服务器都会被移除，而挂起的请求会处于不确定状态，直到您稍后重新添加域名服务器并调用evdns_base_resume()。</p></div>
 <div class="paragraph"><p>These functions return 0 on success and -1 on failure.  They were introduced
-in Libevent 2.0.1-alpha.</p><p class="translate">这些函数成功时返回0，失败时返回-1。</p></div>
+in Libevent 2.0.1-alpha.</p><p class="translate">这些函数成功时返回 0，失败时返回 -1。它们在 Libevent 2.0.1-alpha 中引入。</p></div>
 </div>
 </div>
 <div class="sect1">

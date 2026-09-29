@@ -1159,7 +1159,7 @@ Ticks cannot be smaller than 1 millisecond, and all fractions of a
 </p><p class="translate">截至Libevent 2.0版，您应该知道速率限制实现有一些局限性。<br>- 并非每一种bufferevent类型都能很好地或完全支持速率限制。<br>- Bufferevent速率限制组不能嵌套，且一个bufferevent一次只能在一个速率限制组中。<br>- 速率限制实现仅将TCP数据包中传输的字节计为数据，不包括TCP头部。<br>- 读取限制实现依赖于TCP堆栈，应用程序仅以特定速率消费数据，并在其缓冲区变满时对TCP连接的另一侧施加压力。<br>- 某些bufferevents实现（特别是Windows IOCP实现）可能会超额。<br>- 桶在开始时有一个完整tick流量。这意味着bufferevent可以立即开始读取或写入，而不必等待完整的tick通过。然而，这也意味着，一个已经被限制为N.1 tick的bufferevent可以潜在地传输N+1 tick的流量。<br>- tick不能小于1毫秒，所有小于1毫秒的分数都会被忽略。</p>
 </li>
 </ul></div>
-<div class="paragraph"><p>/// TODO: Write an example for rate-limiting</p><p class="translate">/// todo：写一个关于速率限制的示例</p></div>
+<div class="paragraph"><p>/// TODO: Write an example for rate-limiting</p><p class="translate">编写一个速率限制的示例</p></div>
 </div>
 </div>
 </div>
@@ -1217,7 +1217,7 @@ with BEV_EVENT_CONNECTED in flags.</p><p class="translate">一旦握手完成，
 <div class="paragraph"><p>If you’re creating a socket-based bufferevent and the SSL object already
 has a socket set, you do not need to provide the socket yourself: just pass
 -1.  You can also set the fd later with bufferevent_setfd().</p><p class="translate">如果你正在创建一个基于socket的bufferevent，并且SSL对象已经设置了一个socket，你不需要自己提供套接字：只需传递-1。你也可以稍后用bufferevent_setfd()设置fd。</p></div>
-<div class="paragraph"><p>/// TODO: Remove this once bufferevent_shutdown() API has been finished.</p><p class="translate">/// TODO：一旦bufferevent_shutdown() API完成后删除此项。</p></div>
+<div class="paragraph"><p>/// TODO: Remove this once bufferevent_shutdown() API has been finished.</p><p class="translate">一旦 bufferevent_shutdown() API 完成，请删除此项。</p></div>
 <div class="paragraph"><p>Note that when BEV_OPT_CLOSE_ON_FREE is set on a SSL bufferevent,
 a clean shutdown will not be performed on the SSL connection.  This has two
 problems: first, the connection will seem to have been "broken" by the other

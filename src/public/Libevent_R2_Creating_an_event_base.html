@@ -778,7 +778,7 @@ event_base for each thread.</p><p class="translate">如果一个 event_base 被�
 <div class="title">Tip</div>
 </td>
 <td class="content">[A future version of Libevent may have support for event_bases that run
-events across multiple threads.]</td>
+events across multiple threads.]<p class="translate">【未来版本的 Libevent 可能会支持在多个线程中运行 event_base。】</p></td>
 </tr></tbody></table>
 </div>
 <div class="paragraph"><p>Each event_base has a "method", or a backend that it uses to determine which
@@ -841,7 +841,7 @@ supports.</p><p class="translate">在选择方法时，它会挑选操作系统�
 </div></div>
 <div class="paragraph"><p>For most programs, this is all you need.</p><p class="translate">对于大多数程序来说，这就是你所需要的。</p></div>
 <div class="paragraph"><p>The event_base_new() function is declared in &lt;event2/event.h&gt;.  It first
-appeared in Libevent 1.4.3.</p><p class="translate">event_base_new() 函数在 <event2 event.h=""> 中声明。它最初出现在 Libevent 1.4.3 版本中。</event2></p></div>
+appeared in Libevent 1.4.3.</p><p class="translate">event_base_new() 函数在 &lt;event2/event.h&gt; 中声明。它最初出现在 Libevent 1.4.3 版本中。</p></div>
 </div>
 </div>
 <div class="sect1">
@@ -997,7 +997,7 @@ EVENT_BASE_FLAG_PRECISE_TIMER
 </dd>
 </dl></div>
 <div class="paragraph"><p>The above functions that manipulate an event_config all return 0 on success,
--1 on failure.</p><p class="translate">event_config_require_features() 识别的值有：<br>EV_FEATURE_ET<br>  支持边缘触发（edge-triggered）。<br>EV_FEATURE_O1<br>  添加或删除event，或者event变为活动状态是 O(1) 操作。<br>EV_FEATURE_FDS<br>  要求支持任意文件描述符类型，而不仅仅是socket。<br>event_config_set_flag() 识别的值有：<br>EVENT_BASE_FLAG_NOLOCK<br>  不为 event_base 分配锁。设置此选项可能会节省一些锁定和释放 event_base 的时间，但会使其在多线程中访问时不安全且无法正常工作。<br>EVENT_BASE_FLAG_IGNORE_ENV<br>  在选择使用哪种方法时，不检查 EVENT_* 环境变量。在使用此标志之前，请仔细考虑：它可能会使用户难以调试程序与 Libevent 的交互。<br>EVENT_BASE_FLAG_STARTUP_IOCP<br>  仅Windows，此标志使 Libevent 在启动时启用任何必要的 IOCP 调度逻辑，而不是按需启用。<br>EVENT_BASE_FLAG_NO_CACHE_TIME<br>  不是每次执行超时回调时都检查当前时间，而是在每个超时回调之后检查。这可能会使用比你本意更多的 CPU，所以要注意！(PS:字面意思是不使用cachetime，但解释和cache没有关系，不明白)<br>EVENT_BASE_FLAG_EPOLL_USE_CHANGELIST<br>  告诉 Libevent，如果它决定使用 epoll，使用基于changelist是更快并且安全的。<br>epoll-changelist可以避免不必要的系统调用（原文翻译：epoll-changelist后端可以避免在对后端的调度函数的调用之间多次修改同一个 fd 的状态的情况下，避免不必要的系统调用），但它可能触发一个内核错误，如果你给 Libevent 通过dup()克隆的fd 或 其他变体，可能会导致错误的结果。<br>如果你使用的是除 epoll 之外的其他后端，此标志无效。你也可以通过设置 EVENT_EPOLL_USE_CHANGELIST 环境变量来开启 epoll-changelist 选项。<br>EVENT_BASE_FLAG_PRECISE_TIMER<br>默认情况下，Libevent 会尝试使用操作系统提供的最快的定时机制。如果有一个较慢的定时机制提供了更精细的定时精度，这个标志会告诉 Libevent 使用那个定时机制。如果操作系统没有提供这样的慢但更精确的机制，此标志无效。<br>上述操作 event_config 的函数在成功时返回 0，在失败时返回 -1。</p></div>
+-1 on failure.</p><p class="translate">event_config_require_features() 识别的值有：<br>EV_FEATURE_ET<br>  支持边缘触发（edge-triggered）。<br>EV_FEATURE_O1<br>  添加或删除event，或者event变为活动状态是 O(1) 操作。<br>EV_FEATURE_FDS<br>  要求支持任意文件描述符类型，而不仅仅是socket。<br>event_config_set_flag() 识别的值有：<br>EVENT_BASE_FLAG_NOLOCK<br>  不为 event_base 分配锁。设置此选项可能会节省一些锁定和释放 event_base 的时间，但会使其在多线程中访问时不安全且无法正常工作。<br>EVENT_BASE_FLAG_IGNORE_ENV<br>  在选择使用哪种方法时，不检查 EVENT_* 环境变量。在使用此标志之前，请仔细考虑：它可能会使用户难以调试程序与 Libevent 的交互。<br>EVENT_BASE_FLAG_STARTUP_IOCP<br>  仅Windows，此标志使 Libevent 在启动时启用任何必要的 IOCP 调度逻辑，而不是按需启用。<br>EVENT_BASE_FLAG_NO_CACHE_TIME<br>  不是在每次要运行超时回调时都检查当前时间，而是在每个超时回调之后检查。这可能会比你本意消耗更多的 CPU，所以要注意！<br>EVENT_BASE_FLAG_EPOLL_USE_CHANGELIST<br>  告诉 Libevent：如果它决定使用 epoll 后端，那么使用更快的、基于 "changelist" 的后端是安全的。<br>在同一个 fd 的状态在后端调度函数的前后两次调用之间被多次修改的情况下，epoll-changelist 后端可以避免不必要的系统调用；但如果你把通过 dup() 克隆的 fd 或其他变体交给 Libevent，它也可能触发一个内核 bug，导致错误的结果。<br>如果你使用的是除 epoll 之外的其他后端，此标志无效。你也可以通过设置 EVENT_EPOLL_USE_CHANGELIST 环境变量来开启 epoll-changelist 选项。<br>EVENT_BASE_FLAG_PRECISE_TIMER<br>  默认情况下，Libevent 会尝试使用操作系统提供的最快的定时机制。如果有一个较慢的定时机制提供了更精细的定时精度，这个标志会告诉 Libevent 使用那个定时机制。如果操作系统没有提供这样的慢但更精确的机制，此标志无效。<br>上述操作 event_config 的函数在成功时返回 0，在失败时返回 -1。</p></div>
 <div class="admonitionblock">
 <table><tbody><tr>
 <td class="icon">
@@ -1007,7 +1007,7 @@ EVENT_BASE_FLAG_PRECISE_TIMER
 OS does not provide.  For example, as of Libevent 2.0.1-alpha, there is no
 O(1) backend for Windows, and no backend on Linux that provides both
 EV_FEATURE_FDS and EV_FEATURE_O1.  If you have made a configuration that
-Libevent can’t satisfy, event_base_new_with_config() will return NULL.</td>
+Libevent can’t satisfy, event_base_new_with_config() will return NULL.<p class="translate">很容易设置出一个你的操作系统并不支持的 event_config。例如，截至 Libevent 2.0.1-alpha 版本，Windows 上没有 O(1) 后端，Linux 上也没有同时提供 EV_FEATURE_FDS 和 EV_FEATURE_O1 的后端。如果你制定的配置 Libevent 无法满足，event_base_new_with_config() 将返回 NULL。</p></td>
 </tr></tbody></table>
 </div>
 <div class="listingblock">
@@ -1087,7 +1087,7 @@ base = event_base_new_with_config(cfg);
 
 event_base_priority_init(base, 2);</code></pre>
 </div></div>
-<div class="paragraph"><p>These functions and types are declared in &lt;event2/event.h&gt;.</p><p class="translate">这些函数和类型在<event2 event.h="">中声明。</event2></p></div>
+<div class="paragraph"><p>These functions and types are declared in &lt;event2/event.h&gt;.</p><p class="translate">这些函数和类型在&lt;event2/event.h&gt;中声明。</p></div>
 <div class="paragraph"><p>The EVENT_BASE_FLAG_IGNORE_ENV flag first appeared in Libevent 2.0.2-alpha.
 The EVENT_BASE_FLAG_PRECISE_TIMER flag first appeared in Libevent
 2.1.2-alpha. The  event_config_set_num_cpus_hint() function was new in Libevent
@@ -1127,7 +1127,7 @@ printf("Starting Libevent %s.  Available methods are:\n",
 <td class="content">This function returns a list of the methods that Libevent was compiled
 to support.  It is possible that your operating system will not in fact
 support them all when Libevent tries to run.  For example, you could be on a
-version of OSX where kqueue is too buggy to use.</td>
+version of OSX where kqueue is too buggy to use.<p class="translate">这个函数返回的是 Libevent 编译时支持的方法列表。你的操作系统实际上可能并不完全支持这些方法。例如，你用的可能是 OSX 的某个版本，在那上面 kqueue 的 bug 太多，无法使用。</p></td>
 </tr></tbody></table>
 </div>
 <div class="listingblock">
@@ -1163,7 +1163,7 @@ base = event_base_new();
 </div></div>
 <div class="paragraph"><p>These functions are defined in &lt;event2/event.h&gt;.  The event_base_get_method()
 call was first available in Libevent 1.4.3.  The others first appeared in
-Libevent 2.0.1-alpha.</p><p class="translate">这些函数在<event2 event.h="">中定义。event_base_get_method() 引入于Libevent 1.4.3。其他的首次出现在 Libevent 2.0.1-alpha。</event2></p></div>
+Libevent 2.0.1-alpha.</p><p class="translate">这些函数在&lt;event2/event.h&gt;中定义。event_base_get_method() 引入于Libevent 1.4.3。其他的首次出现在 Libevent 2.0.1-alpha。</p></div>
 </div>
 </div>
 <div class="sect1">
@@ -1180,7 +1180,7 @@ event_base_free().</p><p class="translate">当你使用完一个event_base后，
 currently associated with the event_base, or close any of their sockets, or
 free any of their pointers.</p><p class="translate">注意这个函数不会释放当前与event_base关联的任何event，也不会关闭它们的任何套接字，或者释放它们的任何指针。</p></div>
 <div class="paragraph"><p>The event_base_free() function is defined in &lt;event2/event.h&gt;. It was first
-implemented in Libevent 1.2.</p><p class="translate">event_base_free() 函数在<event2 event.h="">中定义。它首次在Libevent 1.2中实现。</event2></p></div>
+implemented in Libevent 1.2.</p><p class="translate">event_base_free() 函数在&lt;event2/event.h&gt;中定义。它首次在Libevent 1.2中实现。</p></div>
 </div>
 </div>
 <div class="sect1">
@@ -1207,7 +1207,7 @@ value for n_priorities.</p><p class="translate">有一个常量EVENT_MAX_PRIORIT
 <div class="title">Note</div>
 </td>
 <td class="content">You <strong>must</strong> call this function before any events become active.  It is
-best to call it immediately after creating the event_base.</td>
+best to call it immediately after creating the event_base.<p class="translate">你必须在任何 event 变为活动状态之前调用这个函数。最好是在创建 event_base 之后立即调用。</p></td>
 </tr></tbody></table>
 </div>
 <div class="paragraph"><p>To find the number of priorities currently supported by a base, you can
@@ -1219,7 +1219,7 @@ call event_base_getnpriorities().</p><p class="translate">要获取base当前支
 </div></div>
 <div class="paragraph"><p>The return value is equal to the number of priorities configured in the
 base.  So if event_base_get_npriorities() returns 3, then allowable priority
-values are 0, 1, and 2.</p><p class="translate">返回值base中配置的优先级。例如event_base_get_npriorities()返回3，则允许的优先级值是0，1和2。</p></div>
+values are 0, 1, and 2.</p><p class="translate">返回值等于 base 中配置的优先级数量。例如event_base_get_npriorities()返回3，则允许的优先级值是0，1和2。</p></div>
 <div class="listingblock">
 <div class="title">Example</div>
 <div class="content">
@@ -1229,7 +1229,7 @@ values are 0, 1, and 2.</p><p class="translate">返回值base中配置的优先�
 with priority equal to n_priorities / 2.</p><p class="translate">默认情况下，与此base关联的所有新event将优先级初始化为n_priorities / 2。</p></div>
 <div class="paragraph"><p>The event_base_priority_init function is defined in &lt;event2/event.h&gt;.  It has
 been available since Libevent 1.0.  The event_base_get_npriorities() function
-was new in Libevent 2.1.1-alpha.</p><p class="translate">event_base_priority_init函数在<event2 event.h="">中定义。它自Libevent 1.0以来就可用。event_base_get_npriorities()函数是在Libevent 2.1.1-alpha中新增的。</event2></p></div>
+was new in Libevent 2.1.1-alpha.</p><p class="translate">event_base_priority_init函数在&lt;event2/event.h&gt;中定义。它自Libevent 1.0以来就可用。event_base_get_npriorities()函数是在Libevent 2.1.1-alpha中新增的。</p></div>
 </div>
 </div>
 <div class="sect1">
@@ -1238,7 +1238,7 @@ was new in Libevent 2.1.1-alpha.</p><p class="translate">event_base_priority_ini
 <div class="paragraph"><p>Not all event backends persist cleanly after a call to fork().  Thus, if your
 program uses fork() or a related system call in order to start a new process,
 and you want to continue using an event_base after you have forked, you may
-need to reinitialize it.</p><p class="translate">并非所有event在调用fork()后都能干净地持续运行。因此，如果你的程序使用fork()或相关的系统调用来启动一个新进程，并且你希望在fork后继续使用event_base，你可能需要重新初始化它。</p></div>
+need to reinitialize it.</p><p class="translate">并非所有事件后端在调用 fork() 后都能干净地持续运行。因此，如果你的程序使用fork()或相关的系统调用来启动一个新进程，并且你希望在fork后继续使用event_base，你可能需要重新初始化它。</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
@@ -1262,7 +1262,7 @@ need to reinitialize it.</p><p class="translate">并非所有event在调用fork(
 }</code></pre>
 </div></div>
 <div class="paragraph"><p>The event_reinit() function is defined in &lt;event2/event.h&gt;. It was first
-available in Libevent 1.4.3-alpha.</p><p class="translate">event_reinit()函数在<event2 event.h="">中定义。它首次在Libevent 1.4.3-alpha中可用。</event2></p></div>
+available in Libevent 1.4.3-alpha.</p><p class="translate">event_reinit()函数在&lt;event2/event.h&gt;中定义。它首次在Libevent 1.4.3-alpha中可用。</p></div>
 </div>
 </div>
 <div class="sect1">
@@ -1281,7 +1281,7 @@ threadsafe, this could get pretty error-prone.</p><p class="translate">早期版
 </div></div>
 <div class="paragraph"><p>This function worked like event_base_new(), and set the current base
 to the allocated base.  There was no other way to change the
-current base.</p><p class="translate">这个函数的工作方式类似于event_base_new()，并将当base设置为分配的base。没有其他方式可以更改当前base。</p></div>
+current base.</p><p class="translate">这个函数的工作方式类似于event_base_new()，并将当前 base 设置为新分配的 base。没有其他方式可以更改当前base。</p></div>
 <div class="paragraph"><p>Some of the event_base functions in this section had variants that
 operated on the current base.  These functions behaved as the current
 functions, except that they took no base argument.</p><p class="translate">本节中的一些event_base函数有操作当前base的变体。这些函数的行为与当前函数一样，除了它们不接受参数。</p></div>

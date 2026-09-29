@@ -871,7 +871,7 @@ and a write callback.  By default, the read callback is called
 whenever any data is read from the underlying transport, and the write
 callback is called whenever enough data from the output buffer is emptied to
 the underlying transport.  You can override the behavior of these functions
-by adjusting the read and write "watermarks" of the bufferevent.</p><p class="translate">每个bufferevent都有两个与数据相关的回调函数：一个读回调和一个写回调。默认情况下，只要从底层传输读取到任何数据，读回调函数就会被调用；只要从输出buffer向底层传输并清空了足够的空间，写回调函数就被调用。你可以通过调整bufferevent的读写“水位标记”（水位标记）来改变这些函数的行为。</p></div>
+by adjusting the read and write "watermarks" of the bufferevent.</p><p class="translate">每个bufferevent都有两个与数据相关的回调函数：一个读回调和一个写回调。默认情况下，只要从底层传输读取到任何数据，读回调函数就会被调用；只要从输出buffer向底层传输并清空了足够的空间，写回调函数就被调用。你可以通过调整bufferevent的读写“水位标记”来改变这些函数的行为。</p></div>
 <div class="paragraph"><p>Every bufferevent has four watermarks:</p></div>
 <div class="dlist"><dl>
 <dt class="hdlist1">
@@ -1039,7 +1039,7 @@ BEV_OPT_UNLOCK_CALLBACKS
     bufferevent’s locks are held whenever the any user-provided
     callback is invoked.  Setting this option makes Libevent release
     the bufferevent’s lock when it’s invoking your callbacks.
-</p><p class="translate">在创建bufferevent时，你可以使用一个或多个标志来改变其行为。被识别的标志包括：<br>BEV_OPT_CLOSE_ON_FREE<br>  当bufferevent被释放时，关闭底层传输。这将关闭底层socket，释放底层bufferevent等。<br>BEV_OPT_THREADSAFE<br>  为bufferevent自动分配锁，这样它就可以安全地在多个线程中使用。<br>BEV_OPT_DEFER_CALLBACKS<br>  设置此标志后，bufferevent会延迟其所有回调，如上所述。<br>BEV_OPT_UNLOCK_CALLBACKS<br>  默认情况下，当bufferevent设置为线程安全时，调用用户提供的回调时，bufferevent都会被上锁。设置这个选项会使Libevent在调用用户回调时释放bufferevent的锁。</p>
+</p><p class="translate">在创建bufferevent时，你可以使用一个或多个标志来改变其行为。被识别的标志包括：<br>BEV_OPT_CLOSE_ON_FREE<br>  当bufferevent被释放时，关闭底层传输。这将关闭底层socket，释放底层bufferevent等。<br>BEV_OPT_THREADSAFE<br>  为bufferevent自动分配锁，这样它就可以安全地在多个线程中使用。<br>BEV_OPT_DEFER_CALLBACKS<br>  设置此标志后，bufferevent会延迟其所有回调，如上所述。<br>BEV_OPT_UNLOCK_CALLBACKS<br>  默认情况下，当bufferevent设置为线程安全时，bufferevent 在调用用户提供的回调期间都会持有锁。设置这个选项会使Libevent在调用用户回调时释放bufferevent的锁。</p>
 </dd>
 </dl></div>
 <div class="paragraph"><p>(Libevent 2.0.5-beta introduced BEV_OPT_UNLOCK_CALLBACKS.  The other options
@@ -1077,7 +1077,7 @@ you want to set the file descriptor later.</p><p class="translate">参数base是
 </td>
 <td class="content">[Make sure that the socket you provide to bufferevent_socket_new is
 in non-blocking mode. Libevent provides the convenience method
-evutil_make_socket_nonblocking for this.]</td>
+evutil_make_socket_nonblocking for this.]<p class="translate">【请确保你提供给 bufferevent_socket_new 的 socket 处于非阻塞模式。Libevent 为此提供了便捷方法 evutil_make_socket_nonblocking。】</p></td>
 </tr></tbody></table>
 </div>
 <div class="paragraph"><p>This function returns a bufferevent on success, and NULL on failure.</p><p class="translate">此函数在成功时返回bufferevent，在失败时返回NULL。</p></div>
@@ -1102,7 +1102,7 @@ bufferevent_socket_connect() tells Libevent that the socket is not
 connected, and no reads or writes should be done on the socket until
 the connect operation has succeeded.</p><p class="translate">如果bufferevent已经有socket，调用bufferevent_socket_connect()会告诉Libevent socket未连接，在连接操作成功之前不应在socket上进行读取或写入操作。</p></div>
 <div class="paragraph"><p>It is okay to add data to the output buffer before the connect is
-done.</p><p class="translate">在连接完成之前向输出buffer添加数据是可以的 ！！！</p></div>
+done.</p><p class="translate">（在连接完成之前就向输出缓冲区添加数据是可以的。）</p></div>
 <div class="paragraph"><p>This function returns 0 if the connect was successfully launched, and
 -1 if an error occurred.</p><p class="translate">如果连接成功启动，此函数返回0；如果发生错误，返回-1。</p></div>
 <div class="listingblock">

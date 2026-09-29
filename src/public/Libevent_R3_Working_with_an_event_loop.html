@@ -839,7 +839,7 @@ algorithm:</p><p class="translate">为了便于理解，这里是event_base_loop
 flags set.  Thus, it keeps running until there are no more registered events
 or until event_base_loopbreak() or event_base_loopexit() is called.</p><p class="translate">event_base_dispatch()与event_base_loop()相同，不设置任何标志。因此，它会一直运行，直到没有更多注册的event，或者直到调用了event_base_loopbreak()或event_base_loopexit()。</p></div>
 <div class="paragraph"><p>These functions are defined in &lt;event2/event.h&gt;.  They have existed since
-Libevent 1.0.</p><p class="translate">这些函数定义在`<event2 event.h="">`中。它们自Libevent 1.0以来就存在了。</event2></p></div>
+Libevent 1.0.</p><p class="translate">这些函数定义在`&lt;event2/event.h&gt;`中。它们自Libevent 1.0以来就存在了。</p></div>
 </div>
 </div>
 <div class="sect1">
@@ -870,7 +870,7 @@ act differently when no event loop is running: loopexit schedules the next
 instance of the event loop to stop right after the next round of callbacks
 are run (as if it had been invoked with EVLOOP_ONCE) whereas loopbreak only
 stops a currently running loop, and has no effect if the event loop isn’t
-running.</p><p class="translate">还要注意，当没有event正在运行时，event_base_loopexit(base,NULL)和event_base_loopbreak(base)的行为不同：`loopexit`安排下一个event循环实例在运行下一轮回调后立即停止（就像使用`EVLOOP_ONCE`标志一样），而`loopbreak`只会停止当前正在运行的循环，如果没有event运行，则不起作用。</p></div>
+running.</p><p class="translate">还要注意，当没有事件循环正在运行时，event_base_loopexit(base, NULL) 和 event_base_loopbreak(base) 的行为不同：`loopexit`安排下一个event循环实例在运行下一轮回调后立即停止（就像使用`EVLOOP_ONCE`标志一样），而`loopbreak`只会停止当前正在运行的循环，如果没有event运行，则不起作用。</p></div>
 <div class="paragraph"><p>Both of these methods return 0 on success and -1 on failure.</p><p class="translate">这两种方法在成功时返回0，在失败时返回-1。</p></div>
 <div class="listingblock">
 <div class="title">Example: Shut down immediately</div>
@@ -927,7 +927,7 @@ running.</p><p class="translate">还要注意，当没有event正在运行时，
 <div class="paragraph"><p>Sometimes you may want to tell whether your call to event_base_dispatch() or
 event_base_loop() exited normally, or because of a call to
 event_base_loopexit() or event_base_break().  You can use these functions to
-tell whether loopexit or break was called:</p><p class="translate">有时候你可能想知道event_base_dispatch()或event_base_loop()是否正常退出，或者是因为调用了event_base_loopexit()或event_base_break()。你可以使用以下函数来判断是否调用了loopexit或break：</p></div>
+tell whether loopexit or break was called:</p><p class="translate">有时候你可能想知道event_base_dispatch()或event_base_loop()是否正常退出，或者是因为调用了event_base_loopexit()或 event_base_loopbreak()。你可以使用以下函数来判断是否调用了loopexit或break：</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
@@ -937,10 +937,10 @@ tell whether loopexit or break was called:</p><p class="translate">有时候你�
 <div class="paragraph"><p>These two functions will return true if the loop was stopped with
 event_base_loopexit() or event_base_break() respectively, and false
 otherwise.  Their values will be reset the next time you start the event
-loop.</p><p class="translate">如果循环是因为分别调用了event_base_loopexit()或event_base_break()而停止的，这两个函数将返回true，否则返回false。他们的值将在你下次启动事件循环时被重置。</p></div>
+loop.</p><p class="translate">如果循环是因为分别调用了event_base_loopexit()或 event_base_loopbreak() 而停止的，这两个函数将返回true，否则返回false。他们的值将在你下次启动事件循环时被重置。</p></div>
 <div class="paragraph"><p>These functions are declared in &lt;event2/event.h&gt;.  The event_break_loopexit()
 function was first implemented in Libevent 1.0c; event_break_loopbreak() was
-first implemented in Libevent 1.4.3.</p><p class="translate">这些函数在`<event2 event.h="">`中声明。event_base_got_exit()函数最早在Libevent 1.0c中实现；event_base_got_break()函数最早在Libevent 1.4.3中实现。</event2></p></div>
+first implemented in Libevent 1.4.3.</p><p class="translate">这些函数在`&lt;event2/event.h&gt;`中声明。event_base_got_exit()函数最早在Libevent 1.0c中实现；event_base_got_break()函数最早在Libevent 1.4.3中实现。</p></div>
 </div>
 </div>
 <div class="sect1">
@@ -1029,10 +1029,10 @@ versions of Libevent.</p><p class="translate">此列表旨在便于人读，其�
 active or pending event associated with an event_base().  The provided
 callback will be invoked exactly once per event, in an unspecified
 order.  The third argument of event_base_foreach_event() will be passed
-as the third argument to each invocation of the callback.</p><p class="translate">你可以使用event_base_foreach_event()来迭代与event_base()相关联的每个当前激活或待处理的event。提供的回调函数会按照未指定的顺序准确地对每个event调用一次。第三个参数将作为回调函数调用的第三个参数传递。</p></div>
+as the third argument to each invocation of the callback.</p><p class="translate">你可以使用event_base_foreach_event()来迭代与 event_base 相关联的每个当前激活或待处理的 event。提供的回调函数会按照未指定的顺序准确地对每个event调用一次。第三个参数将作为回调函数调用的第三个参数传递。</p></div>
 <div class="paragraph"><p>The callback function must return 0 to continue iteration, or some other
 integer to stop iterating. Whatever value the callback function finally
-returns will then be returned by event_base_foreach_function().</p><p class="translate">回调函数必须返回0以继续迭代，或返回其他整数以停止迭代。回调函数最终返回的值将被event_base_foreach_function()返回。</p></div>
+returns will then be returned by event_base_foreach_function().</p><p class="translate">回调函数必须返回0以继续迭代，或返回其他整数以停止迭代。回调函数最终返回的值将被 event_base_foreach_event() 返回。</p></div>
 <div class="paragraph"><p>Your callback function <strong>must not</strong> modify any of the events that it
 receives, or add or remove any events to the event base, or otherwise
 modify any event associated with the event base, or undefined behavior
@@ -1051,7 +1051,7 @@ doesn’t take a long time.</p><p class="translate">在调用event_base_foreach_
 notion of a "current" event_base.</p><p class="translate">如上所述，旧版的Libevent API对“当前”event_base有一个全局概念。</p></div>
 <div class="paragraph"><p>Some of the event loop functions in this section had variants that
 operated on the current base.  These functions behaved as the current
-functions, except that they took no base argument.</p><p class="translate">本节中的一些事件循环函数有当前版本的变体。这些函数的行为与当前函数相同，除了它们不接受基础参数。</p></div>
+functions, except that they took no base argument.</p><p class="translate">本节中的一些事件循环函数有当前版本的变体。这些函数的行为与当前函数相同，除了它们不接受 base 参数。</p></div>
 <div class="tableblock">
 <table rules="all" width="85%" frame="border" cellspacing="0" cellpadding="4">
 <colgroup><col width="50%">
@@ -1090,7 +1090,7 @@ functions, except that they took no base argument.</p><p class="translate">本�
 <td class="content">Because event_base did not support locking before Libevent 2.0,
 these functions weren’t completely threadsafe: it was not permissible
 to call the _loopbreak() or _loopexit() functions from a thread other
-than the one executing the event loop.</td>
+than the one executing the event loop.<p class="translate">由于 event_base 在 Libevent 2.0 之前不支持锁，这些函数并不是完全线程安全的：不允许从运行事件循环的那个线程之外的线程调用 _loopbreak() 或 _loopexit() 函数。</p></td>
 </tr></tbody></table>
 </div>
 </div>

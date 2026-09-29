@@ -866,7 +866,7 @@ debugging logs.  More fine-grained options may be supported in future
 versions.</p><p class="translate">调试日志非常详细，并且在大多数情况下可能并不有用。使用EVENT_DBG_NONE作为参数调用event_enable_debug_logging()会得到默认行为；使用EVENT_DBG_ALL作为参数调用它会打开所有支持的调试日志。未来版本可能会支持更细粒度的选项。</p></div>
 <div class="paragraph"><p>These functions are declared in &lt;event2/event.h&gt;.  They first appeared in
 Libevent 1.0c, except for event_enable_debug_logging(), which first appeared
-in Libevent 2.1.1-alpha.</p><p class="translate">这些函数在<event2 event.h="">中声明。它们最早出现在Libevent 1.0c中，除了event_enable_debug_logging()，最早出现在Libevent 2.1.1-alpha中。</event2></p></div>
+in Libevent 2.1.1-alpha.</p><p class="translate">这些函数在&lt;event2/event.h&gt;中声明。它们最早出现在Libevent 1.0c中，除了event_enable_debug_logging()，最早出现在Libevent 2.1.1-alpha中。</p></div>
 <div class="paragraph"><div class="title">COMPATIBILITY NOTE</div><p>Before Libevent 2.0.19-stable, the EVENT_LOG_* macros had names that began
 with an underscore: _EVENT_LOG_DEBUG, _EVENT_LOG_MSG, _EVENT_LOG_WARN, and
 _EVENT_LOG_ERR.  These older names are deprecated, and should only be used
@@ -899,7 +899,7 @@ undefined behavior, and Libevent might exit anyway to avoid crashing.  Once
 your function has been called, you should not call any other Libevent
 function.</p><p class="translate">你的函数不应该将控制权返回给Libevent；这样做可能会导致未定义的行为，并且Libevent可能仍会选择退出以避免崩溃。一旦你的函数被调用，你就不应该调用任何其他Libevent函数。</p></div>
 <div class="paragraph"><p>These functions are declared in &lt;event2/event.h&gt;.  They first appeared
-in Libevent 2.0.3-alpha.</p><p class="translate">这些函数在`<event2 event.h="">中声明，最早出现在Libevent 2.0.3-alpha中。</event2></p></div>
+in Libevent 2.0.3-alpha.</p><p class="translate">这些函数在 `&lt;event2/event.h&gt;` 中声明，最早出现在 Libevent 2.0.3-alpha 中。</p></div>
 </div>
 </div>
 <div class="sect1">
@@ -1037,7 +1037,7 @@ Libevent will use these functions to allocate memory that it returns to
 </li>
 </ul></div>
 <div class="paragraph"><p>The event_set_mem_functions() function is declared in &lt;event2/event.h&gt;.
-It first appeared in Libevent 2.0.1-alpha.</p><p class="translate">event_set_mem_functions()函数在<event2 event.h="">中声明,最初出现在Libevent 2.0.1-alpha中。</event2></p></div>
+It first appeared in Libevent 2.0.1-alpha.</p><p class="translate">event_set_mem_functions() 函数在 &lt;event2/event.h&gt; 中声明，最初出现在 Libevent 2.0.1-alpha 中。</p></div>
 <div class="paragraph"><p>Libevent can be built with event_set_mem_functions() disabled.  If it
 is, then programs using event_set_mem_functions will not compile or link.
 In Libevent 2.0.2-alpha and later, you can detect the presence of
@@ -1308,7 +1308,7 @@ them first
 appeared in Libevent 2.0.4-alpha.  Libevent versions from 2.0.1-alpha through
 2.0.3-alpha used an older interface to set locking functions.  The
 event_use_pthreads() function requires you to link your program against the
-event_pthreads library.</p><p class="translate">本节中的函数在 <event2 thread.h=""> 中声明。它们中的大多数首次出现于Libevent 2.0.4-alpha版本。Libevent从2.0.1-alpha到2.0.3-alpha版本使用的是旧的接口来设置锁定函数。event_use_pthreads()函数要求您在编译程序时链接event_pthreads库。</event2></p></div>
+event_pthreads library.</p><p class="translate">本节中的函数在 &lt;event2/thread.h&gt; 中声明。它们中的大多数首次出现于Libevent 2.0.4-alpha版本。Libevent从2.0.1-alpha到2.0.3-alpha版本使用的是旧的接口来设置锁定函数。event_use_pthreads()函数要求您在编译程序时链接event_pthreads库。</p></div>
 <div class="paragraph"><p>The condition-variable functions were new in Libevent 2.0.7-rc; they were
 added to solve some otherwise intractable deadlock problems.</p><p class="translate">条件变量函数是在Libevent 2.0.7-rc中新增的；它们被添加进来是为了解决一些其他方式难以克服的死锁问题。</p></div>
 <div class="paragraph"><p>Libevent can be built with locking support disabled.  If it is, then
@@ -1347,7 +1347,7 @@ re-locking a non-recursive lock
 <div class="title">Note</div>
 </td>
 <td class="content">This function MUST be called before any locks are created or used.  To
-be safe, call it just after you set your threading functions.</td>
+be safe, call it just after you set your threading functions.<p class="translate">这个函数必须在创建或使用任何锁之前调用。为了安全起见，请在你设置好线程函数之后立即调用它。</p></td>
 </tr></tbody></table>
 </div>
 <div class="paragraph"><p>This function was new in Libevent 2.0.4-alpha with the misspelled name
@@ -1574,7 +1574,7 @@ check_version_match(<strong>void</strong>)
 </div></div>
 <div class="paragraph"><p>The macros and functions in this section are defined in
 &lt;event2/event.h&gt;.  The event_get_version() function first appeared in
-Libevent 1.0c; the others first appeared in Libevent 2.0.1-alpha.</p><p class="translate">本节中的宏和函数定义在 <event2 event.h=""> 中。`event_get_version()` 函数最初出现在 Libevent 1.0c 中；其他的则首次出现在 Libevent 2.0.1-alpha 中。</event2></p></div>
+Libevent 1.0c; the others first appeared in Libevent 2.0.1-alpha.</p><p class="translate">本节中的宏和函数定义在 &lt;event2/event.h&gt; 中。`event_get_version()` 函数最初出现在 Libevent 1.0c 中；其他的则首次出现在 Libevent 2.0.1-alpha 中。</p></div>
 </div>
 </div>
 <div class="sect1">
@@ -1600,7 +1600,7 @@ unpredictably; don’t call it except as the last Libevent function your
 program invokes.  One exception is that libevent_global_shutdown() is
 idempotent: it is okay to call it even if it has already been called.</p><p class="translate">调用 libevent_global_shutdown() 将使其他 Libevent 函数的行为变得不可预测；除非作为程序调用的最后一个 Libevent 函数，否则不要调用它。一个例外是 libevent_global_shutdown() 是幂等的：即使它已经被调用过，再次调用它也是可以的。</p></div>
 <div class="paragraph"><p>This function is declared in &lt;event2/event.h&gt;. It was introduced in Libevent
-2.1.1-alpha.</p><p class="translate">这个函数在 <event2 event.h=""> 中声明。它在 Libevent 2.1.1-alpha 中引入。</event2></p></div>
+2.1.1-alpha.</p><p class="translate">这个函数在 &lt;event2/event.h&gt; 中声明。它在 Libevent 2.1.1-alpha 中引入。</p></div>
 </div>
 </div>
 </div>

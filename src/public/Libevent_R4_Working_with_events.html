@@ -882,7 +882,7 @@ event non-pending and inactive before deallocating it.</p><p class="translate">�
 </div></div>
 <div class="paragraph"><p>The above functions are defined in &lt;event2/event.h&gt;, and first
 appeared in Libevent 2.0.1-alpha.  The event_callback_fn type
-first appeared as a typedef in Libevent 2.0.4-alpha.</p><p class="translate">上述函数在 `<event2 event.h="">` 文件中定义，并首次出现在 Libevent 2.0.1-alpha 版本中。`event_callback_fn` 类型首次出现在 Libevent 2.0.4-alpha 版本中。</event2></p></div>
+first appeared as a typedef in Libevent 2.0.4-alpha.</p><p class="translate">上述函数在 `&lt;event2/event.h&gt;` 文件中定义，并首次出现在 Libevent 2.0.1-alpha 版本中。`event_callback_fn` 类型首次出现在 Libevent 2.0.4-alpha 版本中。</p></div>
 <div class="sect2">
 <h3 id="_the_event_flags">The event flags</h3>
 <div class="dlist"><dl>
@@ -955,7 +955,7 @@ events that will become active if a given fd becomes ready to read.
 The order in which their callbacks are run is undefined.</p><p class="translate">自 Libevent 2.0.1-alpha 版本以来，任何数量的event可能会同时因相同的条件而处于pending。例如，你可能有两个event，如果给定的 fd 准备好读取，它们将变为active。它们的回调执行顺序是未定义的。</p></div>
 <div class="paragraph"><p>These flags are defined in &lt;event2/event.h&gt;.  All have existed since
 before Libevent 1.0, except for EV_ET, which was introduced in
-Libevent 2.0.1-alpha.</p><p class="translate">这些标志在<event2 event.h="">文件中定义。Libevent 1.0 之前的所有版本都有这些标志，除了 EV_ET，它是在 Libevent 2.0.1-alpha 版本中引入的。</event2></p></div>
+Libevent 2.0.1-alpha.</p><p class="translate">这些标志在&lt;event2/event.h&gt;文件中定义。Libevent 1.0 之前的所有版本都有这些标志，除了 EV_ET，它是在 Libevent 2.0.1-alpha 版本中引入的。</p></div>
 </div>
 <div class="sect2">
 <h3 id="_about_event_persistence">About Event Persistence</h3>
@@ -1268,7 +1268,7 @@ to use the correct size at runtime.</p><p class="translate">这里有一个和�
 since Libevent 2.0.1-alpha.  It has returned an int since 2.0.3-alpha;
 previously, it returned void.  The event_get_struct_event_size()
 function was introduced in Libevent 2.0.4-alpha.  The event structure
-itself is defined in &lt;event2/event_struct.h&gt;.</p><p class="translate">`event_assign()` 函数定义在 `<event2 event.h="">` 中。自 Libevent 2.0.1-alpha 起就存在。自 2.0.3-alpha 起，它返回一个 int。之前返回 void。`event_get_struct_event_size()` 函数在 Libevent 2.0.4-alpha 中被引入。event结构体定义在 `<event2 event_struct.h="">` 中。</event2></event2></p></div>
+itself is defined in &lt;event2/event_struct.h&gt;.</p><p class="translate">`event_assign()` 函数定义在 `&lt;event2/event.h&gt;` 中。自 Libevent 2.0.1-alpha 起就存在。自 2.0.3-alpha 起，它返回一个 int。之前返回 void。`event_get_struct_event_size()` 函数在 Libevent 2.0.4-alpha 中被引入。event结构体定义在 `&lt;event2/event_struct.h&gt;` 中。</p></div>
 </div>
 </div>
 </div>
@@ -1291,7 +1291,7 @@ microseconds.</p><p class="translate">在一个non-pending的event上调用 `eve
 <div class="paragraph"><p>If you call event_add() on an event that is <em>already</em> pending, it will
 leave it pending, and reschedule it with the provided timeout.  If the
 event is already pending, and you re-add it with the timeout NULL,
-event_add() will have no effect.</p><p class="translate">如果你在已经pending的event上调用 `event_add()`，它将离开pending，并根据提供的超时重新pending。如果event已经pending，并且你用 NULL 超时重新添加它，`event_add()` 将没有任何效果。</p></div>
+event_add() will have no effect.</p><p class="translate">如果你在已经pending的event上调用 `event_add()`，它会保持 pending 状态，并按提供的超时重新调度。如果event已经pending，并且你用 NULL 超时重新添加它，`event_add()` 将没有任何效果。</p></div>
 <div class="admonitionblock">
 <table><tbody><tr>
 <td class="icon">
@@ -1299,7 +1299,7 @@ event_add() will have no effect.</p><p class="translate">如果你在已经pendi
 </td>
 <td class="content">Do not set <em>tv</em> to the time at which you want the timeout to
 run.  If you say "tv→tv_sec = time(NULL)+10;" on 1 January 2010, your
-timeout will wait 40 years, not 10 seconds.</td>
+timeout will wait 40 years, not 10 seconds.<p class="translate">不要将 tv 设置为希望超时触发的那个时间点。如果你在 2010 年 1 月 1 日写 "tv→tv_sec = time(NULL)+10;"，你的超时将等待 40 年，而不是 10 秒。</p></td>
 </tr></tbody></table>
 </div>
 <div class="listingblock">
@@ -1317,7 +1317,7 @@ effect.  The return value is 0 on success, -1 on failure.</p><p class="translate
 </td>
 <td class="content">If you delete an event after it becomes active but before
 its callback has a chance to execute, the callback will not be
-executed.</td>
+executed.<p class="translate">如果你在一个 event 变为 active 之后、在其回调有机会执行之前将它删除，那么这个回调将不会被执行。</p></td>
 </tr></tbody></table>
 </div>
 <div class="listingblock">
@@ -1330,10 +1330,10 @@ deleting its IO or signal components.  If the event had no timeout
 pending, event_remove_timer() has no effect.  If the event had only a
 timeout but no IO or signal component, event_remove_timer() has the
 same effect as event_del(). The return value is 0 on success, -1 on
-failure.</p><p class="translate">最后，你可以移除pending状态的event的超时，而不删除其 IO 或信号组件。如果evnet没有设置超时，`event_remove_timer()` 将没有任何效果。如果event只有超时而没有 IO 或信号组件，`event_remove_timer()` 的效果与 `event_del()` 相同。成功时返回 0，失败时返回 -1。</p></div>
+failure.</p><p class="translate">最后，你可以移除pending状态的event的超时，而不删除其 IO 或信号组件。如果 event 没有设置超时，`event_remove_timer()` 将没有任何效果。如果event只有超时而没有 IO 或信号组件，`event_remove_timer()` 的效果与 `event_del()` 相同。成功时返回 0，失败时返回 -1。</p></div>
 <div class="paragraph"><p>These are defined in &lt;event2/event.h&gt;; event_add() and event_del()
 have existed since Libevent 0.1; event_remove_timer() was added in
-2.1.2-alpha.</p><p class="translate">这些都定义在 `<event2 event.h="">` 中；`event_add()` 和 `event_del()` 自 Libevent 0.1 版本以来就存在；`event_remove_timer()` 在 2.1.2-alpha 版本中被添加。</event2></p></div>
+2.1.2-alpha.</p><p class="translate">这些都定义在 `&lt;event2/event.h&gt;` 中；`event_add()` 和 `event_del()` 自 Libevent 0.1 版本以来就存在；`event_remove_timer()` 在 2.1.2-alpha 版本中被添加。</p></div>
 </div>
 </div>
 <div class="sect1">
@@ -1345,7 +1345,7 @@ executed.  You can define some events as more important than others by
 using priorities.</p><p class="translate">当多个event同时触发时，Libevent 并没有定义event回调将按照什么顺序执行。你可以通过优先级来定义某些事件比其他事件更重要。</p></div>
 <div class="paragraph"><p>As discussed in an earlier section, each event_base has one or more
 priority values associated with it.  Before adding an event to the
-event_base, but after initializing it, you can set its priority.</p><p class="translate">正如前面章节讨论的，每个 `event_base` 都有一个或多个优先级值。在将event初始化之后，添加到 `event_base` 之前，，你可以设置它的优先级。</p></div>
+event_base, but after initializing it, you can set its priority.</p><p class="translate">正如前面章节讨论的，每个 `event_base` 都有一个或多个优先级值。在将event初始化之后，添加到 `event_base` 之前，你可以设置它的优先级。</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
@@ -1385,7 +1385,7 @@ high-priority events are active are the low-priority events run.</p><p class="tr
 }</code></pre>
 </div></div>
 <div class="paragraph"><p>When you do not set the priority for an event, the default is the
-number of queues in the event base, divided by 2.</p><p class="translate">当你没有为event设置优先级时，默认值是base中队列数量除以 2。</p></div>
+number of queues in the event base, divided by 2.</p><p class="translate">当你没有为event设置优先级时，默认值是 event base 中队列数量除以 2。</p></div>
 <div class="paragraph"><p>This function is declared in &lt;event2/event.h&gt;.  It has existed since
 Libevent 1.0.</p></div>
 </div>
@@ -1472,7 +1472,7 @@ it is ignored.</p><p class="translate">`event_get_assignment()` 函数将所有�
 function has existed since Libevent 0.1.  Libevent 2.0.1-alpha introduced
 event_get_fd() and event_get_signal().  Libevent 2.0.2-alpha introduced
 event_get_base(). Libevent 2.1.2-alpha added event_get_priority().  The
-others were new in Libevent 2.0.4-alpha.</p><p class="translate">这些函数在 `<event2 event.h="">` 中声明。`event_pending()` 函数自 Libevent 0.1 起就存在。Libevent 2.0.1-alpha 引入了 `event_get_fd()` 和 `event_get_signal()`。Libevent 2.0.2-alpha 引入了 `event_get_base()`。Libevent 2.1.2-alpha 添加了 `event_get_priority()`。其它函数是在 Libevent 2.0.4-alpha 中新增的。</event2></p></div>
+others were new in Libevent 2.0.4-alpha.</p><p class="translate">这些函数在 `&lt;event2/event.h&gt;` 中声明。`event_pending()` 函数自 Libevent 0.1 起就存在。Libevent 2.0.1-alpha 引入了 `event_get_fd()` 和 `event_get_signal()`。Libevent 2.0.2-alpha 引入了 `event_get_base()`。Libevent 2.1.2-alpha 添加了 `event_get_priority()`。其它函数是在 Libevent 2.0.4-alpha 中新增的。</p></div>
 </div>
 </div>
 <div class="sect1">
@@ -1489,7 +1489,7 @@ running event.</p><p class="translate">为了调试或其他目的，你可以�
 within the provided event_base’s loop.  Calling it from another thread is not
 supported, and can cause undefined behavior.</p><p class="translate">请注意，当这个函数从提供的 `event_base` 的循环内部被调用时，其行为才有明确定义。从另一个线程调用它是不被支持的，并且可能会引起未定义行为。</p></div>
 <div class="paragraph"><p>This function is declared in &lt;event2/event.h&gt;.  It was introduced in Libevent
-2.1.1-alpha.</p><p class="translate">该函数在 `<event2 event.h="">` 中声明。它是在 Libevent 2.1.1-alpha 中引入的。</event2></p></div>
+2.1.1-alpha.</p><p class="translate">该函数在 `&lt;event2/event.h&gt;` 中声明。它是在 Libevent 2.1.1-alpha 中引入的。</p></div>
 </div>
 </div>
 <div class="sect1">
@@ -1620,7 +1620,7 @@ the function "cb" forever.</p><p class="translate">这会创建一个情形，ev
 }</code></pre>
 </div></div>
 <div class="paragraph"><p>This function is defined in &lt;event2/event.h&gt;.  It has existed
-since Libevent 0.3.</p><p class="translate">此函数在 `<event2 event.h="">` 中定义。它自 Libevent 0.3 起就存在了。</event2></p></div>
+since Libevent 0.3.</p><p class="translate">此函数在 `&lt;event2/event.h&gt;` 中定义。它自 Libevent 0.3 起就存在了。</p></div>
 </div>
 </div>
 <div class="sect1">
@@ -1702,7 +1702,7 @@ for you.</p><p class="translate">就像所有优化功能一样，除非你确�
 <div class="paragraph"><p>Libevent provides functions that you can use to distinguish an
 initialized event from memory that has been cleared by setting it to 0
 (for example, by allocating it with calloc() or clearing it with
-memset() or bzero()).</p><p class="translate">Libevent 提供了一些函数，你可以使用这些函数来区分已初始化的event（例如，通过使用 calloc() 分配它或使用 memset() 或 bzero() 清除它）。</p></div>
+memset() or bzero()).</p><p class="translate">Libevent 提供了一些函数，你可以使用这些函数来区分已初始化的 event 和已被清零的内存（例如，通过 calloc() 分配它，或用 memset() 或 bzero() 清除它）。</p></div>
 <div class="listingblock">
 <div class="title">Interface</div>
 <div class="content">
@@ -1782,7 +1782,7 @@ signal-based variants of event_set() and so on, rather than "evsignal_".
 signal_pending(), and signal_initialized().)  Truly ancient versions of
 Libevent (before 0.6) used "timeout_" instead of "evtimer_".  Thus, if you’re
 doing code archeology, you might see timeout_add(), timeout_del(),
-timeout_initialized(), timeout_set(), timeout_pending(), and so on.</p><p class="translate">Libevent 2.0 之前的版本使用 "signal_" 作为 event_set() 及其基于信号的变体的前缀，而不是 "evsignal_"。（也就是说，它们有 signal_set()、signal_add()、signal_del()、signal_pending() 和 signal_initialized()）。更早的的 Libevent（0.6 之前）使用 "timeout_" 而不是 "evtimer_"。因此，如果你在做代码考古，你可能会看到 timeout_add()、timeout_del()、timeout_initialized()、timeout_set()、timeout_pending() 等。</p></div>
+timeout_initialized(), timeout_set(), timeout_pending(), and so on.</p><p class="translate">Libevent 2.0 之前的版本使用 "signal_" 作为 event_set() 及其基于信号的变体的前缀，而不是 "evsignal_"。（也就是说，它们有 signal_set()、signal_add()、signal_del()、signal_pending() 和 signal_initialized()）。更早的 Libevent（0.6 之前）使用 "timeout_" 而不是 "evtimer_"。因此，如果你在做代码考古，你可能会看到 timeout_add()、timeout_del()、timeout_initialized()、timeout_set()、timeout_pending() 等。</p></div>
 <div class="paragraph"><p>In place of the event_get_fd() and event_get_signal() functions, older
 versions of Libevent (before 2.0) used two macros called EVENT_FD() and
 EVENT_SIGNAL().  These macros inspected the event structure’s contents
@@ -1794,7 +1794,7 @@ change an event’s state with respect to a base from outside the thread
 running the base.  These include event_add(), event_del(),
 event_active(), and event_base_once().</p><p class="translate">由于 Libevent 2.0 之前的版本没有锁支持，因此在base线程之外调用任何改变event与base相关状态的函数都是不安全的。这些函数包括 event_add()、event_del()、event_active() 和 event_base_once()。</p></div>
 <div class="paragraph"><p>There was also an event_once() function that played the role of
-event_base_once(), but used the current base.</p><p class="translate">还有一个 event_once() 函数，起到了 event_base_once() 的作用，但使用当base。</p></div>
+event_base_once(), but used the current base.</p><p class="translate">还有一个 event_once() 函数，起到了 event_base_once() 的作用，但使用当前 base。</p></div>
 <div class="paragraph"><p>The EV_PERSIST flag did not interoperate sensibly with timeouts before
 Libevent 2.0. Instead resetting the timeout whenever the event was
 activated, the EV_PERSIST flag did nothing with the timeout.</p><p class="translate">在 Libevent 2.0 之前，EV_PERSIST 标志与超时不会合理地互操作。EV_PERSIST 标志没有在每次active重置超时，而是对超时不做任何操作。</p></div>

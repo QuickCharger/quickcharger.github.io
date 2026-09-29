@@ -1,0 +1,68 @@
+name: deploy-pages
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - 'src/**'
+      - 'img/**'
+      - 'public/**'
+      - '.github/workflows/deploy-pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出源码
+        uses: actions/checkout@v4
+
+      - name: 准备 Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: 安装依赖
+        working-directory: src
+        run: |
+          npm install -g yarn
+          yarn install
+
+      - name: 构建
+        working-directory: src
+        env:
+          GENERATE_SOURCEMAP: 'false'
+        run: yarn build
+
+      - name: 把根目录的静态资源并进产物
+        run: |
+          cp -r img src/build/
+          cp -r public src/build/
+
+      - name: 配置 Pages
+        uses: actions/configure-pages@v5
+
+      - name: 上传产物到 Actions 存储
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: src/build
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: 发布到 Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
